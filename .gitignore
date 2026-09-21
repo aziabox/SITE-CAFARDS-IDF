@@ -6,3 +6,6 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Garde-fou : un chemin de sortie vide crée un dossier « undefined »
+undefined/

@@ -6,8 +6,8 @@
   "description": "Blattis — site spécialisé dans le traitement des cafards et des blattes en Île-de-France",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
+    "start": "astro preview --host 0.0.0.0 --port ${PORT:-4321}",
     "preview": "astro preview",
     "check": "astro check",
     "audit:content": "node scripts/audit-content.mjs"
@@ -19,5 +19,8 @@
   "devDependencies": {
     "@astrojs/check": "0.9.4",
     "typescript": "5.9.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

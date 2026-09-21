@@ -1,0 +1,44 @@
+---
+export interface Props {
+  title?: string;
+  intro?: string;
+  links: Array<{ label: string; href: string; text?: string }>;
+  variant?: 'cards' | 'inline';
+}
+const { title = 'À consulter également', intro, links, variant = 'cards' } = Astro.props;
+---
+<section class="section section--tight rel" aria-label={title}>
+  <div class="wrap">
+    <h2 class="rel__title">{title}</h2>
+    {intro && <p class="rel__intro">{intro}</p>}
+    {variant === 'cards' ? (
+      <div class="grid grid-3">
+        {links.map((l) => (
+          <a class="card" href={l.href}>
+            <h3>{l.label}</h3>
+            {l.text && <p>{l.text}</p>}
+            <span class="link-more" aria-hidden="true">Consulter</span>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <ul class="rel__inline">
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    )}
+  </div>
+</section>
+<style>
+  .rel { border-top: 1px solid var(--line-soft); }
+  .rel__title { font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem); margin-bottom: 0.5rem; }
+  .rel__intro { color: var(--ink-soft); max-width: 62ch; margin-bottom: 1.6rem; }
+  .rel .card h3 { font-size: 1.04rem; }
+  .rel .card .link-more { margin-top: 0.85rem; font-size: 0.86rem; }
+  .rel__inline { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.25rem 0 0; padding: 0; }
+  .rel__inline a {
+    display: inline-block; padding: 0.55rem 0.95rem;
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: 999px;
+    font-size: 0.9rem; text-decoration: none; color: var(--bx-700);
+  }
+  .rel__inline a:hover { border-color: var(--line-strong); color: var(--terra-600); }
+</style>

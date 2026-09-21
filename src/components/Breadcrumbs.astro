@@ -1,0 +1,34 @@
+---
+export interface Props { items: Array<{ label: string; href?: string }>; onDark?: boolean }
+const { items, onDark = false } = Astro.props;
+const all = [{ label: 'Accueil', href: '/' }, ...items];
+---
+<nav class={`bc${onDark ? ' bc--dark' : ''}`} aria-label="Fil d'Ariane">
+  <div class="wrap">
+    <ol>
+      {all.map((item, i) => (
+        <li>
+          {item.href && i < all.length - 1
+            ? <a href={item.href}>{item.label}</a>
+            : <span aria-current="page">{item.label}</span>}
+        </li>
+      ))}
+    </ol>
+  </div>
+</nav>
+<style>
+  .bc { border-bottom: 1px solid var(--line-soft); background: var(--creme-2); font-size: 0.82rem; }
+  .bc--dark { background: transparent; border-bottom: 0; }
+  .bc ol {
+    list-style: none; display: flex; flex-wrap: wrap; align-items: center;
+    gap: 0.3rem 0.5rem; margin: 0; padding-block: 0.75rem;
+  }
+  .bc li { display: flex; align-items: center; gap: 0.5rem; color: var(--ink-muted); }
+  .bc li + li::before { content: '/'; color: var(--line-strong); }
+  .bc a { color: var(--ink-soft); text-decoration: none; }
+  .bc a:hover { color: var(--bx-700); text-decoration: underline; text-underline-offset: 0.2em; }
+  .bc span[aria-current] { color: var(--bx-800); font-weight: 600; }
+  .bc--dark li, .bc--dark a { color: rgba(246, 240, 230, 0.7); }
+  .bc--dark li + li::before { color: rgba(246, 240, 230, 0.35); }
+  .bc--dark span[aria-current] { color: var(--ivoire); }
+</style>

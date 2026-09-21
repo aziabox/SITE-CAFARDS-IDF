@@ -1,0 +1,19 @@
+{
+  "name": "blattis-cafards-idf",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Blattis — site specialise dans le traitement des cafards et blattes en Ile-de-France",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "audit:content": "node scripts/audit-content.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.0",
+    "astro": "5.18.2"
+  }
+}

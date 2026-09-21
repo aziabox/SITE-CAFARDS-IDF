@@ -1,0 +1,145 @@
+---
+import { site, cta } from '../data/site';
+import HeroScene from './art/HeroScene.astro';
+
+export interface Props {
+  label?: string;
+  title: string;
+  text: string;
+  bullets?: string[];
+  primaryLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  /** Affiche la grande illustration (page d'accueil). */
+  art?: boolean;
+  breadcrumbs?: Array<{ label: string; href?: string }>;
+}
+const {
+  label,
+  title,
+  text,
+  bullets = [],
+  primaryLabel = cta.primary,
+  secondaryHref = site.phoneHref,
+  secondaryLabel = cta.call,
+  art = false,
+  breadcrumbs = [],
+} = Astro.props;
+const all = breadcrumbs.length ? [{ label: 'Accueil', href: '/' }, ...breadcrumbs] : [];
+---
+<section class={`hero${art ? ' hero--art' : ''}`}>
+  <div class="wrap hero__inner">
+    <div class="hero__text">
+      {all.length > 0 && (
+        <nav class="hero__bc" aria-label="Fil d'Ariane">
+          <ol>
+            {all.map((item, i) => (
+              <li>
+                {item.href && i < all.length - 1
+                  ? <a href={item.href}>{item.label}</a>
+                  : <span aria-current="page">{item.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      {label && <p class="hero__label">{label}</p>}
+      <h1>{title}</h1>
+      <p class="hero__lede">{text}</p>
+      {bullets.length > 0 && (
+        <ul class="hero__bullets">
+          {bullets.map((b) => <li>{b}</li>)}
+        </ul>
+      )}
+      <div class="hero__cta">
+        <a href="/contact" class="btn btn--primary">{primaryLabel}</a>
+        <a href={secondaryHref} class="btn btn--on-dark">{secondaryLabel}</a>
+      </div>
+    </div>
+    {art && (
+      <div class="hero__art">
+        <HeroScene />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: var(--bx-900);
+    background-image:
+      radial-gradient(880px 520px at 84% 8%, rgba(199, 123, 69, 0.2), transparent 62%),
+      radial-gradient(700px 480px at 0% 100%, rgba(255, 253, 248, 0.07), transparent 60%);
+    color: var(--creme);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: auto 0 0 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(199, 123, 69, 0.55), transparent);
+  }
+  .hero__inner {
+    display: grid; align-items: center;
+    gap: clamp(2rem, 4vw, 3.75rem);
+    padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2.75rem, 5vw, 4.75rem);
+  }
+  .hero--art .hero__inner { grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr); }
+
+  .hero__bc { margin-bottom: 1.35rem; font-size: 0.8rem; }
+  .hero__bc ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.3rem 0.5rem; margin: 0; padding: 0; }
+  .hero__bc li { display: flex; align-items: center; gap: 0.5rem; color: rgba(246, 240, 230, 0.6); }
+  .hero__bc li + li::before { content: '/'; color: rgba(246, 240, 230, 0.32); }
+  .hero__bc a { color: rgba(246, 240, 230, 0.72); text-decoration: none; }
+  .hero__bc a:hover { color: var(--ivoire); text-decoration: underline; text-underline-offset: 0.2em; }
+  .hero__bc span[aria-current] { color: var(--ivoire); }
+
+  .hero__label {
+    display: inline-block;
+    font-family: var(--font-display); font-size: 0.685rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--cuivre);
+    padding: 0.42rem 0.8rem;
+    border: 1px solid rgba(199, 123, 69, 0.4);
+    border-radius: 999px;
+    margin: 0 0 1.4rem;
+  }
+  .hero h1 { color: var(--ivoire); max-width: 20ch; margin-bottom: 1.05rem; }
+  .hero--art h1 { max-width: 17ch; }
+  .hero__lede {
+    font-size: clamp(1.05rem, 1rem + 0.35vw, 1.2rem);
+    line-height: 1.62;
+    color: rgba(246, 240, 230, 0.84);
+    max-width: 56ch;
+    margin-bottom: 1.6rem;
+  }
+  .hero__bullets {
+    list-style: none; margin: 0 0 1.85rem; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem;
+  }
+  .hero__bullets li {
+    position: relative; padding-left: 1.15rem;
+    font-size: 0.935rem; color: rgba(246, 240, 230, 0.78);
+  }
+  .hero__bullets li::before {
+    content: ''; position: absolute; left: 0; top: 0.62em;
+    width: 6px; height: 6px; border-radius: 1px; background: var(--cuivre);
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  .hero__art {
+    position: relative;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: 0 40px 80px -48px rgba(15, 4, 8, 0.85);
+    border: 1px solid rgba(246, 240, 230, 0.14);
+  }
+
+  @media (max-width: 900px) {
+    .hero--art .hero__inner { grid-template-columns: 1fr; }
+    .hero--art h1 { max-width: 24ch; }
+    .hero__art { order: -1; }
+  }
+  @media (max-width: 560px) {
+    .hero__cta .btn { flex: 1 1 100%; }
+  }
+</style>

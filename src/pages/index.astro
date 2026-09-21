@@ -1,0 +1,373 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import IdfMap from '../components/IdfMap.astro';
+import Reviews from '../components/Reviews.astro';
+import Answer from '../components/Answer.astro';
+import { site, cta } from '../data/site';
+import { especes, autresEspeces } from '../data/especes';
+import { serviceSchema, faqSchema } from '../lib/schema';
+import { getCollection } from 'astro:content';
+import { categories } from '../content.config';
+
+const title = 'Traitement des cafards et blattes en Île-de-France | ' + site.brand;
+const description =
+  "Spécialiste du traitement des cafards et des blattes en Île-de-France : diagnostic de l'infestation, traitement adapté au bâtiment, prévention et suivi. Logements, copropriétés, restaurants et locaux professionnels.";
+
+const signes = [
+  {
+    title: 'Un cafard aperçu le soir',
+    text: "Une observation nocturne en cuisine ou en salle de bain est le signe le plus courant. Elle indique une présence, mais pas encore son ampleur.",
+  },
+  {
+    title: 'Petits points noirs',
+    text: "Des déjections ressemblant à des grains de poivre s'accumulent dans les angles de placards, sur les charnières et derrière les appareils.",
+  },
+  {
+    title: 'Traces brunes',
+    text: "Des coulures ou des marques brunes apparaissent sous un évier, derrière un réfrigérateur ou le long d'une plinthe.",
+  },
+  {
+    title: 'Œufs et oothèques',
+    text: "Les enveloppes d'œufs, brunes et allongées, sont glissées dans les interstices. En trouver signale une reproduction sur place.",
+  },
+  {
+    title: 'Odeur inhabituelle',
+    text: "Une odeur un peu grasse, persistante, se développe lorsqu'une population est installée depuis plusieurs semaines.",
+  },
+  {
+    title: 'Insectes autour des appareils',
+    text: "Le socle du lave-vaisselle, l'arrière du four ou une machine à café réunissent chaleur, humidité et abri.",
+  },
+  {
+    title: 'Individus de tailles différentes',
+    text: "Voir à la fois des petits et des adultes indique que la population se reproduit sur place, et non une arrivée isolée.",
+  },
+  {
+    title: 'Présence en pleine journée',
+    text: "Des observations diurnes signalent généralement une population importante : les refuges disponibles ne suffisent plus.",
+  },
+];
+
+const etapes = [
+  { title: 'Échange initial', text: "Description de la situation par téléphone ou via le formulaire : pièces concernées, fréquence, type de bâtiment." },
+  { title: 'Analyse du contexte', text: "Nature du logement ou du local, configuration, présence de voisinage ou de parties communes reliées." },
+  { title: 'Identification des zones', text: "Inspection des volumes fermés : arrière des appareils, coffrages, plinthes, gaines et trappes techniques." },
+  { title: 'Recherche des points favorables', text: "Repérage des sources de chaleur, d'humidité, de nourriture accessible et des passages entre pièces." },
+  { title: 'Traitement adapté', text: "Méthode et positionnement choisis selon l'espèce, le contexte et les contraintes d'occupation du lieu." },
+  { title: 'Conseils de prévention', text: "Recommandations concrètes sur les points relevés : étanchéité, rangement, entretien des zones sensibles." },
+  { title: 'Suivi lorsque nécessaire', text: "Contrôle après traitement pour vérifier l'évolution et compléter si la situation le justifie." },
+];
+
+const lieux = [
+  { label: 'Appartements', href: '/cafards-appartement', text: "Cuisines compactes, colonnes techniques partagées, voisinage direct." },
+  { label: 'Maisons', href: '/cafards-maison', text: "Points d'entrée extérieurs, buanderie, garage, sous-sol." },
+  { label: 'Copropriétés', href: '/cafards-coproprietes', text: "Parties communes, gaines, locaux de déchets, coordination avec le syndic." },
+  { label: 'Restaurants', href: '/cafards-restaurants', text: "Zones de préparation, plonge, réserves, contraintes d'exploitation." },
+  { label: 'Commerces', href: '/cafards-commerces', text: "Réserves, arrière-boutique, flux de livraison et de cartons." },
+  { label: 'Hôtels', href: '/cafards-hotels', text: "Cuisines, offices d'étage, locaux de linge, discrétion vis-à-vis des clients." },
+  { label: 'Bureaux', href: '/cafards-entreprises', text: "Espaces de pause, cafétérias, locaux techniques et de déchets." },
+  { label: 'Locaux professionnels', href: '/cafards-commerces', text: "Ateliers, réserves, locaux de stockage et zones techniques." },
+];
+
+const faqHome = [
+  {
+    q: 'Comment savoir si j’ai des cafards ?',
+    a: "Trois indices suffisent à le soupçonner sérieusement : des observations répétées au même endroit le soir, de petites déjections noires dans les angles de placards, et des traces brunes derrière ou sous les appareils. Une seule observation ne permet pas de conclure sur l'ampleur ; des indices multiples indiquent une population installée.",
+  },
+  {
+    q: 'Que faire après avoir vu un cafard ?',
+    a: "Noter l'endroit, l'heure et les circonstances, puis inspecter les zones fermées voisines : dessous d'évier, arrière du réfrigérateur, socle du lave-vaisselle. Il est préférable d'éviter les aérosols, qui dispersent les insectes vers d'autres pièces et compliquent le traitement ultérieur.",
+  },
+  {
+    q: 'Les cafards peuvent-ils se cacher dans les appareils ?',
+    a: "Oui, et c'est même l'une de leurs localisations les plus fréquentes. Le compartiment moteur d'un réfrigérateur, le socle d'un lave-vaisselle, l'habillage d'un four ou l'intérieur d'une machine à café réunissent chaleur, humidité et abri resserré.",
+  },
+  {
+    q: 'Pourquoi les cafards reviennent-ils ?',
+    a: "Le plus souvent parce que le traitement n'a pas atteint les refuges, parce que des oothèques ont éclos après l'intervention, ou parce qu'une population subsiste dans un logement voisin ou un réseau commun. Les conditions favorables — humidité, chaleur, nourriture accessible — jouent également un rôle.",
+  },
+  {
+    q: 'Faut-il quitter son logement pendant le traitement ?',
+    a: "Dans la plupart des configurations en habitation, le traitement est conçu pour permettre une occupation normale des lieux. Des consignes précises sont données selon la méthode utilisée et selon la présence d'enfants ou d'animaux. Aucune règle générale ne s'applique à toutes les situations.",
+  },
+  {
+    q: 'Combien de temps faut-il pour traiter une infestation ?',
+    a: "Cela dépend de l'espèce, de l'étendue de la population et de l'accès obtenu aux zones de refuge. Une baisse des observations est généralement perceptible dans les semaines suivant l'intervention, et un contrôle permet de vérifier l'évolution. Aucun délai fixe ne peut être annoncé de façon fiable avant le diagnostic.",
+  },
+];
+
+const prevention = [
+  "Supprimer l'eau disponible la nuit : évier essuyé, bac de dégivrage vidé, absence de vaisselle humide.",
+  "Conserver les denrées sèches dans des contenants fermés plutôt que dans leur emballage d'origine.",
+  "Nettoyer périodiquement le dessous et l'arrière des appareils, zones rarement atteintes.",
+  "Limiter les cartons et papiers dans les placards bas et les celliers.",
+  "Reboucher les passages de canalisations après le diagnostic, jamais avant.",
+  "Sortir les déchets alimentaires le soir plutôt que de les laisser en cuisine.",
+];
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const fmt = (d: Date) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const schema = [
+  serviceSchema({
+    url: '/',
+    name: 'Traitement des cafards et des blattes en Île-de-France',
+    description,
+  }),
+  faqSchema('/', faqHome.map((f) => ({ q: f.q, a: f.a }))),
+];
+---
+
+<BaseLayout {title} {description} {schema}>
+  <Hero
+    art
+    label="Traitement cafards & blattes • Île-de-France"
+    title="Traitement des cafards et blattes en Île-de-France"
+    text="Une infestation de cafards peut rapidement s'installer dans une habitation, un commerce ou un local professionnel. Nous intervenons pour identifier les zones concernées et mettre en place un traitement adapté."
+    bullets={['Diagnostic avant traitement', 'Habitations et locaux professionnels', 'Paris et les 8 départements']}
+    primaryLabel={cta.primary}
+    secondaryLabel={cta.call}
+  />
+
+  <TrustBar />
+
+  <!-- VOUS AVEZ VU UN CAFARD ? -->
+  <section class="section" id="signes">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Premiers indices</p>
+        <h2>Vous avez vu un cafard ?</h2>
+        <Answer question="Un seul indice suffit-il à évaluer une infestation ?">
+          <p>
+            Non. Voir un cafard dans une cuisine ne permet pas de connaître l'ampleur de la situation.
+            En revanche, des observations répétées, des traces ou la présence d'oothèques doivent
+            inciter à rechercher les zones où les insectes se réfugient.
+          </p>
+        </Answer>
+        <p>
+          Les blattes vivent dans des volumes fermés, étroits, proches d'une source de chaleur et
+          d'un point d'eau. Ce qui est visible sur un plan de travail ne représente qu'une fraction
+          de la population réelle. C'est la raison pour laquelle l'inspection compte autant que le
+          traitement lui-même : il faut savoir <em>où</em> agir avant de décider <em>comment</em>.
+        </p>
+      </div>
+
+      <div class="grid grid-4">
+        {signes.map((s) => (
+          <div class="card reveal">
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="note">
+        <p>
+          <strong>À retenir :</strong> l'absence d'indices visibles ne garantit pas l'absence
+          d'insectes, et une observation isolée ne signifie pas nécessairement une infestation
+          importante. Pour trancher, consultez notre
+          <a href="/identifier-cafard">guide d'identification</a> et la page sur les
+          <a href="/nid-cafards">signes d'un nid de cafards</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUELS CAFARDS -->
+  <section class="section section--creme" id="especes">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Espèces</p>
+        <h2>Quels cafards peut-on rencontrer ?</h2>
+        <p class="lede">
+          Trois espèces reviennent régulièrement en Île-de-France. Les distinguer n'est pas un
+          détail : elles n'occupent pas les mêmes zones et ne se traitent pas de la même manière.
+        </p>
+      </div>
+
+      <div class="grid grid-3">
+        {especes.map((e) => (
+          <a class="card esp reveal" href={`/${e.slug}`}>
+            <span class="card__meta">{e.nomLatin}</span>
+            <h3>{e.nom}</h3>
+            <p>{e.short}</p>
+            <ul class="esp__rep">
+              {e.reperes.slice(0, 3).map((r) => <li>{r}</li>)}
+            </ul>
+            <span class="link-more" aria-hidden="true">Fiche complète</span>
+          </a>
+        ))}
+
+        <div class="card esp esp--alt reveal">
+          <span class="card__meta">Autres blattes</span>
+          <h3>Espèces plus rares</h3>
+          {autresEspeces.map((a) => (
+            <p><strong>{a.nom}</strong> — {a.text}</p>
+          ))}
+          <a class="link-more" href="/identifier-cafard">Comment les distinguer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERVENTION -->
+  <section class="section" id="intervention">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Déroulement</p>
+        <h2>Comment se déroule une intervention ?</h2>
+        <p class="lede">
+          Une intervention utile suit toujours le même ordre : comprendre, inspecter, puis traiter.
+          Inverser ces étapes revient à traiter au hasard.
+        </p>
+      </div>
+      <Steps steps={etapes} />
+      <p class="section-foot">
+        Selon la situation, l'intervention peut concerner un seul logement ou un périmètre plus large.
+        Voir la page <a href="/traitement-cafards">traitement des cafards</a> pour le détail des
+        méthodes, et <a href="/desinsectisation-cafards">désinsectisation</a> pour les locaux
+        professionnels.
+      </p>
+    </div>
+  </section>
+
+  <!-- OÙ INTERVENONS-NOUS -->
+  <section class="section section--creme" id="lieux">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Types de lieux</p>
+        <h2>Où intervenons-nous ?</h2>
+        <p class="lede">
+          Un appartement, une copropriété et une cuisine de restaurant ne posent pas les mêmes
+          questions. Chaque contexte a sa page, avec les problématiques qui lui sont propres.
+        </p>
+      </div>
+      <div class="lieux">
+        {lieux.map((l) => (
+          <a class="lieux__item" href={l.href}>
+            <h3>{l.label}</h3>
+            <p>{l.text}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTE ÎLE-DE-FRANCE -->
+  <section class="section" id="zones">
+    <div class="wrap">
+      <IdfMap />
+      <p class="section-foot">
+        Chaque département dispose d'une page décrivant le contexte local du bâti et les modalités
+        d'intervention. Voir le hub <a href="/zones-intervention">zones d'intervention en Île-de-France</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- PRÉVENTION -->
+  <section class="section section--bordeaux" id="prevention">
+    <div class="wrap prev">
+      <div>
+        <p class="eyebrow">Prévention</p>
+        <h2>Limiter les conditions favorables</h2>
+        <p class="lede">
+          Les blattes ont besoin de quatre choses : de la chaleur, de l'eau, de la nourriture
+          accessible et un abri resserré. Réduire ne serait-ce qu'un de ces facteurs rend un
+          logement nettement moins accueillant.
+        </p>
+        <a class="btn btn--primary" href="/prevention-cafards">Guide de prévention complet</a>
+      </div>
+      <ul class="list-check prev__list">
+        {prevention.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <Faq
+    items={faqHome}
+    eyebrow="Questions directes"
+    title="Les questions que l’on nous pose le plus"
+    intro="Des réponses courtes d’abord, puis le détail. Pour aller plus loin, la page FAQ regroupe l’ensemble des questions."
+    id="faq"
+  />
+
+  <Reviews />
+
+  <!-- BLOG -->
+  {posts.length > 0 && (
+    <section class="section section--creme" id="blog">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ressources</p>
+          <h2>Comprendre et anticiper</h2>
+          <p class="lede">
+            Des articles rédigés à partir de situations réellement rencontrées sur le terrain,
+            sans dramatisation ni raccourci.
+          </p>
+        </div>
+        <div class="grid grid-3">
+          {posts.map((p) => (
+            <a class="card" href={`/blog/${p.id}`}>
+              <span class="card__meta">{categories[p.data.category]}</span>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.description}</p>
+              <span class="post__date"><time datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time></span>
+            </a>
+          ))}
+        </div>
+        <p class="section-foot"><a class="link-more" href="/blog">Tous les articles</a></p>
+      </div>
+    </section>
+  )}
+
+  <CtaBand
+    title="Décrivez votre situation, nous vous orientons"
+    text="Un échange de quelques minutes permet souvent de distinguer une observation isolée d'une infestation installée, et de définir le périmètre utile d'une intervention."
+  />
+</BaseLayout>
+
+<style>
+  .section-foot { margin-top: 1.75rem; color: var(--ink-soft); max-width: 68ch; }
+
+  .esp { display: flex; flex-direction: column; }
+  .esp__rep { list-style: none; margin: 1rem 0 0.35rem; padding: 0; display: grid; gap: 0.4rem; }
+  .esp__rep li {
+    position: relative; padding-left: 1.05rem;
+    font-size: 0.875rem; color: var(--ink-muted);
+  }
+  .esp__rep li::before {
+    content: ''; position: absolute; left: 0; top: 0.6em;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--terra);
+  }
+  .esp .link-more { margin-top: auto; padding-top: 1rem; font-size: 0.86rem; }
+  .esp--alt p { font-size: 0.915rem; margin-bottom: 0.8rem; }
+  .esp--alt .link-more { margin-top: auto; }
+
+  .lieux {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+    gap: 1px; background: var(--line-soft);
+    border: 1px solid var(--line-soft); border-radius: var(--r-lg); overflow: hidden;
+  }
+  .lieux__item {
+    background: var(--surface); padding: 1.3rem 1.4rem;
+    text-decoration: none; transition: background-color 0.16s ease;
+  }
+  .lieux__item:hover { background: var(--ivoire); }
+  .lieux__item h3 { font-size: 1.02rem; margin-bottom: 0.35rem; }
+  .lieux__item p { margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
+
+  .prev { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.75rem, 4vw, 3.5rem); align-items: start; }
+  .prev .btn { margin-top: 0.5rem; }
+  .prev__list { padding-top: 0.25rem; }
+  @media (max-width: 820px) { .prev { grid-template-columns: 1fr; } }
+
+  .post__date { display: block; margin-top: 0.85rem; font-size: 0.82rem; color: var(--ink-muted); }
+</style>

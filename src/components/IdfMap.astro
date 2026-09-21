@@ -1,0 +1,336 @@
+---
+import mapData from '../data/idf-map.json';
+import { departements } from '../data/departements';
+import { villes } from '../data/villes';
+
+export interface Props {
+  /** Département mis en évidence (slug), pour les pages départementales. */
+  active?: string;
+  /** Affiche la liste textuelle sous la carte (équivalent accessible et maillage). */
+  withList?: boolean;
+  title?: string;
+}
+const { active, withList = true, title = "Carte des zones d'intervention en Île-de-France" } = Astro.props;
+
+const bySlug = new Map(departements.map((d) => [d.slug, d]));
+const byCode = new Map(departements.map((d) => [d.code, d]));
+
+const shapes = mapData.departements
+  .map((f) => {
+    const dep = byCode.get(f.code);
+    return dep ? { ...f, dep } : null;
+  })
+  .filter((x): x is NonNullable<typeof x> => x !== null)
+  // Les grands départements d'abord pour que Paris reste cliquable au-dessus.
+  .sort((a, b) => b.points - a.points);
+---
+
+<div class="map" data-map>
+  <div class="map__head">
+    <div>
+      <p class="eyebrow">Île-de-France</p>
+      <h2 class="map__title">Où intervenons-nous ?</h2>
+    </div>
+    <div class="map__zoom" role="group" aria-label="Zoom de la carte">
+      <button type="button" data-zoom="in" aria-label="Agrandir la carte">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <button type="button" data-zoom="out" aria-label="Réduire la carte">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <button type="button" data-zoom="reset" aria-label="Réinitialiser la vue">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13.6 8a5.6 5.6 0 1 1-1.7-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13.8 2v2.4h-2.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="map__body">
+    <div class="map__canvas" data-canvas>
+      <svg
+        viewBox={mapData.viewBox}
+        data-svg
+        data-viewbox={mapData.viewBox}
+        role="img"
+        aria-label={title}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>{title}</title>
+        <g data-pan>
+          {shapes.map((s) => (
+            <a
+              href={`/zones-intervention/${s.dep.slug}`}
+              class={`map__dep${active === s.dep.slug ? ' is-active' : ''}`}
+              data-dep={s.dep.slug}
+              data-nom={s.dep.nom}
+              data-code={s.dep.code}
+              data-lede={s.dep.lede}
+              aria-label={`${s.dep.nom} (${s.dep.code}) — voir la page départementale`}
+            >
+              <title>{`${s.dep.nom} (${s.dep.code})`}</title>
+              <path d={s.d} />
+            </a>
+          ))}
+
+          <g class="map__labels" aria-hidden="true">
+            {mapData.departements.map((f) => (
+              <text x={f.labelX} y={f.labelY} class="map__code">{f.code}</text>
+            ))}
+          </g>
+
+          {villes.map((v) => (
+            <a
+              href={`/${v.slug}`}
+              class="map__city"
+              data-city={v.slug}
+              data-nom={v.nom}
+              data-dep-nom={v.departementNom}
+              aria-label={`${v.nom} — voir la page locale`}
+            >
+              <title>{v.nom}</title>
+              <circle cx={v.mapX} cy={v.mapY} r="5.5" class="map__city-hit" />
+              <circle cx={v.mapX} cy={v.mapY} r="3.2" class="map__city-dot" />
+            </a>
+          ))}
+        </g>
+      </svg>
+    </div>
+
+    <aside class="map__panel" data-panel aria-live="polite">
+      <p class="map__panel-kicker" data-panel-kicker>Département</p>
+      <h3 data-panel-title>Île-de-France</h3>
+      <p data-panel-text>
+        Survolez ou sélectionnez un département pour afficher le contexte local,
+        puis accédez à la page correspondante. Les points signalent les villes
+        disposant d'une page dédiée.
+      </p>
+      <a class="btn btn--ghost map__panel-cta" href="/zones-intervention" data-panel-link>
+        Voir toutes les zones
+      </a>
+      <p class="map__hint">Glissez pour déplacer la carte, molette ou boutons pour zoomer.</p>
+    </aside>
+  </div>
+
+  {withList && (
+    <div class="map__list">
+      {departements.map((d) => (
+        <div class="map__list-col">
+          <h3>
+            <a href={`/zones-intervention/${d.slug}`}>{d.nom} <span>({d.code})</span></a>
+          </h3>
+          {d.cities.length > 0 && (
+            <ul>
+              {d.cities.map((c) => {
+                const v = villes.find((x) => x.slug === c);
+                return v ? <li><a href={`/${v.slug}`}>{v.nom}</a></li> : null;
+              })}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .map {
+    background: var(--creme-2);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: clamp(1.1rem, 2.5vw, 1.9rem);
+  }
+  .map__head {
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+    gap: 1rem; margin-bottom: 1.25rem;
+  }
+  .map__head .eyebrow { margin-bottom: 0.5rem; }
+  .map__title { margin: 0; font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.85rem); }
+
+  .map__zoom { display: flex; gap: 0.4rem; }
+  .map__zoom button {
+    width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+    color: var(--bx-800); cursor: pointer; transition: border-color 0.16s ease, color 0.16s ease;
+  }
+  .map__zoom button:hover { border-color: var(--terra); color: var(--terra-600); }
+  .map__zoom svg { width: 16px; height: 16px; }
+
+  .map__body {
+    display: grid; grid-template-columns: minmax(0, 1.72fr) minmax(240px, 1fr);
+    gap: clamp(1rem, 2.5vw, 1.75rem); align-items: stretch;
+  }
+
+  .map__canvas {
+    background: var(--ivoire);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r);
+    overflow: hidden;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+  .map__canvas.is-dragging { cursor: grabbing; }
+  .map__canvas svg { display: block; width: 100%; height: auto; }
+
+  .map__dep path {
+    fill: var(--creme);
+    stroke: var(--bx-700);
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+    transition: fill 0.16s ease, stroke 0.16s ease;
+  }
+  .map__dep { cursor: pointer; }
+  .map__dep:hover path, .map__dep:focus-visible path { fill: var(--terra-100); stroke: var(--terra-600); }
+  .map__dep.is-active path { fill: var(--bx-800); stroke: var(--bx-900); }
+  .map__dep:focus-visible { outline: none; }
+  .map__dep:focus-visible path { stroke-width: 3; stroke: var(--terra); }
+
+  .map__code {
+    font-family: var(--font-display); font-size: 17px; font-weight: 700;
+    fill: var(--bx-800); fill-opacity: 0.42; text-anchor: middle; pointer-events: none;
+  }
+  .map__dep.is-active + .map__labels .map__code { fill-opacity: 0.42; }
+
+  .map__city-hit { fill: transparent; }
+  .map__city-dot { fill: var(--terra); stroke: var(--ivoire); stroke-width: 1.6; transition: r 0.14s ease; }
+  .map__city:hover .map__city-dot, .map__city:focus-visible .map__city-dot { fill: var(--bx-800); r: 5; }
+  .map__city:focus-visible { outline: none; }
+  .map__city:focus-visible .map__city-hit { fill: rgba(180, 81, 44, 0.28); }
+
+  .map__panel {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r);
+    padding: clamp(1.05rem, 2vw, 1.4rem);
+    display: flex; flex-direction: column;
+  }
+  .map__panel-kicker {
+    font-family: var(--font-display); font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra-600);
+    margin: 0 0 0.5rem;
+  }
+  .map__panel h3 { font-size: 1.16rem; margin-bottom: 0.6rem; }
+  .map__panel p { font-size: 0.93rem; color: var(--ink-soft); line-height: 1.58; }
+  .map__panel-cta { margin-top: auto; align-self: flex-start; padding: 0.7rem 1.1rem; font-size: 0.875rem; min-height: 42px; }
+  .map__hint { margin: 0.9rem 0 0; font-size: 0.78rem; color: var(--ink-muted); }
+
+  .map__list {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.1rem 1.5rem;
+    margin-top: clamp(1.25rem, 2.5vw, 1.85rem);
+    padding-top: clamp(1.25rem, 2.5vw, 1.6rem);
+    border-top: 1px solid var(--line-soft);
+  }
+  .map__list-col h3 { font-size: 0.95rem; margin-bottom: 0.45rem; }
+  .map__list-col h3 a { text-decoration: none; }
+  .map__list-col h3 span { color: var(--ink-muted); font-weight: 400; }
+  .map__list-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
+  .map__list-col li a { font-size: 0.88rem; color: var(--ink-soft); text-decoration: none; }
+  .map__list-col li a:hover { color: var(--terra-600); text-decoration: underline; text-underline-offset: 0.2em; }
+
+  @media (max-width: 860px) {
+    .map__body { grid-template-columns: 1fr; }
+    .map__panel { order: 2; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var root = document.querySelector('[data-map]');
+    if (!root) return;
+    var svg = root.querySelector('[data-svg]');
+    var canvas = root.querySelector('[data-canvas]');
+    var base = (svg.getAttribute('data-viewbox') || '0 0 1000 800').split(' ').map(Number);
+    var vb = base.slice();
+    var kicker = root.querySelector('[data-panel-kicker]');
+    var pTitle = root.querySelector('[data-panel-title]');
+    var pText = root.querySelector('[data-panel-text]');
+    var pLink = root.querySelector('[data-panel-link]');
+
+    function apply() {
+      // bornes : on ne sort pas du cadre initial
+      var maxW = base[2], maxH = base[3];
+      if (vb[2] > maxW) { vb[2] = maxW; vb[3] = maxH; }
+      vb[0] = Math.max(base[0], Math.min(vb[0], base[0] + maxW - vb[2]));
+      vb[1] = Math.max(base[1], Math.min(vb[1], base[1] + maxH - vb[3]));
+      svg.setAttribute('viewBox', vb.join(' '));
+    }
+    function zoom(factor, cx, cy) {
+      var nw = vb[2] / factor, nh = vb[3] / factor;
+      var minW = base[2] / 6;
+      if (nw > base[2]) { nw = base[2]; nh = base[3]; }
+      if (nw < minW) { nw = minW; nh = base[3] / 6; }
+      var rx = cx === undefined ? 0.5 : cx, ry = cy === undefined ? 0.5 : cy;
+      vb[0] += (vb[2] - nw) * rx;
+      vb[1] += (vb[3] - nh) * ry;
+      vb[2] = nw; vb[3] = nh;
+      apply();
+    }
+    root.querySelectorAll('[data-zoom]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var k = btn.getAttribute('data-zoom');
+        if (k === 'in') zoom(1.45);
+        else if (k === 'out') zoom(1 / 1.45);
+        else { vb = base.slice(); apply(); }
+      });
+    });
+    canvas.addEventListener(
+      'wheel',
+      function (e) {
+        if (!e.ctrlKey && Math.abs(e.deltaY) < 4) return;
+        e.preventDefault();
+        var r = canvas.getBoundingClientRect();
+        zoom(e.deltaY < 0 ? 1.18 : 1 / 1.18, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+      },
+      { passive: false },
+    );
+
+    // Déplacement (souris + tactile)
+    var drag = null;
+    function start(x, y) { drag = { x: x, y: y, vb: vb.slice() }; canvas.classList.add('is-dragging'); }
+    function move(x, y) {
+      if (!drag) return;
+      var r = canvas.getBoundingClientRect();
+      vb[0] = drag.vb[0] - ((x - drag.x) / r.width) * vb[2];
+      vb[1] = drag.vb[1] - ((y - drag.y) / r.height) * vb[3];
+      apply();
+    }
+    function end() { drag = null; canvas.classList.remove('is-dragging'); }
+    canvas.addEventListener('pointerdown', function (e) { if (e.button === 0) start(e.clientX, e.clientY); });
+    window.addEventListener('pointermove', function (e) { move(e.clientX, e.clientY); });
+    window.addEventListener('pointerup', end);
+    window.addEventListener('pointercancel', end);
+    // Un vrai glissement annule le clic sur un département
+    canvas.addEventListener(
+      'click',
+      function (e) {
+        if (canvas.dataset.moved === '1') { e.preventDefault(); canvas.dataset.moved = '0'; }
+      },
+      true,
+    );
+    canvas.addEventListener('pointermove', function () { if (drag) canvas.dataset.moved = '1'; });
+
+    // Panneau d'information
+    function showDep(el) {
+      kicker.textContent = 'Département ' + el.getAttribute('data-code');
+      pTitle.textContent = el.getAttribute('data-nom');
+      pText.textContent = el.getAttribute('data-lede');
+      pLink.setAttribute('href', el.getAttribute('href'));
+      pLink.textContent = 'Voir ' + el.getAttribute('data-nom');
+    }
+    function showCity(el) {
+      kicker.textContent = el.getAttribute('data-dep-nom');
+      pTitle.textContent = el.getAttribute('data-nom');
+      pText.textContent =
+        'Page locale : contexte du bâti, problématiques rencontrées, prévention et questions fréquentes.';
+      pLink.setAttribute('href', el.getAttribute('href'));
+      pLink.textContent = 'Voir ' + el.getAttribute('data-nom');
+    }
+    root.querySelectorAll('[data-dep]').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { showDep(el); });
+      el.addEventListener('focus', function () { showDep(el); });
+    });
+    root.querySelectorAll('[data-city]').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { showCity(el); });
+      el.addEventListener('focus', function () { showCity(el); });
+    });
+  })();
+</script>

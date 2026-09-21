@@ -1,0 +1,165 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import { graph, organizationSchema, websiteSchema, webPageSchema, breadcrumbSchema } from '../lib/schema';
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Fil d'Ariane, sans l'élément « Accueil » qui est ajouté automatiquement. */
+  breadcrumbs?: Array<{ label: string; href?: string }>;
+  /** Nœuds JSON-LD additionnels (Service, FAQPage, Article...). */
+  schema?: object[];
+  /** Type Open Graph. */
+  ogType?: 'website' | 'article';
+  image?: string;
+  noindex?: boolean;
+  datePublished?: string;
+  dateModified?: string;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  breadcrumbs = [],
+  schema = [],
+  ogType = 'website',
+  image = '/img/blattis-og.png',
+  noindex = false,
+  datePublished,
+  dateModified,
+  bodyClass = '',
+} = Astro.props;
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonical = new URL(path === '/' ? '/' : path + '/', site.url).href;
+const ogImage = new URL(image, site.url).href;
+
+const crumbItems = [{ label: 'Accueil', href: '/' }, ...breadcrumbs];
+const hasCrumbs = breadcrumbs.length > 0;
+
+const jsonLd = graph([
+  organizationSchema(),
+  websiteSchema(),
+  webPageSchema({
+    url: path,
+    title,
+    description,
+    breadcrumbId: hasCrumbs ? canonical.replace(/\/$/, '/') + '#breadcrumb' : undefined,
+    datePublished,
+    dateModified,
+  }),
+  ...(hasCrumbs ? [breadcrumbSchema(path, crumbItems)] : []),
+  ...schema,
+]);
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {!noindex && <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />}
+
+    <meta name="theme-color" content="#571523" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="author" content={site.brand} />
+
+    <link rel="preload" href="/fonts/sora-var-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/source-sans-3-var-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.brand} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={jsonLd} is:inline />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <Header />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      // Navigation mobile + sous-menus (vanilla, ~1 Ko)
+      (function () {
+        var burger = document.querySelector('[data-burger]');
+        var panel = document.getElementById('nav-mobile');
+        if (burger && panel) {
+          burger.addEventListener('click', function () {
+            var open = burger.getAttribute('aria-expanded') === 'true';
+            burger.setAttribute('aria-expanded', String(!open));
+            panel.hidden = open;
+            document.documentElement.style.overflow = open ? '' : 'hidden';
+          });
+          panel.querySelectorAll('[data-sub-toggle]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              var open = btn.getAttribute('aria-expanded') === 'true';
+              btn.setAttribute('aria-expanded', String(!open));
+              var list = document.getElementById(btn.getAttribute('aria-controls'));
+              if (list) list.hidden = open;
+            });
+          });
+        }
+        // En-tête compact au défilement
+        var header = document.querySelector('[data-header]');
+        if (header) {
+          var tick = false;
+          window.addEventListener(
+            'scroll',
+            function () {
+              if (tick) return;
+              tick = true;
+              requestAnimationFrame(function () {
+                header.classList.toggle('is-scrolled', window.scrollY > 24);
+                tick = false;
+              });
+            },
+            { passive: true },
+          );
+        }
+        // Apparitions discrètes
+        if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add('is-in');
+                  io.unobserve(e.target);
+                }
+              });
+            },
+            { rootMargin: '0px 0px -8% 0px', threshold: 0.06 },
+          );
+          document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+        } else {
+          document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+        }
+      })();
+    </script>
+  </body>
+</html>

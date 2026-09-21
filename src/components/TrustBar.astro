@@ -1,0 +1,71 @@
+---
+const items = [
+  {
+    title: 'Intervention professionnelle',
+    text: 'Analyse de la situation avant traitement.',
+    icon: 'loupe',
+  },
+  {
+    title: 'Traitement adapté',
+    text: 'Méthode choisie selon le contexte.',
+    icon: 'cible',
+  },
+  {
+    title: 'Discrétion',
+    text: 'Intervention adaptée aux logements et locaux professionnels.',
+    icon: 'discret',
+  },
+  {
+    title: 'Suivi',
+    text: 'Contrôle et recommandations lorsque prévus.',
+    icon: 'suivi',
+  },
+];
+---
+<section class="trust" aria-label="Notre approche">
+  <div class="wrap trust__grid">
+    {items.map((it) => (
+      <div class="trust__item">
+        <span class="trust__icon" aria-hidden="true">
+          {it.icon === 'loupe' && (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/><path d="M8 10.5h5"/></svg>
+          )}
+          {it.icon === 'cible' && (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.6"/><path d="M12 1.8v3.4M12 18.8v3.4M1.8 12h3.4M18.8 12h3.4"/></svg>
+          )}
+          {it.icon === 'discret' && (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 10.5 12 3.5l9 7"/><path d="M5.2 12.2V20h13.6v-7.8"/><path d="M9.5 20v-5h5v5"/></svg>
+          )}
+          {it.icon === 'suivi' && (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20.5 12A8.5 8.5 0 1 1 18 5.9"/><path d="M20.8 3v3.6h-3.6"/><path d="M8.6 12.3l2.6 2.6 4.6-5"/></svg>
+          )}
+        </span>
+        <h2>{it.title}</h2>
+        <p>{it.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
+<style>
+  .trust { background: var(--ivoire); border-bottom: 1px solid var(--line-soft); }
+  .trust__grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(226px, 1fr));
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    padding-block: clamp(2rem, 3.5vw, 2.85rem);
+  }
+  .trust__item { position: relative; padding-left: 0; }
+  .trust__icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; margin-bottom: 0.85rem;
+    border: 1px solid var(--line); border-radius: 9px;
+    color: var(--terra); background: var(--creme-2);
+  }
+  .trust__icon svg { width: 20px; height: 20px; }
+  .trust__item h2 {
+    font-size: 1.0125rem; margin-bottom: 0.3rem; letter-spacing: -0.008em;
+  }
+  .trust__item p { margin: 0; font-size: 0.945rem; color: var(--ink-soft); line-height: 1.55; }
+  @media (min-width: 720px) {
+    .trust__item + .trust__item { padding-left: clamp(1.25rem, 2.5vw, 2rem); border-left: 1px solid var(--line-soft); }
+  }
+</style>

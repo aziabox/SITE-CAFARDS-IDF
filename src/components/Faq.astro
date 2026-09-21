@@ -1,0 +1,61 @@
+---
+export interface Props {
+  items: Array<{ q: string; a: string | string[] }>;
+  title?: string;
+  eyebrow?: string;
+  intro?: string;
+  /** Identifiant d'ancrage de la section. */
+  id?: string;
+  bare?: boolean;
+}
+const { items, title = 'Questions fréquentes', eyebrow = 'FAQ', intro, id = 'faq', bare = false } = Astro.props;
+const toArr = (a: string | string[]) => (Array.isArray(a) ? a : [a]);
+---
+<section class={bare ? 'faq-bare' : 'section'} id={id}>
+  <div class={bare ? '' : 'wrap'}>
+    {!bare && (
+      <div class="section-head">
+        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+        <h2>{title}</h2>
+        {intro && <p class="lede">{intro}</p>}
+      </div>
+    )}
+    <div class="faq">
+      {items.map((item, i) => (
+        <details class="faq__item" name={`faq-${id}`} open={i === 0}>
+          <summary>
+            <span>{item.q}</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+              <path d="M7 1.5v11M1.5 7h11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+            </svg>
+          </summary>
+          <div class="faq__body">
+            {toArr(item.a).map((p) => <p>{p}</p>)}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .faq { border-top: 1px solid var(--line); max-width: 86ch; }
+  .faq__item { border-bottom: 1px solid var(--line); }
+  .faq__item summary {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 1.25rem;
+    padding: 1.15rem 0.15rem;
+    font-family: var(--font-display); font-size: clamp(1.0125rem, 0.98rem + 0.2vw, 1.1rem);
+    font-weight: 600; color: var(--bx-800); letter-spacing: -0.012em; line-height: 1.38;
+    cursor: pointer; list-style: none;
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary:hover { color: var(--terra-600); }
+  .faq__item summary svg { flex: none; margin-top: 0.3em; color: var(--terra); transition: transform 0.22s ease; }
+  .faq__item[open] summary svg { transform: rotate(45deg); }
+  .faq__body { padding: 0 0 1.35rem; max-width: 72ch; }
+  .faq__body p { color: var(--ink-soft); margin-bottom: 0.9rem; }
+  .faq__body p:last-child { margin-bottom: 0; }
+  .section--bordeaux .faq { border-color: rgba(246, 240, 230, 0.2); }
+  .section--bordeaux .faq__item { border-color: rgba(246, 240, 230, 0.2); }
+  .section--bordeaux .faq__item summary { color: var(--ivoire); }
+  .section--bordeaux .faq__body p { color: rgba(246, 240, 230, 0.82); }
+</style>

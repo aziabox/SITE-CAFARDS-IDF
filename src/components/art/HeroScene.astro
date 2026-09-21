@@ -1,0 +1,146 @@
+---
+/**
+ * Illustration éditoriale (trait) : inspection d'un meuble sous-évier lors
+ * d'une recherche de zones de refuge en cuisine.
+ * Dessin vectoriel réalisé pour le site — aucune photographie simulée.
+ * Remplaçable par une photographie réelle (voir README, section « Images »).
+ */
+export interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+const title = "Inspection d'un meuble sous-évier lors d'une intervention contre les cafards";
+---
+<svg
+  class={`hero-art ${cls}`}
+  viewBox="0 0 640 520"
+  role="img"
+  aria-label={title}
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="hsBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFDF8" />
+      <stop offset="1" stop-color="#F1E7D9" />
+    </linearGradient>
+    <linearGradient id="hsBeam" x1="0.15" y1="0.2" x2="1" y2="0.9">
+      <stop offset="0" stop-color="#C77B45" stop-opacity="0.55" />
+      <stop offset="1" stop-color="#C77B45" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="hsDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3F0E1A" />
+      <stop offset="1" stop-color="#571523" />
+    </linearGradient>
+    <pattern id="hsTile" width="26" height="26" patternUnits="userSpaceOnUse">
+      <path d="M26 0v26M0 26h26" fill="none" stroke="#571523" stroke-opacity="0.08" stroke-width="1" />
+    </pattern>
+    <clipPath id="hsCab"><rect x="196" y="286" width="250" height="150" rx="3" /></clipPath>
+  </defs>
+
+  <!-- Fond -->
+  <rect width="640" height="520" rx="16" fill="url(#hsBg)" />
+  <rect x="44" y="34" width="552" height="236" fill="url(#hsTile)" />
+
+  <!-- Étagères hautes -->
+  <g stroke="#571523" stroke-opacity="0.5" fill="none" stroke-width="2">
+    <rect x="72" y="62" width="164" height="112" rx="3" />
+    <path d="M154 62v112" />
+    <rect x="256" y="62" width="120" height="66" rx="3" />
+    <path d="M104 174h34M188 174h34M300 128h32" stroke-width="3" stroke-linecap="round" />
+  </g>
+  <!-- Bocaux / rangement (aplats discrets) -->
+  <g fill="#571523" fill-opacity="0.1">
+    <rect x="272" y="150" width="22" height="34" rx="3" />
+    <rect x="302" y="142" width="26" height="42" rx="3" />
+    <rect x="336" y="156" width="18" height="28" rx="3" />
+  </g>
+
+  <!-- Hotte / conduit -->
+  <g stroke="#571523" stroke-opacity="0.42" fill="none" stroke-width="2">
+    <path d="M400 62h86l22 50h-130z" />
+    <path d="M424 112h58v18h-58z" />
+  </g>
+
+  <!-- Plan de travail -->
+  <rect x="180" y="268" width="420" height="18" rx="3" fill="url(#hsDark)" />
+  <rect x="180" y="286" width="420" height="6" fill="#571523" fill-opacity="0.16" />
+
+  <!-- Caisson sous-évier, porte ouverte -->
+  <g stroke="#571523" stroke-opacity="0.55" fill="none" stroke-width="2">
+    <rect x="196" y="292" width="250" height="148" rx="3" fill="#FFFDF8" fill-opacity="0.75" />
+    <path d="M330 292v148" />
+  </g>
+  <!-- Zone d'ombre inspectée -->
+  <g clip-path="url(#hsCab)">
+    <rect x="330" y="292" width="116" height="148" fill="#3F0E1A" fill-opacity="0.12" />
+    <!-- Canalisations -->
+    <g stroke="#571523" stroke-opacity="0.7" fill="none" stroke-width="3" stroke-linecap="round">
+      <path d="M372 292v44c0 14 12 16 12 30v56" />
+      <path d="M404 292v30" />
+      <path d="M356 402h74" stroke-width="2" stroke-opacity="0.45" />
+    </g>
+    <!-- Faisceau de la lampe -->
+    <path d="M232 344 446 300v132L232 386z" fill="url(#hsBeam)" />
+    <!-- Indice relevé : silhouette discrète (élément secondaire, à l'échelle) -->
+    <g fill="#3F0E1A" fill-opacity="0.72">
+      <ellipse cx="410" cy="418" rx="7" ry="4" />
+      <path d="M404 415.5c-2.5-1.5-4-2.8-5-4.4M416 415.5c2.5-1.6 4.2-2.9 5.2-4.6" stroke="#3F0E1A" stroke-opacity="0.72" stroke-width="1.2" fill="none" stroke-linecap="round" />
+    </g>
+    <g fill="#3F0E1A" fill-opacity="0.28">
+      <circle cx="366" cy="428" r="1.5" /><circle cx="374" cy="424" r="1.2" />
+      <circle cx="382" cy="430" r="1.4" /><circle cx="392" cy="426" r="1.1" />
+    </g>
+  </g>
+  <!-- Porte ouverte du caisson -->
+  <g stroke="#571523" stroke-opacity="0.55" fill="#F1E7D9" fill-opacity="0.9" stroke-width="2">
+    <path d="M196 292 148 314v142l48-16z" />
+  </g>
+  <path d="M186 356v22" stroke="#B4512C" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Plinthe et sol -->
+  <path d="M40 440h560" stroke="#571523" stroke-opacity="0.5" stroke-width="2" />
+  <path d="M40 452h560" stroke="#571523" stroke-opacity="0.16" stroke-width="10" />
+  <rect x="196" y="440" width="250" height="10" fill="#571523" fill-opacity="0.2" />
+
+  <!-- Technicien accroupi (silhouette de profil) -->
+  <g fill="url(#hsDark)">
+    <!-- jambes / accroupi -->
+    <path d="M62 438c0-10 6-16 16-18l34-8 12 4-6 16-30 6h-26z" />
+    <path d="M96 438c2-14 10-24 22-30l16 10-10 20z" />
+    <!-- buste -->
+    <path d="M108 350c6-18 20-28 38-28 12 0 20 6 24 16l10 28-24 12-34 10-16-14z" />
+    <!-- bras tendu vers le caisson -->
+    <path d="M150 352c14-4 30 2 46 14l22 16-10 14-26-14c-12-6-22-8-32-8z" />
+    <!-- tete -->
+    <circle cx="150" cy="310" r="17" />
+    <!-- casquette / protection -->
+    <path d="M131 304c2-11 10-18 21-18 10 0 17 5 19 14l-4 3-36 3z" fill="#3F0E1A" />
+  </g>
+  <!-- Lampe torche + amorce de faisceau -->
+  <g>
+    <rect x="212" y="372" width="26" height="11" rx="3" fill="#B4512C" transform="rotate(-8 212 372)" />
+    <path d="M236 366l18-8 2 26-18-6z" fill="#C77B45" fill-opacity="0.75" />
+  </g>
+
+  <!-- Repères de mesure (langage technique, discret) -->
+  <g stroke="#B4512C" stroke-opacity="0.85" fill="none" stroke-width="1.5">
+    <path d="M470 292v148M464 292h12M464 440h12" />
+  </g>
+  <text x="484" y="370" font-family="Sora, system-ui, sans-serif" font-size="12" font-weight="600" fill="#B4512C" fill-opacity="0.9">zone
+    <tspan x="484" dy="15">de refuge</tspan>
+  </text>
+
+  <!-- Encadré d'annotation -->
+  <g>
+    <rect x="386" y="160" width="192" height="76" rx="8" fill="#FFFDF8" stroke="#571523" stroke-opacity="0.16" />
+    <path d="M402 182h10M402 194h10M402 206h10" stroke="#B4512C" stroke-width="2.5" stroke-linecap="round" />
+    <text font-family="Source Sans 3, system-ui, sans-serif" font-size="12.5" fill="#4A423D">
+      <tspan x="422" y="186">Points d'eau</tspan>
+      <tspan x="422" y="198">Chaleur des appareils</tspan>
+      <tspan x="422" y="210">Fissures et passages</tspan>
+    </text>
+    <text x="402" y="228" font-family="Sora, system-ui, sans-serif" font-size="9.5" font-weight="600" letter-spacing="1.2" fill="#571523" fill-opacity="0.45">CONDITIONS À VÉRIFIER</text>
+  </g>
+</svg>
+
+<style>
+  .hero-art { display: block; width: 100%; height: auto; }
+</style>

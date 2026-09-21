@@ -1,0 +1,122 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: 'Comprendre',
+    links: [
+      { label: 'Cafards & blattes', href: '/cafards' },
+      { label: 'Identifier un cafard', href: '/identifier-cafard' },
+      { label: 'Reconnaître un nid', href: '/nid-cafards' },
+      { label: 'Prévention', href: '/prevention-cafards' },
+    ],
+  },
+  {
+    title: 'Interventions',
+    links: [
+      { label: 'Traitement des cafards', href: '/traitement-cafards' },
+      { label: 'Traitement des blattes', href: '/traitement-blattes' },
+      { label: 'Copropriétés', href: '/cafards-coproprietes' },
+      { label: 'Restaurants & commerces', href: '/cafards-restaurants' },
+    ],
+  },
+  {
+    title: 'Île-de-France',
+    links: [
+      { label: 'Zones d’intervention', href: '/zones-intervention' },
+      { label: 'Paris', href: '/zones-intervention/paris' },
+      { label: 'Petite couronne', href: '/zones-intervention/hauts-de-seine' },
+      { label: 'Grande couronne', href: '/zones-intervention/seine-et-marne' },
+    ],
+  },
+];
+---
+
+<footer class="ftr">
+  <div class="wrap ftr__top">
+    <div class="ftr__brand">
+      <Logo variant="light" />
+      <p>
+        {site.brand} intervient en Île-de-France sur les infestations de cafards et de blattes,
+        en habitation comme en local professionnel.
+      </p>
+      <a href={site.phoneHref} class="ftr__tel">{site.phoneDisplay}</a>
+      <a href="/contact" class="link-more ftr__link-light">Demander une intervention</a>
+    </div>
+
+    {columns.map((col) => (
+      <nav class="ftr__col" aria-label={col.title}>
+        <h2>{col.title}</h2>
+        <ul>
+          {col.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </nav>
+    ))}
+  </div>
+
+  <div class="wrap ftr__bottom">
+    <p class="ftr__copy">&copy; {year} {site.brand}. Tous droits réservés.</p>
+    <nav class="ftr__legal" aria-label="Informations légales">
+      <a href="/faq">FAQ</a>
+      <a href="/blog">Blog</a>
+      <a href="/contact">Contact</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/politique-confidentialite">Confidentialité</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    background: var(--bx-950);
+    color: rgba(246, 240, 230, 0.74);
+    font-size: 0.945rem;
+    margin-top: 0;
+  }
+  .ftr__top {
+    display: grid;
+    grid-template-columns: minmax(260px, 1.5fr) repeat(3, minmax(150px, 1fr));
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    padding-block: clamp(2.75rem, 5vw, 4rem) clamp(2rem, 3vw, 2.75rem);
+  }
+  .ftr__brand svg { height: 32px; width: auto; margin-bottom: 1.1rem; }
+  .ftr__brand p { max-width: 38ch; margin-bottom: 1.1rem; font-size: 0.945rem; line-height: 1.62; }
+  .ftr__tel {
+    display: inline-block;
+    font-family: var(--font-display); font-size: 1.22rem; font-weight: 700;
+    color: var(--ivoire); text-decoration: none; letter-spacing: -0.01em;
+    margin-bottom: 0.85rem;
+  }
+  .ftr__tel:hover { color: var(--cuivre); }
+  .ftr__link-light { color: var(--cuivre); display: block; }
+  .ftr__link-light:hover { color: var(--terra-100); }
+
+  .ftr__col h2 {
+    font-family: var(--font-display); font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(246, 240, 230, 0.5); margin-bottom: 1rem;
+  }
+  .ftr__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .ftr__col a { color: rgba(246, 240, 230, 0.8); text-decoration: none; }
+  .ftr__col a:hover { color: var(--ivoire); text-decoration: underline; text-underline-offset: 0.2em; }
+
+  .ftr__bottom {
+    display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem;
+    align-items: center; justify-content: space-between;
+    padding-block: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(255, 253, 248, 0.09);
+    font-size: 0.86rem;
+  }
+  .ftr__copy { margin: 0; color: rgba(246, 240, 230, 0.55); }
+  .ftr__legal { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; }
+  .ftr__legal a { color: rgba(246, 240, 230, 0.68); text-decoration: none; }
+  .ftr__legal a:hover { color: var(--ivoire); }
+
+  @media (max-width: 900px) {
+    .ftr__top { grid-template-columns: repeat(2, minmax(140px, 1fr)); }
+    .ftr__brand { grid-column: 1 / -1; }
+  }
+</style>

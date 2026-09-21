@@ -1,0 +1,207 @@
+---
+import { site } from '../data/site';
+
+/**
+ * Formulaire de demande d'intervention.
+ * `action` est configurable au build via FORM_ENDPOINT (voir README).
+ * Sans configuration, le formulaire pointe vers /merci et n'envoie rien :
+ * il faut brancher un service de traitement avant la mise en ligne.
+ */
+const action = import.meta.env.FORM_ENDPOINT ?? '/merci';
+
+const batiments = [
+  'Appartement',
+  'Maison',
+  'Copropriété (parties communes)',
+  'Restaurant',
+  'Commerce',
+  'Hôtel',
+  'Bureaux / entreprise',
+  'Autre local professionnel',
+];
+
+const observations = [
+  { value: 'cafard', label: 'Cafard' },
+  { value: 'blatte', label: 'Blatte' },
+  { value: 'plusieurs', label: 'Plusieurs insectes' },
+  { value: 'inconnu', label: 'Je ne sais pas' },
+  { value: 'traces', label: 'Traces uniquement' },
+];
+---
+
+<form class="form" method="post" action={action} enctype="multipart/form-data" data-form>
+  <div class="form__grid">
+    <div class="field">
+      <label for="f-nom">Nom <span aria-hidden="true">*</span></label>
+      <input id="f-nom" name="nom" type="text" autocomplete="name" required />
+    </div>
+
+    <div class="field">
+      <label for="f-tel">Téléphone <span aria-hidden="true">*</span></label>
+      <input id="f-tel" name="telephone" type="tel" autocomplete="tel" inputmode="tel" required />
+    </div>
+
+    <div class="field">
+      <label for="f-email">Email</label>
+      <input id="f-email" name="email" type="email" autocomplete="email" />
+    </div>
+
+    <div class="field">
+      <label for="f-ville">Ville</label>
+      <input id="f-ville" name="ville" type="text" autocomplete="address-level2" placeholder="Paris, Créteil, Cergy…" />
+    </div>
+
+    <div class="field">
+      <label for="f-batiment">Type de bâtiment</label>
+      <select id="f-batiment" name="batiment">
+        <option value="">Sélectionner…</option>
+        {batiments.map((b) => <option value={b}>{b}</option>)}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="f-piece">Pièce ou zone concernée</label>
+      <input id="f-piece" name="piece" type="text" placeholder="Cuisine, salle de bain, réserve…" />
+    </div>
+  </div>
+
+  <fieldset class="field field--full">
+    <legend>Nuisible observé</legend>
+    <div class="radios">
+      {observations.map((o, i) => (
+        <label class="radio">
+          <input type="radio" name="observation" value={o.value} checked={i === 0} />
+          <span>{o.label}</span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <div class="field field--full">
+    <label for="f-desc">Description de la situation</label>
+    <textarea
+      id="f-desc"
+      name="description"
+      rows="5"
+      placeholder="Depuis quand ? Combien d'observations ? Plutôt le jour ou la nuit ? Des voisins concernés ?"
+    ></textarea>
+    <p class="field__help">
+      Plus la description est précise, plus l'échange initial est utile : fréquence, pièces,
+      taille des individus observés, présence de traces.
+    </p>
+  </div>
+
+  <div class="field field--full">
+    <label for="f-photo">Photo éventuelle</label>
+    <input id="f-photo" name="photo" type="file" accept="image/*" />
+    <p class="field__help">
+      Une photo peut aider à préparer l'échange, mais ne permet pas toujours de confirmer
+      une identification.
+    </p>
+  </div>
+
+  <div class="field field--full">
+    <label class="check">
+      <input type="checkbox" name="consentement" required />
+      <span>
+        J'accepte que ces informations soient utilisées pour traiter ma demande, conformément à la
+        <a href="/politique-confidentialite">politique de confidentialité</a>. <span aria-hidden="true">*</span>
+      </span>
+    </label>
+  </div>
+
+  <!-- Anti-spam : champ leurre, invisible et ignoré des lecteurs d'écran -->
+  <div class="form__trap" aria-hidden="true">
+    <label for="f-site">Ne pas remplir</label>
+    <input id="f-site" name="site_web" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <input type="hidden" name="ouvert_a" value="" data-openat />
+
+  <div class="form__actions">
+    <button type="submit" class="btn btn--primary">Envoyer ma demande</button>
+    <a href={site.phoneHref} class="btn btn--ghost">Ou appeler le {site.phoneDisplay}</a>
+  </div>
+  <p class="form__legal">
+    Les champs marqués d'un astérisque sont nécessaires pour traiter la demande.
+    Aucune donnée n'est utilisée à des fins publicitaires.
+  </p>
+</form>
+
+<style>
+  .form {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+  .form__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem 1.15rem; }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.15rem; }
+  .form__grid .field { margin-bottom: 0; }
+  .field--full { margin-top: 1.15rem; }
+  .field label, .field legend {
+    font-family: var(--font-display); font-size: 0.85rem; font-weight: 600;
+    color: var(--bx-800); letter-spacing: -0.004em; padding: 0;
+  }
+  .field label span[aria-hidden] { color: var(--terra); }
+  fieldset.field { border: 0; padding: 0; margin-inline: 0; }
+  fieldset.field legend { margin-bottom: 0.55rem; }
+
+  input[type='text'], input[type='tel'], input[type='email'], select, textarea {
+    width: 100%;
+    font-family: var(--font-text); font-size: 1rem; color: var(--ink);
+    background: var(--creme-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 0.72rem 0.85rem;
+    min-height: 46px;
+  }
+  textarea { resize: vertical; min-height: 118px; line-height: 1.55; }
+  input::placeholder, textarea::placeholder { color: var(--ink-muted); opacity: 0.85; }
+  input:focus, select:focus, textarea:focus { border-color: var(--terra); background: var(--ivoire); }
+  input[type='file'] {
+    font-family: var(--font-text); font-size: 0.93rem; color: var(--ink-soft);
+    padding: 0.6rem 0; border: 0;
+  }
+
+  .radios { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .radio, .check { display: flex; align-items: flex-start; gap: 0.55rem; cursor: pointer; }
+  .radio {
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.5rem 0.9rem; background: var(--creme-2);
+    transition: border-color 0.16s ease, background-color 0.16s ease;
+  }
+  .radio:hover { border-color: var(--terra); }
+  .radio span, .check span {
+    font-family: var(--font-text); font-size: 0.93rem; font-weight: 400; color: var(--ink-soft);
+  }
+  .radio input, .check input { accent-color: var(--terra); width: 17px; height: 17px; margin: 0; flex: none; }
+  .radio input { margin-top: 0.15rem; }
+  .check input { margin-top: 0.22rem; }
+  .radio:has(input:checked) { border-color: var(--terra); background: var(--terra-100); }
+  .radio:has(input:checked) span { color: var(--bx-800); font-weight: 600; }
+
+  .field__help { margin: 0.15rem 0 0; font-size: 0.855rem; color: var(--ink-muted); line-height: 1.5; }
+
+  .form__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .form__actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
+  .form__legal { margin: 1rem 0 0; font-size: 0.83rem; color: var(--ink-muted); }
+  @media (max-width: 520px) { .form__actions .btn { flex: 1 1 100%; } }
+</style>
+
+<script is:inline>
+  (function () {
+    var f = document.querySelector('[data-form]');
+    if (!f) return;
+    var at = f.querySelector('[data-openat]');
+    if (at) at.value = String(Date.now());
+    f.addEventListener('submit', function (e) {
+      // Deux garde-fous simples côté client : leurre rempli, ou envoi quasi instantané.
+      var trap = f.querySelector('[name="site_web"]');
+      var opened = Number(at && at.value) || 0;
+      if ((trap && trap.value) || (opened && Date.now() - opened < 2500)) {
+        e.preventDefault();
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,41 @@
+---
+/**
+ * Composant d'avis clients.
+ * Il n'affiche des témoignages que si `site.reviews` contient de VRAIS avis.
+ * Aucun avis fictif ne doit être ajouté, et aucune note agrégée n'est
+ * publiée en balisage schema.org tant que les avis ne sont pas vérifiables.
+ */
+import { site } from '../data/site';
+const reviews = site.reviews;
+---
+{reviews.length > 0 && (
+  <section class="section section--creme" aria-label="Avis clients">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Retours clients</p>
+        <h2>Ce que disent les personnes accompagnées</h2>
+      </div>
+      <div class="grid grid-3">
+        {reviews.map((r) => (
+          <figure class="card rev">
+            <blockquote><p>{r.body}</p></blockquote>
+            <figcaption>
+              <span class="rev__author">{r.author}</span>
+              <span class="rev__meta">
+                <time datetime={r.date}>{r.date}</time>{r.source ? ` · ${r.source}` : ''}
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+<style>
+  .rev { margin: 0; display: flex; flex-direction: column; gap: 1rem; }
+  .rev blockquote { margin: 0; }
+  .rev blockquote p { color: var(--ink); font-size: 1rem; }
+  .rev figcaption { margin-top: auto; padding-top: 0.5rem; border-top: 1px solid var(--line-soft); }
+  .rev__author { display: block; font-family: var(--font-display); font-weight: 600; font-size: 0.93rem; color: var(--bx-800); }
+  .rev__meta { font-size: 0.82rem; color: var(--ink-muted); }
+</style>

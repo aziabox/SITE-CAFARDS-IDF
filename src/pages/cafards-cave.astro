@@ -1,0 +1,209 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Pourquoi trouve-t-on des cafards dans une cave et pas dans la cuisine ?',
+    a: "Parce que l'espèce n'est probablement pas la même. Une cave humide et fraîche convient à la blatte orientale, qui supporte des températures plus basses et recherche l'humidité, alors qu'une cuisine chauffée et sèche convient à la blatte germanique. Les deux peuvent coexister dans un même bâtiment sans se mélanger.",
+  },
+  {
+    q: 'Un siphon de sol peut-il laisser entrer des insectes ?',
+    a: "Oui, lorsqu'il s'assèche. La garde d'eau d'un siphon constitue une barrière physique. Dans une cave ou une buanderie peu utilisées, cette eau s'évapore et le passage depuis le réseau devient libre. Verser un litre d'eau chaque mois suffit à rétablir la barrière.",
+  },
+  {
+    q: 'Faut-il traiter toutes les caves d’un immeuble ?',
+    a: "Pas systématiquement. Les caves sont inspectées lorsque des observations sont faites en partie basse ou lorsque la configuration les relie aux logements. Le traitement n'est proposé que si l'inspection met en évidence une population installée, et non par principe.",
+  },
+  {
+    q: 'Les insectes de la cave peuvent-ils monter dans les logements ?',
+    a: "Une blatte orientale peut remonter par une gaine technique, un conduit ou une colonne, mais elle ne s'installe généralement pas durablement dans un logement chauffé et sec. Les observations en étage sont le plus souvent ponctuelles, et le foyer reste en partie basse.",
+  },
+  {
+    q: 'L’humidité suffit-elle à attirer des cafards ?',
+    a: "Elle est l'un des quatre facteurs, avec la chaleur, la nourriture accessible et les abris resserrés. Dans une cave, l'humidité et la stabilité thermique compensent souvent l'absence de chaleur élevée, ce qui rend le lieu favorable à la blatte orientale.",
+  },
+];
+
+const related = [
+  { label: 'Blatte orientale', href: '/blatte-orientale', text: "L'espèce des parties basses et des réseaux." },
+  { label: 'Cafards en immeuble', href: '/cafards-immeuble', text: "Locaux techniques et circulation verticale." },
+  { label: 'Cafards en maison', href: '/cafards-maison', text: "Sous-sol, buanderie, garage et points d'entrée." },
+  { label: 'Copropriétés', href: '/cafards-coproprietes', text: "Accès aux locaux communs et décisions collectives." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Siphons, ventilation et organisation du stockage." },
+  { label: 'Traitement des blattes', href: '/traitement-blattes', text: "Le protocole propre à la blatte orientale." },
+];
+---
+
+<TopicPage
+  title="Cafards en cave et sous-sol : humidité et points d’entrée | Blattis"
+  description="Cafards en cave ou sous-sol : pourquoi l'espèce diffère de celle des cuisines, rôle de l'humidité, siphons asséchés, regards, organisation du stockage et mesures correctives."
+  h1="Cafards en cave et en sous-sol"
+  label="Partie basse"
+  lede="Une présence en cave n'est pas une version atténuée d'une présence en cuisine : c'est une situation différente, avec une autre espèce, d'autres causes et d'autres corrections à apporter."
+  bullets={['Autre espèce concernée', 'Humidité et siphons', 'Organisation du stockage']}
+  breadcrumbs={[
+    { label: 'Cafards & blattes', href: '/cafards' },
+    { label: 'Cave et sous-sol', href: '/cafards-cave' },
+  ]}
+  {faq}
+  {related}
+  relatedTitle="Pages liées"
+  ctaTitle="Une présence en partie basse à faire évaluer ?"
+  ctaText="Précisez le type de local, la présence d'humidité ou d'un siphon, et la taille des individus observés : ces éléments orientent l'identification et la recherche du point d'entrée."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Est-ce la même espèce qu’en cuisine ?">
+      <p>
+        Le plus souvent non. Un insecte de 20 à 30 mm, presque noir et d'aspect luisant, observé au
+        sol dans une cave ou une buanderie, correspond typiquement à la
+        <a href="/blatte-orientale">blatte orientale</a>. Elle supporte des températures plus
+        basses que la blatte germanique et recherche l'humidité plutôt que la chaleur. Le protocole
+        de traitement change en conséquence.
+      </p>
+    </Answer>
+
+    <h2>Pourquoi un volume enterré est favorable</h2>
+    <p>
+      À première vue, une cave semble moins accueillante qu'une cuisine : pas d'appareil qui
+      chauffe, pas de nourriture. En réalité, elle offre autre chose — une
+      <strong>stabilité</strong>.
+    </p>
+    <p>
+      Dans un volume enterré ou semi-enterré, la température et l'humidité varient peu au cours de
+      l'année. Il n'y a ni courant d'air, ni éclairage, ni passage fréquent. Pour une espèce qui
+      tolère la fraîcheur relative, ce sont des conditions durables — plus durables, à certains
+      égards, que celles d'une cuisine dont l'usage varie.
+    </p>
+    <p>
+      S'y ajoutent deux éléments décisifs : la <strong>proximité des réseaux</strong> d'évacuation,
+      et la présence fréquente de <strong>stockages en carton</strong> posés directement au sol
+      contre les murs.
+    </p>
+
+    <h2>Les zones à examiner</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Zone</th><th>Ce qui la rend favorable</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Abords de canalisations</strong></td><td>Condensation, suintements, vide entre le tuyau et le mur</td></tr>
+          <tr><td><strong>Siphons de sol</strong></td><td>Humidité permanente, et accès direct au réseau lorsqu'ils s'assèchent</td></tr>
+          <tr><td><strong>Regards d’évacuation</strong></td><td>Couvercle mal refermé ou joint dégradé : passage ouvert</td></tr>
+          <tr><td><strong>Pied de chaudière</strong></td><td>Chaleur locale ajoutée à l'humidité ambiante</td></tr>
+          <tr><td><strong>Interstices de sol et de mur</strong></td><td>Fissures, joints de dalle, passages de réseaux non rebouchés</td></tr>
+          <tr><td><strong>Stockages au sol</strong></td><td>Cartons, bois, palettes : abris resserrés en contact avec le sol humide</td></tr>
+          <tr><td><strong>Local de collecte des déchets</strong></td><td>Apport organique continu et ventilation souvent insuffisante</td></tr>
+          <tr><td><strong>Vide sanitaire</strong></td><td>Volume non ventilé, humide, traversé par des réseaux</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Le siphon asséché : la cause la plus fréquente et la plus simple</h2>
+    <p>
+      C'est le point qui mérite d'être connu, car il se corrige en une minute et explique un grand
+      nombre de situations.
+    </p>
+    <p>
+      Un siphon fonctionne grâce à une <strong>garde d'eau</strong> : l'eau retenue dans le coude
+      forme une barrière physique entre le local et le réseau d'évacuation. Elle bloque les odeurs
+      — et les insectes.
+    </p>
+    <p>
+      Dans une cave, un garage ou une buanderie peu utilisés, cette eau s'évapore progressivement.
+      Au bout de quelques semaines ou quelques mois, le siphon est sec et le passage est libre.
+      Une blatte orientale circulant dans le réseau accède alors directement au local.
+    </p>
+    <div class="note">
+      <p>
+        <strong>La correction :</strong> verser un litre d'eau dans chaque siphon de sol peu
+        utilisé, environ une fois par mois. Dans un immeuble, cette tâche relève de l'entretien des
+        parties communes et mérite d'être inscrite dans les consignes du gardien ou du prestataire
+        de nettoyage.
+      </p>
+    </div>
+
+    <h2>L’humidité : un facteur à traiter pour lui-même</h2>
+    <p>
+      Aucun produit ne rend une cave moins humide. C'est pourtant l'humidité qui rend le lieu
+      attractif, et une intervention sans correction de ce facteur reste temporaire.
+    </p>
+    <ul class="list-check">
+      <li><strong>Ventiler.</strong> Une ventilation basse et haute, ou une grille en bon état, réduit sensiblement l'humidité ambiante. Ne jamais obturer une ventilation existante.</li>
+      <li><strong>Réparer les suintements.</strong> Une canalisation qui condense ou qui fuit entretient un point d'eau permanent, même minime.</li>
+      <li><strong>Décoller les stockages du sol et des murs.</strong> Un carton posé sur une dalle humide absorbe cette humidité et devient un abri idéal.</li>
+      <li><strong>Vérifier les infiltrations</strong> le long des murs enterrés, en particulier après un épisode pluvieux.</li>
+    </ul>
+
+    <h2>L’organisation du stockage</h2>
+    <p>
+      C'est le second levier, et il est souvent plus déterminant que le traitement lui-même.
+    </p>
+    <p>
+      Une cave remplie de cartons empilés au sol contre les murs ne peut être ni inspectée ni
+      traitée correctement. Deux mesures suffisent : <strong>surélever</strong> ce qui est
+      entreposé — sur des étagères ou des supports — et <strong>laisser un passage de quinze à
+      vingt centimètres le long des murs</strong>.
+    </p>
+    <p>
+      Ces mesures ne coûtent rien et transforment un local inaccessible en local inspectable. Elles
+      ont aussi un effet direct : elles suppriment une grande partie des abris disponibles.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Le cas particulier de l’immeuble collectif</h2>
+    <p>
+      En copropriété, les caves, la chaufferie et le local de collecte des déchets constituent
+      fréquemment le <strong>réservoir</strong> qui réalimente les logements des premiers niveaux.
+    </p>
+    <p>
+      Lorsque les observations d'un immeuble sont concentrées sur les rez-de-chaussée et premiers
+      étages, cette hypothèse doit être vérifiée avant toute autre. Traiter les logements sans
+      inspecter les locaux communs revient à intervenir en bout de chaîne.
+    </p>
+    <p>
+      L'accès à ces locaux dépend du syndic ou du gardien. L'obtenir <strong>au moment du
+      diagnostic</strong>, et non après, change nettement la qualité du résultat — voir la page
+      <a href="/cafards-coproprietes">cafards en copropriété</a>.
+    </p>
+
+    <h2>Le cas de la maison individuelle</h2>
+    <p>
+      En maison, les zones concernées sont la buanderie, le cellier, le garage semi-enterré et le
+      sous-sol aménagé. Le raisonnement est identique, mais la recherche du point d'entrée est plus
+      simple : bas de porte de garage, grille d'aération basse, passage de réseau à travers un mur
+      enterré, regard extérieur.
+    </p>
+    <p>
+      La page <a href="/cafards-maison">cafards dans une maison</a> reprend cette inspection dans
+      son ensemble.
+    </p>
+
+    <h2>Ce qui change dans le traitement</h2>
+    <p>
+      Trois différences par rapport à une intervention en cuisine.
+    </p>
+    <ol class="list-plain">
+      <li><strong>Le rythme de reproduction joue en votre faveur.</strong> La blatte orientale se reproduit plus lentement que la blatte germanique. La contrainte du cycle des oothèques est donc moins forte.</li>
+      <li><strong>L'accès est le facteur limitant.</strong> Réseaux, vides sanitaires, regards, interstices de dalle : la difficulté vient de ce qu'on ne peut pas atteindre, pas de la vitesse de l'insecte.</li>
+      <li><strong>La correction des conditions compte davantage.</strong> Ventilation, siphons, suintements, stockages : sans ces corrections, le local redevient attractif quelle que soit la qualité du traitement.</li>
+    </ol>
+    <p>
+      Le protocole propre à cette espèce est détaillé sur la page
+      <a href="/traitement-blattes">traitement des blattes par espèce</a>.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

@@ -1,0 +1,213 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Qu’est-ce que la désinsectisation ?',
+    a: "La désinsectisation désigne l'ensemble des opérations visant à éliminer une population d'insectes dans un bâtiment. Appliquée aux cafards, elle associe un diagnostic, un traitement des zones de refuge, des mesures correctives sur l'environnement et un suivi. Dans un local professionnel, elle s'accompagne d'une traçabilité documentaire.",
+  },
+  {
+    q: 'Une désinsectisation est-elle obligatoire dans un local alimentaire ?',
+    a: "Les établissements manipulant des denrées alimentaires sont soumis à des obligations générales en matière d'hygiène et de maîtrise sanitaire, qui incluent la lutte contre les nuisibles. Les modalités concrètes dépendent de l'activité et de l'analyse des dangers propre à l'établissement. La traçabilité des interventions fait partie des éléments examinés lors des contrôles.",
+  },
+  {
+    q: 'Faut-il fermer le local pendant l’intervention ?',
+    a: "Généralement non. L'intervention s'organise en dehors des heures d'activité, tôt le matin, après la fermeture ou sur un jour de repos. Les modalités précises dépendent de la configuration du local et des méthodes retenues, et sont définies lors de l'échange initial.",
+  },
+  {
+    q: 'Quels documents sont remis après une intervention ?',
+    a: "Un rapport décrivant les constats, les zones traitées, les méthodes employées et les recommandations. Ce document constitue la trace de l'action menée : il est utile pour le suivi interne comme lors d'un contrôle. Les recommandations portent sur les points relevés qu'un traitement ne corrige pas.",
+  },
+  {
+    q: 'Qu’est-ce qu’un plan de lutte contre les nuisibles ?',
+    a: "C'est l'organisation mise en place par un établissement pour prévenir, détecter et traiter la présence de nuisibles : zones à surveiller, fréquence des contrôles, responsables internes, procédure de signalement et archivage des rapports. Il transforme une série d'interventions ponctuelles en dispositif suivi.",
+  },
+];
+
+const related = [
+  { label: 'Restaurants', href: '/cafards-restaurants', text: "Zones de préparation, plonge, réserves, contraintes de service." },
+  { label: 'Commerces', href: '/cafards-commerces', text: "Réserves, arrière-boutique, flux de livraison." },
+  { label: 'Hôtels', href: '/cafards-hotels', text: "Cuisines, offices d'étage, locaux de linge, discrétion." },
+  { label: 'Entreprises et bureaux', href: '/cafards-entreprises', text: "Cafétérias, espaces de pause, locaux techniques." },
+  { label: 'Copropriétés', href: '/cafards-coproprietes', text: "Parties communes, gaines, coordination avec le syndic." },
+  { label: 'Déroulement d’une intervention', href: '/traitement-cafards', text: "Les sept étapes et le périmètre." },
+];
+---
+
+<TopicPage
+  title="Désinsectisation cafards : locaux professionnels | Blattis"
+  description="Désinsectisation cafards en local professionnel : zones techniques, mesures correctives, traçabilité et plan de lutte contre les nuisibles."
+  h1="Désinsectisation cafards en local professionnel"
+  label="Professionnels"
+  lede="Dans un local professionnel, l'enjeu dépasse le traitement : il faut préserver l'activité, documenter l'intervention et organiser une surveillance qui tienne dans le temps."
+  bullets={['Hors heures d’activité', 'Rapport d’intervention', 'Plan de surveillance']}
+  breadcrumbs={[
+    { label: 'Traitement', href: '/traitement-cafards' },
+    { label: 'Désinsectisation', href: '/desinsectisation-cafards' },
+  ]}
+  {faq}
+  {related}
+  relatedTitle="Par type d’établissement"
+  service={{
+    name: 'Désinsectisation cafards en local professionnel',
+    description:
+      "Diagnostic, traitement des zones techniques, mesures correctives sur l'organisation, rapport d'intervention et mise en place d'une surveillance suivie, pour les restaurants, commerces, hôtels et entreprises.",
+    serviceType: 'Désinsectisation',
+  }}
+  ctaTitle="Faire évaluer un local professionnel"
+  ctaText="Décrivez l'activité, la configuration du local et les contraintes d'exploitation : l'intervention se planifie autour de votre organisation, pas l'inverse."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Ce qui distingue une désinsectisation professionnelle">
+      <p>
+        Trois éléments absents d'une intervention en habitation : la <strong>continuité
+        d'exploitation</strong>, qui impose des créneaux hors activité ; la
+        <strong>traçabilité</strong>, car l'intervention doit pouvoir être présentée lors d'un
+        contrôle ; et le <strong>volet organisationnel</strong> — flux de livraison, rangement des
+        réserves, gestion des déchets — sans lequel un traitement ne tient pas.
+      </p>
+    </Answer>
+
+    <h2>Pourquoi un local professionnel est plus exposé</h2>
+    <p>
+      Ce n'est pas une question de tenue. Une cuisine professionnelle, une réserve alimentaire ou
+      un local de déchets réunissent, par construction, tout ce dont une blatte a besoin : chaleur
+      produite en continu, humidité permanente, matière organique disponible et un très grand
+      nombre d'interstices techniques.
+    </p>
+    <p>
+      S'y ajoute un facteur propre à l'activité : les <strong>flux entrants</strong>. Cartons,
+      cageots et palettes figurent parmi les vecteurs d'introduction les mieux documentés. Un local
+      parfaitement traité peut être réalimenté par une livraison.
+    </p>
+
+    <h2>Les zones examinées en priorité</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Zone</th><th>Pourquoi elle compte</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Plonge et laverie</td><td>Chaleur de l'eau, humidité constante, résidus, socle technique fermé sous la machine</td></tr>
+          <tr><td>Équipements chauds</td><td>Espace entre appareil et mur, socle, pieds, habillages : les zones les plus fréquentées</td></tr>
+          <tr><td>Siphons de sol et caniveaux</td><td>Humidité permanente, matière organique, et voie d'accès depuis le réseau</td></tr>
+          <tr><td>Réserves sèches</td><td>Cartons et cageots au sol contre un mur : souvent la population la plus nombreuse</td></tr>
+          <tr><td>Chambres froides</td><td>Groupe froid, habillage technique, pourtour des joints où la condensation entretient l'humidité</td></tr>
+          <tr><td>Local de déchets</td><td>Apport organique quotidien, chaleur, ventilation souvent insuffisante</td></tr>
+          <tr><td>Vestiaires et local de ménage</td><td>Chaleur, humidité et abris, rarement inspectés</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Une observation revient régulièrement : les insectes sont vus en cuisine, mais la population
+      la plus importante se trouve en réserve. C'est pourquoi un traitement limité à la zone
+      d'observation produit rarement un résultat durable.
+    </p>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Le volet organisationnel : ce qui fait tenir un traitement</h2>
+    <p>
+      C'est la différence principale entre une intervention qui tient et une intervention à refaire.
+      Un traitement correctement positionné dans une réserve encombrée de cartons empilés au sol
+      contre les murs perdra son effet en quelques semaines, simplement parce que l'inspection et
+      l'accès resteront impossibles.
+    </p>
+    <h3>Trois mesures sans coût</h3>
+    <ul class="list-check">
+      <li><strong>Surélever les stockages</strong> et laisser un passage dégagé le long des murs, pour permettre l'inspection.</li>
+      <li><strong>Éliminer les cartons vides</strong> au lieu de les conserver : ce sont des abris de très bonne qualité.</li>
+      <li><strong>Déballer à la réception</strong>, avant la mise en réserve, et évacuer immédiatement les emballages.</li>
+    </ul>
+    <h3>Le contrôle des livraisons</h3>
+    <p>
+      Un contrôle visuel des cageots — en particulier les interstices des angles — prend quelques
+      secondes. Pour un établissement approvisionné par des circuits de gros, cette habitude a
+      souvent plus d'effet qu'un traitement supplémentaire.
+    </p>
+
+    <h2>Traçabilité et plan de lutte</h2>
+    <p>
+      Les établissements manipulant des denrées alimentaires sont soumis à des obligations
+      générales d'hygiène et de maîtrise sanitaire, qui incluent la lutte contre les nuisibles. Les
+      modalités concrètes dépendent de l'activité et de l'analyse des dangers propre à
+      l'établissement ; en revanche, la capacité à démontrer qu'une action a été menée et suivie
+      est systématiquement examinée.
+    </p>
+    <p>
+      En pratique, cela suppose de conserver et d'organiser :
+    </p>
+    <ul class="list-check">
+      <li>les rapports d'intervention, avec les constats et les zones traitées ;</li>
+      <li>les recommandations émises et les actions engagées en réponse ;</li>
+      <li>le relevé des observations faites par les équipes entre deux passages ;</li>
+      <li>la liste des zones à surveiller et la fréquence des contrôles.</li>
+    </ul>
+    <p>
+      Ces éléments constituent ce qu'on appelle un <strong>plan de lutte</strong> : il transforme
+      une série d'interventions ponctuelles en dispositif suivi, et il donne aux équipes un cadre
+      clair pour signaler ce qu'elles observent.
+    </p>
+    <div class="note">
+      <p>
+        <strong>Le point le plus efficace, et le moins coûteux :</strong> un canal de signalement
+        simple pour les équipes. Un cuisinier ou un employé de réserve voit les choses bien avant
+        un contrôle trimestriel. Encore faut-il qu'il sache à qui le dire et que cela soit noté.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Les contraintes prises en compte</h2>
+    <h3>Continuité de service</h3>
+    <p>
+      L'intervention se planifie en dehors des heures d'activité. Une fermeture générale est
+      rarement nécessaire : c'est l'organisation par zones et par créneaux qui permet de couvrir
+      l'ensemble d'un local sans interrompre l'exploitation.
+    </p>
+    <h3>Environnement alimentaire</h3>
+    <p>
+      Les méthodes et les positionnements tiennent compte de la nature du local. Les produits sont
+      placés dans les volumes techniques fermés, hors des surfaces de travail et de contact. Les
+      consignes à respecter après l'intervention sont remises par écrit.
+    </p>
+    <h3>Discrétion</h3>
+    <p>
+      Pour un établissement recevant du public, l'intervention doit rester invisible pour la
+      clientèle. Cela relève de l'organisation autant que de la technique : horaires, accès,
+      matériel compact, véhicule non identifié.
+    </p>
+
+    <h2>Le suivi n’est pas une option</h2>
+    <p>
+      Les oothèques — les enveloppes contenant les œufs — sont protégées et peuvent éclore
+      plusieurs semaines après une intervention. Une reprise à trois ou quatre semaines, avec des
+      individus nettement plus petits, correspond à cette éclosion.
+    </p>
+    <p>
+      Le contrôle vise cette génération avant qu'elle atteigne l'âge de reproduction. Dans un local
+      professionnel, où la pression d'introduction est continue, une surveillance régulière au-delà
+      de ce contrôle est souvent plus économique qu'une succession d'interventions curatives.
+    </p>
+
+    <h2>Ce qui ne peut pas être promis</h2>
+    <p>
+      Aucune garantie d'absence définitive ne peut être donnée dans un local approvisionné
+      quotidiennement par des circuits extérieurs. Ce qui peut être organisé, en revanche, c'est un
+      dispositif qui détecte tôt et traite sur un périmètre restreint — ce qui, en pratique, est ce
+      qui coûte le moins.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

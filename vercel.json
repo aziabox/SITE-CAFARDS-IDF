@@ -1,0 +1,35 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/cafards-commerce", "destination": "/cafards-commerces", "permanent": true },
+    { "source": "/cafards-copropriete", "destination": "/cafards-coproprietes", "permanent": true },
+    { "source": "/cafards-restaurant", "destination": "/cafards-restaurants", "permanent": true },
+    { "source": "/cafards-hotel", "destination": "/cafards-hotels", "permanent": true },
+    { "source": "/cafards-entreprise", "destination": "/cafards-entreprises", "permanent": true },
+    { "source": "/blattes", "destination": "/traitement-blattes", "permanent": true },
+    { "source": "/cafard", "destination": "/cafards", "permanent": true },
+    { "source": "/zones-intervention/val-d-oise", "destination": "/zones-intervention/val-doise", "permanent": true },
+    { "source": "/zones-intervention/:code(75)", "destination": "/zones-intervention/paris", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/fonts/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" }
+      ]
+    }
+  ]
+}

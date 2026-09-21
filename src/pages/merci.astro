@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+<BaseLayout
+  title={`Demande envoyée | ${site.brand}`}
+  description="Votre demande a été transmise. Nous revenons vers vous pour préciser la situation et convenir des modalités d'intervention."
+  noindex
+>
+  <section class="section merci">
+    <div class="wrap wrap-narrow">
+      <span class="merci__icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <circle cx="16" cy="16" r="13" />
+          <path d="M10 16.5l4 4 8-8.5" />
+        </svg>
+      </span>
+      <h1>Votre demande est transmise</h1>
+      <p class="lede">
+        Nous revenons vers vous pour préciser la situation — pièces concernées, fréquence des
+        observations, type de bâtiment — et convenir des modalités d'intervention.
+      </p>
+
+      <div class="note">
+        <p><strong>En attendant, trois choses utiles :</strong></p>
+        <ul class="list-check">
+          <li>Ne pas nettoyer les traces de déjections : elles constituent la piste principale vers les refuges.</li>
+          <li>Ne rien colmater : les passages de canalisation renseignent sur le cheminement.</li>
+          <li>Ne pas utiliser d'aérosol : il disperse la population et fait abandonner les refuges.</li>
+        </ul>
+      </div>
+
+      <p>
+        Vous pouvez également appeler directement le
+        <a href={site.phoneHref}><strong>{site.phoneDisplay}</strong></a>.
+      </p>
+
+      <div class="btn-row merci__actions">
+        <a class="btn btn--dark" href="/traitement-cafards">Déroulement d’une intervention</a>
+        <a class="btn btn--ghost" href="/prevention-cafards">Mesures de prévention</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .merci { text-align: left; }
+  .merci__icon {
+    display: inline-flex; color: var(--terra); margin-bottom: 1.25rem;
+  }
+  .merci__icon svg { width: 44px; height: 44px; }
+  .merci__actions { margin-top: 2rem; }
+</style>

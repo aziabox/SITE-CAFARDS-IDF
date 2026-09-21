@@ -1,0 +1,225 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Une maison isolée peut-elle avoir des cafards ?',
+    a: "Oui. L'isolement ne protège pas d'une introduction par un objet, un carton de livraison, un appareil d'occasion ou un réseau d'évacuation. En maison, la présence se concentre généralement autour des zones chaudes et humides — cuisine, buanderie, sous-sol — plutôt que dans l'ensemble du logement.",
+  },
+  {
+    q: 'Comment les cafards entrent-ils dans une maison ?',
+    a: "Quatre voies dominent : les objets introduits (cartons, cageots, électroménager d'occasion, meubles récupérés), les réseaux d'évacuation par un siphon asséché ou un regard mal refermé, les bas de portes et grilles d'aération en partie basse, et plus rarement un déplacement depuis une construction mitoyenne.",
+  },
+  {
+    q: 'Pourquoi trouve-t-on des cafards seulement au sous-sol ?',
+    a: "Parce que l'espèce concernée n'est probablement pas la même. Une présence limitée à un sous-sol humide oriente souvent vers la blatte orientale, qui recherche fraîcheur relative et humidité, tandis que les observations en cuisine concernent plus fréquemment la blatte germanique.",
+  },
+  {
+    q: 'Un siphon de sol peut-il laisser entrer des insectes ?',
+    a: "Oui, lorsqu'il s'assèche. La garde d'eau d'un siphon constitue une barrière physique ; dans un garage, une buanderie ou une cave peu utilisés, cette eau s'évapore et le passage devient libre. Verser un litre d'eau chaque mois suffit à maintenir la barrière.",
+  },
+  {
+    q: 'Faut-il traiter l’extérieur de la maison ?',
+    a: "Rarement. Les espèces de cafards concernées en France ne se maintiennent pas durablement à l'extérieur : traiter un jardin ou une façade n'a pas de sens. Ce qui compte, c'est l'étanchéité des points d'entrée en partie basse et l'état des réseaux d'évacuation.",
+  },
+  {
+    q: 'Peut-on rester chez soi pendant le traitement ?',
+    a: "Dans la plupart des configurations, oui. Le traitement est positionné dans des volumes fermés et hors de portée. Les consignes précises — délai avant nettoyage de certaines zones, accès des animaux domestiques — sont indiquées avant l'intervention.",
+  },
+];
+
+const related = [
+  { label: 'Cafards en cave', href: '/cafards-cave', text: "Partie basse, humidité et points d'entrée." },
+  { label: 'Cafards dans la cuisine', href: '/cafards-cuisine', text: "Les dix zones à inspecter, dans l'ordre." },
+  { label: 'Blatte orientale', href: '/blatte-orientale', text: "L'espèce des sous-sols et des buanderies." },
+  { label: 'Particuliers', href: '/cafards-particuliers', text: "Discrétion, consignes, rapport écrit." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Contrôle des voies d'introduction." },
+  { label: 'Seine-et-Marne', href: '/zones-intervention/seine-et-marne', text: "Département où la maison individuelle domine." },
+];
+---
+
+<TopicPage
+  title="Cafards dans une maison : points d’entrée et traitement | Blattis"
+  description="Cafards dans une maison individuelle : voies d'introduction, inspection du pourtour, sous-sol, buanderie et garage, siphons asséchés, espèces rencontrées et mesures durables."
+  h1="Cafards dans une maison : où chercher"
+  label="Maison"
+  lede="En maison individuelle, les questions changent par rapport à un appartement : il n'y a pas de colonne technique partagée, mais des points d'entrée depuis l'extérieur et des zones humides en partie basse."
+  bullets={['4 voies d’introduction', 'Sous-sol et buanderie', 'Siphons et regards']}
+  breadcrumbs={[
+    { label: 'Particuliers', href: '/cafards-particuliers' },
+    { label: 'Maison', href: '/cafards-maison' },
+  ]}
+  {faq}
+  {related}
+  relatedTitle="Pages liées"
+  ctaTitle="Décrire la situation de votre maison"
+  ctaText="Pièces concernées, présence en sous-sol ou en garage, taille des individus observés : ces éléments orientent l'identification et la recherche du point d'entrée."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Qu’est-ce qui change par rapport à un appartement ?">
+      <p>
+        Deux choses. Il n'y a pas de <strong>colonne technique partagée</strong> avec d'autres
+        logements, ce qui simplifie le périmètre. En revanche, il faut chercher un
+        <strong>point d'entrée depuis l'extérieur</strong> et examiner des volumes absents d'un
+        appartement : sous-sol, buanderie, garage accolé, vide sanitaire — où l'espèce rencontrée
+        n'est souvent pas la même.
+      </p>
+    </Answer>
+
+    <h2>Les quatre voies d’introduction</h2>
+    <h3>1. Les objets introduits</h3>
+    <p>
+      C'est la voie la plus fréquente, et la plus facile à maîtriser. Les cartons de livraison
+      ayant séjourné en réserve ou en entrepôt, les cageots, les meubles récupérés et surtout
+      l'<strong>électroménager d'occasion</strong> figurent parmi les vecteurs les mieux
+      documentés : le compartiment moteur d'un réfrigérateur de seconde main est chaud, fermé et
+      rarement inspecté.
+    </p>
+    <h3>2. Les réseaux d’évacuation</h3>
+    <p>
+      Un <strong>siphon de sol asséché</strong> est un passage ouvert. La garde d'eau constitue une
+      barrière physique, mais dans un garage, une buanderie ou une cave peu utilisés, cette eau
+      s'évapore. Même remarque pour un regard d'évacuation mal refermé ou une canalisation dont le
+      passage à travers un mur n'a pas été rebouché.
+    </p>
+    <h3>3. Les points bas du bâtiment</h3>
+    <p>
+      Bas de porte de garage, seuils, grilles d'aération en partie basse, passages de câbles et de
+      gaines traversant un mur de sous-sol. Ces ouvertures sont rarement étanches et se situent
+      exactement au niveau où circulent les insectes.
+    </p>
+    <h3>4. Une construction mitoyenne</h3>
+    <p>
+      Plus rare, mais réel dans une maison de ville ou accolée : un mur mitoyen traversé par une
+      gaine, un garage commun, une courette partagée.
+    </p>
+
+    <h2>L’inspection : deux périmètres distincts</h2>
+    <p>
+      En maison, l'inspection se mène en deux temps, car les zones concernées ne relèvent pas de la
+      même logique — et souvent pas de la même espèce.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Niveau</th><th>Zones examinées</th><th>Espèce la plus probable</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Zones chaudes</strong><br />(cuisine, salle d'eau)</td>
+            <td>Compartiment moteur du réfrigérateur, socle du lave-vaisselle, habillage du four, dessous d'évier, vides de plinthe, arrière des équipements sanitaires</td>
+            <td><a href="/blatte-germanique">Blatte germanique</a></td>
+          </tr>
+          <tr>
+            <td><strong>Zones humides basses</strong><br />(buanderie, sous-sol, garage)</td>
+            <td>Abords de canalisations, siphons de sol, regards, pied de chaudière, arrière du lave-linge, interstices de sol et de mur</td>
+            <td><a href="/blatte-orientale">Blatte orientale</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Cette distinction a une conséquence directe : voir un grand insecte sombre dans un garage
+      n'appelle pas le même traitement qu'un petit insecte clair en cuisine. Le protocole diffère,
+      comme l'explique la page <a href="/traitement-blattes">traitement des blattes par espèce</a>.
+    </p>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Les zones spécifiques à la maison</h2>
+    <h3>La buanderie</h3>
+    <p>
+      C'est fréquemment la pièce la plus concernée après la cuisine, et la moins inspectée. Elle
+      réunit un point d'eau permanent, la chaleur résiduelle du lave-linge et du sèche-linge, une
+      humidité entretenue par les cycles, et des interstices derrière et sous les appareils.
+    </p>
+    <p>
+      Deux points à vérifier : le raccordement de l'évacuation du lave-linge — souvent un passage
+      non colmaté à travers un mur — et l'état du siphon de sol lorsqu'il existe.
+    </p>
+    <h3>Le garage accolé</h3>
+    <p>
+      Le bas de porte est rarement étanche et se trouve au niveau du sol. À l'intérieur, les
+      stockages au sol — cartons, bois, sacs d'aliments pour animaux — offrent des abris de bonne
+      qualité. Un sac de croquettes ouvert constitue par ailleurs une ressource très attractive.
+    </p>
+    <h3>Le sous-sol et le cellier</h3>
+    <p>
+      Humidité, stabilité thermique, stockages contre les murs : les conditions sont favorables à la
+      blatte orientale. Voir la page <a href="/cafards-cave">cafards en cave</a> pour le détail.
+    </p>
+    <h3>Le vide sanitaire</h3>
+    <p>
+      Lorsqu'il existe et qu'il est accessible, il est examiné : c'est un volume non ventilé, humide
+      et traversé par des réseaux. Les trappes d'accès sont à signaler lors de la prise de contact.
+    </p>
+
+    <h2>Les mesures durables en maison</h2>
+    <ul class="list-check">
+      <li><strong>Maintenir les siphons de sol en eau</strong> — un litre d'eau par mois dans les siphons peu utilisés du garage, de la buanderie et de la cave.</li>
+      <li><strong>Vérifier et améliorer les bas de portes</strong>, en particulier celle du garage.</li>
+      <li><strong>Remplacer une grille d'aération abîmée</strong> par un modèle à maille fine — sans jamais l'obturer, ce qui créerait de l'humidité.</li>
+      <li><strong>Ventiler le sous-sol et la buanderie</strong>, et réparer les suintements le long des canalisations.</li>
+      <li><strong>Surélever les stockages</strong> et laisser un passage le long des murs dans les volumes enterrés.</li>
+      <li><strong>Fermer les aliments pour animaux</strong> dans des contenants rigides, y compris au garage et au cellier.</li>
+      <li><strong>Inspecter tout appareil d'occasion</strong> avant installation : arrière, dessous, compartiment moteur.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Ce qu’il est inutile de faire</h2>
+    <div class="note">
+      <p>
+        <strong>Traiter l'extérieur.</strong> Les espèces de cafards concernées en France ne se
+        maintiennent pas durablement dehors. Traiter un jardin, une terrasse ou une façade n'a pas
+        d'objet. Ce qui compte, c'est l'étanchéité des points d'entrée en partie basse.
+      </p>
+      <p>
+        <strong>Obturer les ventilations.</strong> Cela crée de l'humidité, ce qui va exactement à
+        l'encontre du but recherché.
+      </p>
+      <p>
+        <strong>Utiliser un aérosol.</strong> Le produit disperse la population vers d'autres pièces
+        et fait abandonner les refuges initiaux, ce qui rend l'inspection nettement plus difficile.
+      </p>
+    </div>
+
+    <h2>Le cas des blattes forestières</h2>
+    <p>
+      En maison, et particulièrement en été, une confusion revient régulièrement. Les
+      <strong>blattes forestières</strong> du genre <em>Ectobius</em> vivent dehors, dans la
+      végétation et la litière. Elles pénètrent accidentellement par une fenêtre ou une porte
+      ouverte, ressemblent beaucoup à une blatte germanique, mais <strong>ne s'installent pas</strong>
+      dans un logement chauffé.
+    </p>
+    <p>
+      L'indice le plus utile est le contexte : un individu isolé trouvé près d'une ouverture, en
+      été, sans aucune trace de déjections ni observation en cuisine. Les traiter est inutile.
+      La page <a href="/identifier-cafard">identifier un cafard</a> détaille les critères de
+      distinction.
+    </p>
+
+    <h2>Le déroulement en maison</h2>
+    <p>
+      Le principe est le même qu'ailleurs — inspecter avant de traiter — mais la séquence diffère
+      légèrement. L'inspection commence par la zone où les observations ont eu lieu, puis remonte ou
+      descend vers l'autre périmètre : si la présence est en cuisine, on vérifie la buanderie et le
+      sous-sol ; si elle est en partie basse, on vérifie le point d'entrée et les réseaux avant de
+      s'occuper des pièces de vie.
+    </p>
+    <p>
+      La page <a href="/traitement-cafards">traitement des cafards</a> décrit les sept étapes
+      complètes d'une intervention.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

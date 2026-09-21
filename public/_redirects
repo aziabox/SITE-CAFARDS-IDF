@@ -1,0 +1,20 @@
+# Redirections 301 (Netlify / Cloudflare Pages)
+# Variantes au singulier vers la page canonique.
+/cafards-commerce      /cafards-commerces      301
+/cafards-copropriete   /cafards-coproprietes   301
+/cafards-restaurant    /cafards-restaurants    301
+/cafards-hotel         /cafards-hotels         301
+/cafards-entreprise    /cafards-entreprises    301
+/blattes               /traitement-blattes     301
+/cafard                /cafards                301
+
+# Anciennes formes possibles de la section locale.
+/zones-intervention/val-d-oise   /zones-intervention/val-doise   301
+/zones-intervention/75           /zones-intervention/paris       301
+/zones-intervention/77           /zones-intervention/seine-et-marne   301
+/zones-intervention/78           /zones-intervention/yvelines    301
+/zones-intervention/91           /zones-intervention/essonne     301
+/zones-intervention/92           /zones-intervention/hauts-de-seine   301
+/zones-intervention/93           /zones-intervention/seine-saint-denis 301
+/zones-intervention/94           /zones-intervention/val-de-marne     301
+/zones-intervention/95           /zones-intervention/val-doise   301

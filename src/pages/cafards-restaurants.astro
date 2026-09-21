@@ -1,0 +1,218 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Comment traiter un restaurant sans fermer ?',
+    a: "L'intervention s'organise en dehors des services : tôt le matin, après la fermeture ou sur un jour de repos. Le travail se fait par zones — plonge, équipements, réserves, local de déchets — ce qui permet de couvrir l'ensemble du local sans interrompre l'exploitation. Une fermeture générale est rarement nécessaire.",
+  },
+  {
+    q: 'Pourquoi la population est-elle souvent en réserve et non en cuisine ?',
+    a: "Parce que les cartons et cageots stockés au sol contre un mur offrent un abri sec, sombre et resserré, dans un local peu fréquenté la nuit. Les observations ont lieu en cuisine, où l'on travaille, mais la population la plus nombreuse se trouve fréquemment en réserve.",
+  },
+  {
+    q: 'Quels documents faut-il conserver ?',
+    a: "Les rapports d'intervention avec les constats et les zones traitées, les recommandations émises et les actions engagées en réponse, ainsi que le relevé des observations faites par les équipes entre deux passages. Ces éléments constituent la trace de l'action menée et sont examinés lors des contrôles.",
+  },
+  {
+    q: 'Les livraisons peuvent-elles réintroduire des blattes ?',
+    a: "Oui, c'est une voie d'introduction documentée via les cartons, les cageots et les palettes. Un local parfaitement traité peut être réalimenté par une livraison. Le déballage à la réception, avant la mise en réserve, et l'évacuation immédiate des emballages réduisent sensiblement ce risque.",
+  },
+  {
+    q: 'Faut-il vider les réserves avant l’intervention ?',
+    a: "Pas entièrement, mais il faut pouvoir accéder aux murs, aux angles et aux sous-faces de rayonnage. Un passage dégagé le long des murs et des stockages surélevés changent davantage le résultat que le choix du produit.",
+  },
+  {
+    q: 'Une surveillance régulière est-elle utile ?',
+    a: "Dans un local approvisionné quotidiennement par des circuits extérieurs, la pression d'introduction est continue. Une surveillance régulière permet de détecter tôt et de traiter sur un périmètre restreint, ce qui coûte en pratique moins qu'une succession d'interventions curatives.",
+  },
+];
+
+const related = [
+  { label: 'Désinsectisation professionnelle', href: '/desinsectisation-cafards', text: "Traçabilité, plan de lutte et surveillance." },
+  { label: 'Commerces', href: '/cafards-commerces', text: "Réserves, arrière-boutique, flux de livraison." },
+  { label: 'Hôtels', href: '/cafards-hotels', text: "Cuisines de production et offices d'étage." },
+  { label: 'Cafards dans la cuisine', href: '/cafards-cuisine', text: "Les zones à inspecter en priorité." },
+  { label: 'Blatte germanique', href: '/blatte-germanique', text: "L'espèce dominante en cuisine professionnelle." },
+  { label: "Zones d'intervention", href: '/zones-intervention', text: "Paris et les huit départements." },
+];
+---
+
+<TopicPage
+  title="Cafards en restaurant : cuisine professionnelle | Blattis"
+  description="Cafards en restaurant : plonge, réserves et local de déchets, organisation du stockage, contrôle des livraisons et traçabilité."
+  h1="Cafards et blattes en restaurant"
+  label="Restauration"
+  lede="Une cuisine professionnelle réunit, par construction, tout ce dont une blatte a besoin. Ce n'est pas une question de tenue du local : c'est une caractéristique du lieu de travail, et cela change la manière d'intervenir."
+  bullets={['Intervention hors service', 'Réserves incluses', 'Rapport pour la traçabilité']}
+  breadcrumbs={[{ label: 'Restaurants', href: '/cafards-restaurants' }]}
+  {faq}
+  faqTitle="Questions des restaurateurs"
+  {related}
+  relatedTitle="Pages liées"
+  service={{
+    name: 'Traitement des cafards en restaurant',
+    description:
+      "Diagnostic de la cuisine, de la plonge, des réserves et du local de déchets, traitement hors heures de service, mesures correctives sur l'organisation du stockage, rapport d'intervention et surveillance.",
+  }}
+  ctaTitle="Faire évaluer un établissement de restauration"
+  ctaText="Configuration du local, volume d'activité, horaires de service : l'intervention se planifie autour de votre exploitation."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Où se trouve réellement la population dans un restaurant ?">
+      <p>
+        Les insectes sont vus en cuisine, mais la population la plus nombreuse se trouve
+        fréquemment <strong>en réserve</strong>, dans les cartons et cageots stockés au sol contre
+        un mur. C'est pourquoi un traitement limité à la zone d'observation produit rarement un
+        résultat durable.
+      </p>
+    </Answer>
+
+    <h2>Les zones examinées, dans l’ordre</h2>
+    <p>
+      L'ordre n'est pas arbitraire : il suit la probabilité de trouver une population installée.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Zone</th><th>Ce qui la rend favorable</th><th>Point d’accès nécessaire</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Plonge et laverie</strong></td><td>Chaleur de l'eau, humidité constante, résidus alimentaires</td><td>Socle et arrière de la machine</td></tr>
+          <tr><td><strong>2. Réserves sèches</strong></td><td>Cartons et cageots au sol, abri sec et sombre, local peu fréquenté la nuit</td><td>Murs, angles, sous-faces de rayonnage</td></tr>
+          <tr><td><strong>3. Équipements chauds</strong></td><td>Chaleur continue, graisse, interstices techniques</td><td>Espace appareil / mur, socle, pieds, habillages</td></tr>
+          <tr><td><strong>4. Siphons de sol et caniveaux</strong></td><td>Humidité permanente, matière organique, accès depuis le réseau</td><td>Grilles, regards</td></tr>
+          <tr><td><strong>5. Local de déchets</strong></td><td>Apport organique quotidien, chaleur, ventilation souvent insuffisante</td><td>Pourtour des bacs, sol, jonctions murales</td></tr>
+          <tr><td><strong>6. Chambres froides</strong></td><td>Groupe froid, condensation autour des joints de porte</td><td>Habillage technique, pourtour des joints</td></tr>
+          <tr><td><strong>7. Vestiaires et local de ménage</strong></td><td>Chaleur, humidité, abris, rarement inspectés</td><td>Plinthes, sous-faces, casiers</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      L'espèce rencontrée en cuisine professionnelle est très majoritairement la
+      <a href="/blatte-germanique">blatte germanique</a>. Une observation en partie basse, près
+      d'un caniveau ou d'un regard, peut orienter vers la
+      <a href="/blatte-orientale">blatte orientale</a> : le protocole change alors.
+    </p>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>L’organisation du stockage : ce qui fait tenir un traitement</h2>
+    <p>
+      C'est la différence principale entre une intervention qui tient et une intervention à refaire.
+      Un traitement correctement positionné dans une réserve encombrée de cartons empilés au sol
+      contre les murs perdra son effet en quelques semaines, simplement parce que l'inspection et
+      l'accès resteront impossibles.
+    </p>
+    <h3>Trois mesures sans coût</h3>
+    <ul class="list-check">
+      <li><strong>Surélever les stockages.</strong> Les palettes et rayonnages bas doivent laisser un dégagement suffisant pour voir et atteindre le sol.</li>
+      <li><strong>Laisser un passage le long des murs.</strong> Quinze à vingt centimètres suffisent à rendre une inspection possible.</li>
+      <li><strong>Éliminer les cartons vides.</strong> Les conserver « au cas où » revient à maintenir des abris de très bonne qualité dans la zone la plus sensible du local.</li>
+    </ul>
+
+    <h2>Le contrôle des livraisons</h2>
+    <p>
+      Les cartons, cageots et palettes figurent parmi les vecteurs d'introduction les mieux
+      documentés. Un local parfaitement traité peut être réalimenté par une livraison, surtout dans
+      un établissement approvisionné par des circuits de gros.
+    </p>
+    <p>
+      La mesure la plus simple consiste à <strong>déballer à la réception</strong>, avant la mise en
+      réserve, et à évacuer immédiatement les emballages. Un contrôle visuel des cageots — en
+      particulier les interstices des angles — prend quelques secondes.
+    </p>
+    <div class="note">
+      <p>
+        Cette habitude a souvent plus d'effet qu'un traitement supplémentaire. Elle a aussi
+        l'avantage d'être vérifiable : c'est un point concret à inscrire dans une procédure interne.
+      </p>
+    </div>
+
+    <h2>Les contraintes d’exploitation prises en compte</h2>
+    <h3>Continuité de service</h3>
+    <p>
+      L'intervention se planifie hors service : tôt le matin, après la fermeture, ou sur un jour de
+      repos. Le travail par zones permet de couvrir progressivement l'ensemble du local sans
+      interruption d'activité.
+    </p>
+    <h3>Environnement alimentaire</h3>
+    <p>
+      Les méthodes et les positionnements tiennent compte de la nature du local. Les produits sont
+      placés dans les volumes techniques fermés, hors des surfaces de travail et de contact. Les
+      consignes à respecter après l'intervention sont remises par écrit.
+    </p>
+    <h3>Discrétion vis-à-vis de la clientèle</h3>
+    <p>
+      Matériel compact, véhicule non identifié, créneaux hors présence de clientèle : l'intervention
+      doit rester invisible depuis la salle. Cela relève de l'organisation autant que de la technique.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Traçabilité : ce qui est examiné lors d’un contrôle</h2>
+    <p>
+      Les établissements manipulant des denrées alimentaires sont soumis à des obligations
+      générales en matière d'hygiène et de maîtrise sanitaire, qui incluent la lutte contre les
+      nuisibles. Les modalités concrètes dépendent de l'activité et de l'analyse des dangers propre
+      à l'établissement ; en revanche, la capacité à démontrer qu'une action a été menée et suivie
+      est systématiquement regardée.
+    </p>
+    <p>
+      En pratique, quatre éléments sont à conserver et à organiser :
+    </p>
+    <ol class="list-plain">
+      <li>les <strong>rapports d'intervention</strong>, avec les constats et les zones traitées ;</li>
+      <li>les <strong>recommandations</strong> émises et les actions engagées en réponse ;</li>
+      <li>le <strong>relevé des observations</strong> faites par les équipes entre deux passages ;</li>
+      <li>la <strong>liste des zones à surveiller</strong> et la fréquence des contrôles.</li>
+    </ol>
+    <p>
+      Le détail de ce dispositif figure sur la page
+      <a href="/desinsectisation-cafards">désinsectisation en local professionnel</a>.
+    </p>
+
+    <h2>Le canal de signalement : la mesure la plus rentable</h2>
+    <div class="note">
+      <p>
+        Un cuisinier ou un employé de réserve voit les choses bien avant un contrôle trimestriel.
+        Encore faut-il qu'il sache à qui le dire et que cela soit noté. Mettre en place un relevé
+        simple — un cahier, une fiche, un message à un référent — ne coûte rien et réduit
+        sensiblement le délai entre l'apparition et l'intervention.
+      </p>
+      <p>
+        Or le délai est, en restauration, le facteur qui coûte le plus cher : une population
+        détectée tôt se traite sur un périmètre restreint.
+      </p>
+    </div>
+
+    <h2>Le suivi est techniquement nécessaire</h2>
+    <p>
+      Les <a href="/ootheque-cafard">oothèques</a> — les enveloppes contenant les œufs — sont
+      protégées et peuvent éclore plusieurs semaines après une intervention. Une reprise à trois ou
+      quatre semaines, avec des individus nettement plus petits, correspond à cette éclosion.
+    </p>
+    <p>
+      Le contrôle vise cette génération avant qu'elle atteigne l'âge de reproduction. Dans un local
+      professionnel, une surveillance régulière au-delà de ce contrôle est souvent plus économique
+      qu'une succession d'interventions curatives.
+    </p>
+
+    <h2>Ce qui ne peut pas être promis</h2>
+    <p>
+      Aucune garantie d'absence définitive ne peut être donnée dans un local approvisionné
+      quotidiennement par des circuits extérieurs. Ce qui peut être organisé, c'est un dispositif
+      qui détecte tôt et traite sur un périmètre restreint.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

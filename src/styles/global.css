@@ -1,8 +1,8 @@
 @import './fonts.css';
 
 /* ==========================================================================
-   BLATTIS — Systeme de design "hygiene urbaine premium"
-   Bordeaux profond / creme / terracotta — Sora + Source Sans 3
+   BLATTIS — Système de design « hygiène urbaine premium »
+   Bordeaux profond / crème / terracotta — Sora + Source Sans 3
    ========================================================================== */
 
 :root {
@@ -15,7 +15,7 @@
   --bx-500: #9C3A4B;
   --bx-100: #EBD8DB;
 
-  /* --- Cremes & ivoires --- */
+  /* --- Crèmes & ivoires --- */
   --creme: #F6F0E6;
   --creme-2: #FBF6EE;
   --ivoire: #FFFDF8;
@@ -31,7 +31,7 @@
   --cuivre: #C77B45;
   --terra-100: #F3E2D8;
 
-  /* --- Semantique --- */
+  /* --- Sémantique --- */
   --bg: var(--creme);
   --surface: var(--ivoire);
   --surface-2: var(--creme-2);
@@ -150,8 +150,8 @@ strong, b { font-weight: 600; color: var(--bx-900); }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 0.55rem;
   font-family: var(--font-display);
-  font-size: 0.7rem; font-weight: 600;
-  letter-spacing: 0.15em; text-transform: uppercase;
+  font-size: 0.76rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--terra-600);
   margin: 0 0 1.1rem;
 }
@@ -221,12 +221,12 @@ a.card { text-decoration: none; display: block; transition: border-color 0.18s e
 a.card:hover { border-color: var(--line-strong); transform: translateY(-2px); box-shadow: var(--shadow); }
 a.card h3 { color: var(--bx-800); }
 .card__meta {
-  font-family: var(--font-display); font-size: 0.7rem; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--terra-600);
+  font-family: var(--font-display); font-size: 0.755rem; font-weight: 600;
+  letter-spacing: 0.11em; text-transform: uppercase; color: var(--terra-600);
   margin-bottom: 0.7rem; display: block;
 }
 
-/* --- Liste a puces personnalisee --- */
+/* --- Liste à puces personnalisée --- */
 .list-check { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
 .list-check > li { position: relative; padding-left: 1.7rem; color: var(--ink-soft); }
 .list-check > li::before {
@@ -251,11 +251,11 @@ a.card h3 { color: var(--bx-800); }
 .answer > *:last-child { margin-bottom: 0; }
 .answer p { color: var(--ink); font-size: 1.04rem; }
 .answer__label {
-  display: block; font-family: var(--font-display); font-size: 0.68rem; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra-600); margin-bottom: 0.4rem;
+  display: block; font-family: var(--font-display); font-size: 0.755rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--terra-600); margin-bottom: 0.45rem;
 }
 
-/* --- Encadre note --- */
+/* --- Encadré note --- */
 .note {
   background: var(--surface-2);
   border: 1px solid var(--line-soft);
@@ -279,8 +279,25 @@ thead th {
 }
 tbody tr:last-child td { border-bottom: 0; }
 
-/* --- Prose (articles & pages editoriales) --- */
+/* --- Prose (articles & pages éditoriales) --- */
 .prose { max-width: 70ch; }
+
+/*
+ * Lorsque .prose est posé sur le même élément que .wrap, on conserve la largeur
+ * du conteneur et on limite la largeur des blocs de texte eux-mêmes : le contenu
+ * reste ainsi aligné à gauche, comme le héros et les autres sections, au lieu
+ * d'être centré dans la page.
+ */
+.wrap.prose { max-width: var(--wrap); }
+.wrap.prose > * { max-width: 76ch; }
+.wrap.prose > .table-scroll,
+.wrap.prose > .grid,
+.wrap.prose > .steps,
+.wrap.prose > .zones,
+.wrap.prose > .lieux-grid,
+.wrap.prose > .fiche,
+.wrap.prose > .esp-grid,
+.wrap.prose > .zones-wrap { max-width: none; }
 .prose > h2 { margin-top: 2.6rem; padding-top: 0.2rem; }
 .prose > h2:first-child { margin-top: 0; }
 .prose > h3 { margin-top: 1.9rem; }

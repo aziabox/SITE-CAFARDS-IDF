@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { faqGroups, allFaqItems } from '../data/faq';
+import { site } from '../data/site';
+import { faqSchema } from '../lib/schema';
+
+const breadcrumbs = [{ label: 'FAQ', href: '/faq' }];
+const flat = (a: string | string[]) => (Array.isArray(a) ? a.join(' ') : a);
+const schema = [faqSchema('/faq', allFaqItems.map((i) => ({ q: i.q, a: flat(i.a) })))];
+---
+
+<BaseLayout
+  title={`FAQ cafards et blattes : toutes les questions | ${site.brand}`}
+  description="Questions fréquentes sur les cafards et les blattes : identification, infestation, traitement, délais, copropriété et prévention."
+  {breadcrumbs}
+  {schema}
+>
+  <Hero
+    label="FAQ"
+    title="Questions fréquentes sur les cafards et les blattes"
+    text="Les réponses sont factuelles et ne promettent aucun résultat universel : l'espèce, l'étendue de la population et l'accès aux zones de refuge conditionnent trop fortement chaque situation."
+    bullets={[`${allFaqItems.length} questions`, '5 thèmes', 'Réponses directes']}
+    {breadcrumbs}
+  />
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <nav class="faq-nav" aria-label="Thèmes de la FAQ">
+        {faqGroups.map((g, i) => (
+          <a href={`#theme-${i + 1}`}>{g.title}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  {faqGroups.map((g, i) => (
+    <section class={`section ${i % 2 === 1 ? 'section--creme' : ''}`} id={`theme-${i + 1}`}>
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Thème {i + 1} / {faqGroups.length}</p>
+          <h2>{g.title}</h2>
+          {g.intro && <p class="lede">{g.intro}</p>}
+        </div>
+        <Faq items={g.items} bare id={`faq-${i + 1}`} />
+      </div>
+    </section>
+  ))}
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Une question qui n’est pas traitée ici ?</h2>
+      <p>
+        Les pages thématiques du site développent chacun de ces points :
+        <a href="/identifier-cafard">identification</a>,
+        <a href="/nid-cafards">localisation des refuges</a>,
+        <a href="/traitement-cafards">déroulement d'une intervention</a>,
+        <a href="/prevention-cafards">prévention</a>,
+        <a href="/cafards-coproprietes">copropriétés</a> et
+        <a href="/desinsectisation-cafards">locaux professionnels</a>.
+      </p>
+      <p>
+        Le <a href="/blog">blog</a> contient également des articles détaillés, chacun ouvrant par
+        une réponse directe à la question posée dans son titre.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Votre situation n’est pas dans la liste ?"
+    text="Décrivez-la en quelques lignes : les pièces concernées, la fréquence des observations et le type de bâtiment suffisent à orienter la réponse."
+  />
+</BaseLayout>
+
+<style>
+  .faq-nav { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .faq-nav a {
+    display: inline-block; padding: 0.55rem 1rem;
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: 999px;
+    font-family: var(--font-display); font-size: 0.89rem; font-weight: 600;
+    text-decoration: none; color: var(--bx-700);
+  }
+  .faq-nav a:hover { border-color: var(--terra); color: var(--terra-600); }
+</style>

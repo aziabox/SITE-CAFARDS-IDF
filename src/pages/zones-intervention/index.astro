@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import IdfMap from '../../components/IdfMap.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Answer from '../../components/Answer.astro';
+import { departements } from '../../data/departements';
+import { villes } from '../../data/villes';
+import { site } from '../../data/site';
+import { serviceSchema, faqSchema } from '../../lib/schema';
+
+const title = "Cafards en Île-de-France : zones d'intervention | " + site.brand;
+const description =
+  "Zones d'intervention contre les cafards en Île-de-France : Paris et les huit départements, carte interactive et contexte local du bâti.";
+
+const breadcrumbs = [{ label: "Zones d'intervention", href: '/zones-intervention' }];
+
+const faq = [
+  {
+    q: 'Intervenez-vous dans toute l’Île-de-France ?',
+    a: "Les interventions couvrent Paris et les huit départements de la région. Pour les communes les plus éloignées de la grande couronne, les modalités et les délais sont confirmés lors de la prise de contact plutôt qu'annoncés par avance.",
+  },
+  {
+    q: 'Le bâti francilien favorise-t-il les infestations ?',
+    a: "Ce n'est pas l'ancienneté du bâti qui pèse le plus, mais la mutualisation des réseaux. Dans un immeuble collectif, les colonnes d'eau, les gaines techniques et les traversées de canalisation relient des logements sans rapport entre eux. Dans une maison individuelle, la même espèce pose des questions différentes.",
+  },
+  {
+    q: 'Le traitement diffère-t-il selon le département ?',
+    a: "La méthode reste la même, mais le contexte du bâti change les priorités d'inspection. En petite couronne, le diagnostic porte sur la colonne technique et les parties communes. Dans les départements où la maison individuelle domine, il porte sur les points d'entrée, le sous-sol et les réseaux d'évacuation.",
+  },
+  {
+    q: 'Quels types de bâtiments sont traités ?',
+    a: "Appartements, maisons, copropriétés, restaurants, commerces, hôtels, bureaux et locaux professionnels. Chaque contexte fait l'objet d'une page dédiée décrivant les problématiques qui lui sont propres.",
+  },
+  {
+    q: 'Faut-il attendre une saison particulière ?',
+    a: "Non. Les blattes vivent à l'intérieur des bâtiments, dans des zones chauffées en permanence. Leur activité ne suit donc pas les saisons de la même manière que celle des insectes d'extérieur : il n'y a aucune raison de reporter une intervention.",
+  },
+  {
+    q: 'Comment savoir si ma commune est couverte ?',
+    a: "Les pages départementales listent les principales communes desservies. Les communes voisines sont traitées au cas par cas selon la distance : le plus simple est de l'indiquer lors de l'échange initial.",
+  },
+];
+
+const batiments = [
+  { label: 'Appartements', href: '/cafards-appartement' },
+  { label: 'Maisons', href: '/cafards-maison' },
+  { label: 'Copropriétés', href: '/cafards-coproprietes' },
+  { label: 'Restaurants', href: '/cafards-restaurants' },
+  { label: 'Commerces', href: '/cafards-commerces' },
+  { label: 'Hôtels', href: '/cafards-hotels' },
+  { label: 'Bureaux', href: '/cafards-entreprises' },
+  { label: 'Caves et sous-sols', href: '/cafards-cave' },
+];
+
+const schema = [
+  serviceSchema({
+    url: '/zones-intervention',
+    name: 'Traitement des cafards en Île-de-France',
+    description,
+  }),
+  faqSchema('/zones-intervention', faq.map((f) => ({ q: f.q, a: f.a }))),
+];
+---
+
+<BaseLayout {title} {description} {breadcrumbs} {schema}>
+  <Hero
+    label="Hub local"
+    title="Traitement des cafards en Île-de-France"
+    text="Paris et les huit départements franciliens présentent des configurations de bâti très différentes. Chaque page départementale décrit le contexte local et les priorités d'inspection qui en découlent."
+    bullets={['9 pages départementales', `${villes.length} pages locales`, 'Carte interactive']}
+    {breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap prose">
+      <Answer question="Quelles zones sont réellement couvertes ?">
+        <p>
+          Paris et les huit départements d'Île-de-France : Seine-et-Marne, Yvelines, Essonne,
+          Hauts-de-Seine, Seine-Saint-Denis, Val-de-Marne et Val-d'Oise. Les pages départementales
+          listent les principales communes desservies. Pour les communes les plus éloignées de la
+          grande couronne, les modalités sont confirmées lors de la prise de contact.
+        </p>
+      </Answer>
+
+      <h2>Ce que le contexte local change réellement</h2>
+      <p>
+        La méthode d'intervention ne change pas d'un département à l'autre : on identifie l'espèce,
+        on localise les zones de refuge par inspection, puis on traite ces volumes fermés. Ce qui
+        change, c'est <strong>où chercher en priorité</strong> — et cela dépend du bâti.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Contexte dominant</th><th>Départements concernés</th><th>Priorité d’inspection</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Bâti ancien dense</strong></td>
+              <td>Paris, nord des Hauts-de-Seine</td>
+              <td>Colonne technique, coffrages, commerces en pied d'immeuble</td>
+            </tr>
+            <tr>
+              <td><strong>Habitat collectif d’après-guerre</strong></td>
+              <td>Seine-Saint-Denis, Val-de-Marne, sud du Val-d'Oise, Essonne</td>
+              <td>Gaines mutualisées, locaux de déchets, logements bas</td>
+            </tr>
+            <tr>
+              <td><strong>Maison individuelle</strong></td>
+              <td>Seine-et-Marne, Yvelines, Essonne</td>
+              <td>Points d'entrée, sous-sol, buanderie, siphons de sol</td>
+            </tr>
+            <tr>
+              <td><strong>Sites tertiaires et restauration collective</strong></td>
+              <td>Hauts-de-Seine, Val-de-Marne</td>
+              <td>Cuisines de production, laveries, locaux de tri</td>
+            </tr>
+            <tr>
+              <td><strong>Hôtellerie et restauration de volume</strong></td>
+              <td>Seine-et-Marne, Val-d'Oise</td>
+              <td>Offices d'étage, locaux de linge, cuisines</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Cette lecture a une conséquence pratique : une même espèce — la
+        <a href="/blatte-germanique">blatte germanique</a> — se traite sur un périmètre très
+        différent selon qu'elle se trouve dans un pavillon des Yvelines ou dans une colonne
+        d'immeuble parisien.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--creme">
+    <div class="wrap">
+      <IdfMap withList={false} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Départements</p>
+        <h2>Les neuf pages départementales</h2>
+        <p class="lede">
+          Chaque page décrit le contexte local du bâti, les problématiques rencontrées, les conseils
+          adaptés, les principales communes desservies et une FAQ propre au département.
+        </p>
+      </div>
+      <div class="grid grid-3">
+        {departements.map((d) => (
+          <a class="card dept" href={`/zones-intervention/${d.slug}`}>
+            <span class="card__meta">Département {d.code}</span>
+            <h3>{d.nom}</h3>
+            <p>{d.lede}</p>
+            <span class="link-more" aria-hidden="true">Voir la page</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--creme">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Villes</p>
+        <h2>Pages locales par commune</h2>
+        <p class="lede">
+          Ces pages existent uniquement pour les communes où le contexte local apporte une
+          information réellement différente : type de bâti, problématiques spécifiques, prévention
+          adaptée. Chacune est rédigée séparément.
+        </p>
+      </div>
+      <div class="villes">
+        {departements.map((d) => {
+          const list = villes.filter((v) => v.departement === d.slug);
+          return list.length > 0 ? (
+            <div class="villes__col">
+              <h3><a href={`/zones-intervention/${d.slug}`}>{d.nom}</a></h3>
+              <ul>
+                {list.map((v) => <li><a href={`/${v.slug}`}>{v.nom}</a></li>)}
+              </ul>
+            </div>
+          ) : null;
+        })}
+      </div>
+      <div class="note">
+        <p>
+          Aucune page n'est créée dans le seul but d'obtenir une URL supplémentaire. Si une commune
+          n'a pas de page dédiée, cela ne signifie pas qu'elle n'est pas desservie : les principales
+          communes de chaque département figurent sur la page départementale correspondante.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Types de bâtiments</p>
+        <h2>Ce que nous traitons</h2>
+      </div>
+      <ul class="bat">
+        {batiments.map((b) => <li><a href={b.href}>{b.label}</a></li>)}
+      </ul>
+      <p class="section-foot">
+        Pour les locaux professionnels, la page
+        <a href="/desinsectisation-cafards">désinsectisation</a> décrit le volet traçabilité et
+        surveillance.
+      </p>
+    </div>
+  </section>
+
+  <Faq items={faq} eyebrow="FAQ locale" title="Questions sur les zones d’intervention" />
+
+  <CtaBand
+    title="Indiquez votre commune et votre situation"
+    text="Type de bâtiment, pièces concernées, fréquence des observations : ces éléments suffisent à préparer un échange utile et à confirmer les modalités d'intervention."
+  />
+</BaseLayout>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+  .section-foot { margin-top: 1.5rem; color: var(--ink-soft); max-width: 68ch; }
+
+  .dept p { font-size: 0.95rem; }
+  .dept .link-more { margin-top: 0.9rem; font-size: 0.86rem; }
+
+  .villes {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.25rem 1.75rem;
+  }
+  .villes__col h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .villes__col h3 a { display: inline-block; padding-block: 4px; text-decoration: none; }
+  .villes__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+  .villes__col li a { display: inline-block; padding-block: 3px; font-size: 0.9rem; color: var(--ink-soft); text-decoration: none; }
+  .villes__col li a:hover { color: var(--terra-600); text-decoration: underline; text-underline-offset: 0.2em; }
+
+  .bat { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0; padding: 0; }
+  .bat a {
+    display: inline-block; padding: 0.6rem 1.05rem;
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: 999px;
+    font-family: var(--font-display); font-size: 0.9rem; font-weight: 600;
+    text-decoration: none; color: var(--bx-700);
+  }
+  .bat a:hover { border-color: var(--terra); color: var(--terra-600); }
+</style>

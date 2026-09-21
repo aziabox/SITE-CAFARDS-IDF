@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection, render } from 'astro:content';
+import { categories } from '../../content.config';
+import { site } from '../../data/site';
+import { articleSchema, faqSchema } from '../../lib/schema';
+import { labelFor } from '../../lib/links';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}
+
+const { post, posts } = Astro.props;
+const { Content, headings } = await render(post);
+
+const label = categories[post.data.category];
+const path = `/blog/${post.id}`;
+
+const breadcrumbs = [
+  { label: 'Blog', href: '/blog' },
+  { label, href: `/blog/${post.data.category}` },
+  { label: post.data.title, href: path },
+];
+
+const schema = [
+  articleSchema({
+    url: path,
+    title: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.date.toISOString(),
+    dateModified: (post.data.updated ?? post.data.date).toISOString(),
+    section: label,
+    keywords: post.data.keywords,
+  }),
+  ...(post.data.faq.length ? [faqSchema(path, post.data.faq)] : []),
+];
+
+const sameCat = posts
+  .filter((p) => p.id !== post.id && p.data.category === post.data.category)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+const fallback = posts
+  .filter((p) => p.id !== post.id && p.data.category !== post.data.category)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const suggestions = [...sameCat, ...fallback].slice(0, 3);
+
+const fmt = (d: Date) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+const h2s = headings.filter((h) => h.depth === 2);
+---
+
+<BaseLayout
+  title={`${post.data.metaTitle ?? post.data.title} | ${site.brand}`}
+  description={post.data.description}
+  {breadcrumbs}
+  {schema}
+  ogType="article"
+  datePublished={post.data.date.toISOString()}
+  dateModified={(post.data.updated ?? post.data.date).toISOString()}
+>
+  <article class="art">
+    <header class="art__head">
+      <div class="wrap">
+        <nav class="art__bc" aria-label="Fil d'Ariane">
+          <ol>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href={`/blog/${post.data.category}`}>{label}</a></li>
+          </ol>
+        </nav>
+        <p class="art__cat">{label}</p>
+        <h1>{post.data.title}</h1>
+        <p class="art__meta">
+          Publié le <time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time>
+          {post.data.updated && (
+            <> · mis à jour le <time datetime={post.data.updated.toISOString()}>{fmt(post.data.updated)}</time></>
+          )}
+        </p>
+      </div>
+    </header>
+
+    <div class="wrap art__body">
+      <div class="art__main">
+        <div class="answer art__answer">
+          <span class="answer__label">Réponse directe</span>
+          <p>{post.data.answer}</p>
+        </div>
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+
+      <aside class="art__aside">
+        {h2s.length > 2 && (
+          <nav class="toc" aria-label="Sommaire de l’article">
+            <h2>Sommaire</h2>
+            <ol>
+              {h2s.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+            </ol>
+          </nav>
+        )}
+        <div class="aside-cta">
+          <h2>Besoin d’un avis ?</h2>
+          <p>
+            Décrivez la situation : pièces concernées, fréquence des observations, type de bâtiment.
+          </p>
+          <a class="btn btn--primary" href="/contact">Demander une intervention</a>
+          <a class="aside-cta__tel" href={site.phoneHref}>{site.phoneDisplay}</a>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  {post.data.related.length > 0 && (
+    <section class="section section--tight art__rel">
+      <div class="wrap">
+        <h2>Pages liées</h2>
+        <ul class="art__rel-list">
+          {post.data.related.map((href) => <li><a href={href}>{labelFor(href)}</a></li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {post.data.faq.length > 0 && (
+    <Faq items={post.data.faq} eyebrow="Questions" title="Questions fréquentes sur ce sujet" />
+  )}
+
+  {suggestions.length > 0 && (
+    <section class="section section--creme">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">À lire aussi</p>
+          <h2>Autres articles</h2>
+        </div>
+        <div class="grid grid-3">
+          {suggestions.map((p) => <PostCard post={p} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .art__head {
+    background: var(--bx-900);
+    background-image: radial-gradient(760px 420px at 85% 0%, rgba(199, 123, 69, 0.18), transparent 62%);
+    color: var(--creme);
+    padding-block: clamp(2.25rem, 4.5vw, 3.75rem) clamp(2rem, 4vw, 3rem);
+  }
+  .art__bc { margin-bottom: 1.3rem; font-size: 0.8rem; }
+  .art__bc ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.3rem 0.5rem; margin: 0; padding: 0; }
+  .art__bc li { display: flex; align-items: center; gap: 0.5rem; }
+  .art__bc li + li::before { content: '/'; color: rgba(246, 240, 230, 0.32); }
+  .art__bc a { color: rgba(246, 240, 230, 0.72); text-decoration: none; }
+  .art__bc a:hover { color: var(--ivoire); text-decoration: underline; text-underline-offset: 0.2em; }
+  .art__cat {
+    font-family: var(--font-display); font-size: 0.755rem; font-weight: 600;
+    letter-spacing: 0.13em; text-transform: uppercase; color: var(--cuivre);
+    margin: 0 0 0.9rem;
+  }
+  .art__head h1 { color: var(--ivoire); max-width: 24ch; margin-bottom: 0.9rem; font-size: clamp(1.8rem, 1.3rem + 2.2vw, 2.9rem); }
+  .art__meta { margin: 0; font-size: 0.88rem; color: rgba(246, 240, 230, 0.68); }
+
+  .art__body {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 300px);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    padding-block: clamp(2.25rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  .art__answer { margin-bottom: 2.25rem; }
+
+  .art__aside { position: sticky; top: calc(var(--header-h) + 1.25rem); display: grid; gap: 1.25rem; }
+  .toc {
+    background: var(--creme-2); border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg); padding: 1.15rem 1.3rem;
+  }
+  .toc h2 {
+    font-family: var(--font-display); font-size: 0.755rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--terra-600);
+    margin-bottom: 0.85rem;
+  }
+  .toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; display: grid; gap: 0.5rem; }
+  .toc li { counter-increment: toc; display: flex; gap: 0.5rem; }
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-family: var(--font-display); font-size: 0.72rem; font-weight: 700;
+    color: var(--terra); flex: none; padding-top: 0.15em;
+  }
+  .toc a { display: inline-block; padding-block: 2px; font-size: 0.89rem; color: var(--ink-soft); text-decoration: none; line-height: 1.45; }
+  .toc a:hover { color: var(--terra-600); text-decoration: underline; text-underline-offset: 0.2em; }
+
+  .aside-cta {
+    background: var(--bx-800); color: var(--creme);
+    border-radius: var(--r-lg); padding: 1.35rem 1.4rem;
+  }
+  .aside-cta h2 { color: var(--ivoire); font-size: 1.04rem; margin-bottom: 0.5rem; }
+  .aside-cta p { font-size: 0.92rem; color: rgba(246, 240, 230, 0.82); margin-bottom: 1.1rem; }
+  .aside-cta .btn { width: 100%; }
+  .aside-cta__tel {
+    display: block; margin-top: 0.85rem; text-align: center;
+    font-family: var(--font-display); font-weight: 600; font-size: 1.02rem;
+    color: var(--cuivre); text-decoration: none;
+  }
+  .aside-cta__tel:hover { color: var(--terra-100); }
+
+  .art__rel { border-top: 1px solid var(--line-soft); }
+  .art__rel h2 { font-size: 1.1rem; margin-bottom: 1rem; }
+  .art__rel-list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 0; padding: 0; }
+  .art__rel-list a {
+    display: inline-block; padding: 0.5rem 0.95rem;
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: 999px;
+    font-size: 0.88rem; text-decoration: none; color: var(--bx-700);
+  }
+  .art__rel-list a:hover { border-color: var(--terra); color: var(--terra-600); }
+
+  @media (max-width: 900px) {
+    .art__body { grid-template-columns: 1fr; }
+    .art__aside { position: static; }
+  }
+</style>

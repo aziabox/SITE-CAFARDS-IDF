@@ -1,0 +1,237 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+import Steps from '../components/Steps.astro';
+
+const demarche = [
+  { title: 'Recueil des signalements', text: "Recensement des logements concernés, des niveaux et des dates. Sans recoupement, l'étendue réelle reste invisible." },
+  { title: 'Diagnostic du bâtiment', text: "Inspection des logements signalés, des gaines, des caves, du local de déchets et de la chaufferie." },
+  { title: 'Définition du périmètre', text: "Logements concernés, voisins verticaux et horizontaux, parties communes reliées. Un document écrit formalise le constat." },
+  { title: 'Décision de la copropriété', text: "Le syndic ou l'assemblée décide pour les parties communes. Le diagnostic sert de base à cette décision." },
+  { title: 'Intervention coordonnée', text: "Traitements simultanés ou rapprochés sur les logements et les parties communes, pour éviter les réinfestations croisées." },
+  { title: 'Contrôle et recommandations', text: "Passage de vérification visant la génération issue des oothèques, et mesures correctives sur les locaux communs." },
+];
+
+const faq = [
+  {
+    q: 'Faut-il traiter tous les appartements d’une cage d’escalier ?',
+    a: "Pas systématiquement. On traite les logements concernés, ceux qui les encadrent verticalement et horizontalement, ainsi que les parties communes reliées. Le périmètre est défini à partir des observations relevées lors du diagnostic, pas par principe.",
+  },
+  {
+    q: 'Le syndic peut-il agir sans vote d’assemblée générale ?',
+    a: "Selon l'urgence, le montant engagé et les pouvoirs qui lui sont conférés, un syndic peut engager certaines actions. Les modalités dépendent du règlement de copropriété et des décisions antérieures : c'est au syndic de préciser ce cadre.",
+  },
+  {
+    q: 'Pourquoi le traitement d’un seul logement échoue-t-il ?',
+    a: "Parce que les logements d'une même colonne communiquent par les gaines techniques et les passages de canalisation. Traiter un lot réduit la population de ce lot ; les lots voisins et les réseaux la réalimentent ensuite. Le traitement était correct, son périmètre était trop étroit.",
+  },
+  {
+    q: 'Le local poubelles doit-il être inspecté ?',
+    a: "Oui dès lors que des logements des premiers niveaux signalent des observations. Un local de collecte réunit en permanence chaleur, humidité et matière organique. Lorsqu'il est mal ventilé ou proche d'une gaine, il peut héberger une population stable qui réalimente les logements bas.",
+  },
+  {
+    q: 'Faut-il distribuer des produits aux occupants ?',
+    a: "C'est une pratique à éviter. Les aérosols utilisés individuellement dispersent les insectes vers les logements voisins par les passages de canalisation, ce qui aggrave la diffusion à l'échelle du bâtiment au lieu de la réduire.",
+  },
+  {
+    q: 'Combien de temps dure une opération sur un immeuble ?',
+    a: "Cela dépend du nombre de logements concernés, de l'accès obtenu aux parties communes et de la coordination des rendez-vous. Une opération comporte généralement une première phase puis un contrôle. Les délais sont précisés après le diagnostic plutôt qu'annoncés à l'avance.",
+  },
+];
+
+const related = [
+  { label: 'Cafards en immeuble', href: '/cafards-immeuble', text: "Gaines, colonnes et circulation verticale." },
+  { label: 'Cafards en appartement', href: '/cafards-appartement', text: "Ce qu'un occupant peut faire de son côté." },
+  { label: 'Cafards en cave', href: '/cafards-cave', text: "Parties basses, humidité et locaux techniques." },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Méthode, inspection et définition du périmètre." },
+  { label: 'Désinsectisation professionnelle', href: '/desinsectisation-cafards', text: "Traçabilité et plan de surveillance." },
+  { label: "Zones d'intervention", href: '/zones-intervention', text: "Paris et les huit départements franciliens." },
+];
+---
+
+<TopicPage
+  title="Cafards en copropriété : diagnostic et traitement coordonné | Blattis"
+  description="Cafards en copropriété : pourquoi un traitement lot par lot échoue, rôle du syndic, diagnostic à l'échelle du bâtiment, parties communes et opération coordonnée."
+  h1="Cafards et blattes en copropriété"
+  label="Copropriétés"
+  lede="En copropriété, la difficulté est rarement technique — elle est organisationnelle. Personne ne dispose seul de l'information complète, et personne ne peut décider seul du périmètre utile."
+  bullets={['Diagnostic à l’échelle du bâtiment', 'Parties communes incluses', 'Interventions coordonnées']}
+  breadcrumbs={[{ label: 'Copropriétés', href: '/cafards-coproprietes' }]}
+  {faq}
+  faqTitle="Questions des syndics et conseils syndicaux"
+  {related}
+  relatedTitle="Pages liées"
+  service={{
+    name: 'Traitement des cafards en copropriété',
+    description:
+      "Diagnostic à l'échelle du bâtiment, inspection des gaines et des parties communes, définition du périmètre, interventions coordonnées sur les logements et les locaux communs, contrôle et recommandations.",
+  }}
+  ctaTitle="Faire établir un diagnostic de bâtiment"
+  ctaText="Nombre de logements signalant des observations, niveaux concernés, état des locaux communs : ces éléments permettent de proposer un périmètre défendable en assemblée."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Pourquoi un traitement lot par lot ne tient pas ?">
+      <p>
+        Parce que les logements sont reliés par des éléments qu'aucun occupant ne maîtrise : gaines
+        techniques verticales, colonnes d'eaux usées, passages de canalisation, coffrages, anciens
+        vide-ordures, locaux de collecte des déchets, caves. Une population installée dans un de
+        ces volumes circule d'un niveau à l'autre. Traiter un appartement réduit la population de
+        ce lot ; les lots voisins et les réseaux la réalimentent ensuite.
+      </p>
+    </Answer>
+
+    <h2>Ce qui explique les échecs répétés</h2>
+    <p>
+      Une copropriété peut faire intervenir trois entreprises différentes en deux ans sans résultat
+      stable. Chaque intervention était peut-être correcte sur le plan technique ; aucune n'a
+      couvert le périmètre réel.
+    </p>
+    <p>
+      Trois causes reviennent systématiquement : l'absence de recoupement des signalements, donc
+      une étendue sous-estimée ; l'absence d'accès aux parties communes, donc des réservoirs
+      laissés intacts ; et l'espacement des interventions dans le temps, qui permet aux logements
+      non encore traités de réalimenter ceux qui viennent de l'être.
+    </p>
+
+    <h2>Le rôle de chacun</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Acteur</th><th>Ce qu’il peut faire</th><th>Ce qu’il ne peut pas faire</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Occupant</strong></td>
+            <td>Faire traiter son logement, signaler par écrit, préparer l'accès aux zones</td>
+            <td>Décider d'une intervention dans les parties communes</td>
+          </tr>
+          <tr>
+            <td><strong>Propriétaire bailleur</strong></td>
+            <td>Faire traiter le logement loué, participer aux décisions de copropriété</td>
+            <td>Agir seul sur les réseaux collectifs</td>
+          </tr>
+          <tr>
+            <td><strong>Syndic</strong></td>
+            <td>Faire réaliser un diagnostic, organiser l'intervention sur les parties communes, coordonner les logements avec l'accord des occupants</td>
+            <td>Pénétrer dans un logement sans l'accord de son occupant</td>
+          </tr>
+          <tr>
+            <td><strong>Conseil syndical</strong></td>
+            <td>Relayer l'information, encourager les signalements, suivre l'opération</td>
+            <td>Engager des dépenses hors de ses attributions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>La démarche qui fonctionne</h2>
+    <p>
+      L'étape la plus décisive est la première, et c'est aussi celle qui coûte le moins.
+    </p>
+  </div>
+  <div class="wrap steps-wrap">
+    <Steps steps={demarche} />
+  </div>
+  <div class="wrap prose steps-after">
+    <div class="note">
+      <p>
+        <strong>Le recoupement des signalements est déterminant.</strong> Des logements peuvent
+        être concernés sans que leurs occupants aient remarqué quoi que ce soit, notamment s'ils
+        cuisinent peu. À l'inverse, un logement qui signale peut être le point d'arrivée d'une
+        population installée deux étages plus bas. Sans cette vue d'ensemble, le périmètre est
+        défini au hasard.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Les parties communes à examiner</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Zone</th><th>Pourquoi elle compte</th><th>Mesure corrective possible</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Gaines techniques</strong></td>
+            <td>Chaudes, humides, rarement ouvertes : conditions stables toute l'année et circulation verticale</td>
+            <td>Traitement, puis étanchéité des traversées après intervention</td>
+          </tr>
+          <tr>
+            <td><strong>Local de collecte des déchets</strong></td>
+            <td>Chaleur, humidité et apport organique continus : peut héberger une population stable</td>
+            <td>Ventilation, entretien des bacs, fréquence d'évacuation</td>
+          </tr>
+          <tr>
+            <td><strong>Anciens vide-ordures</strong></td>
+            <td>Volumes désaffectés, non entretenus, reliés à tous les niveaux</td>
+            <td>Inspection et obturation définitive lorsque possible</td>
+          </tr>
+          <tr>
+            <td><strong>Caves et sous-sols</strong></td>
+            <td>Humidité et stabilité thermique : zone favorable à la blatte orientale</td>
+            <td>Ventilation, limitation des stockages au sol, siphons maintenus en eau</td>
+          </tr>
+          <tr>
+            <td><strong>Chaufferie et locaux techniques</strong></td>
+            <td>Chaleur permanente et proximité des réseaux</td>
+            <td>Accès pour inspection, réparation des suintements</td>
+          </tr>
+          <tr>
+            <td><strong>Local commercial en pied d’immeuble</strong></td>
+            <td>Peut entretenir une population indépendamment des logements</td>
+            <td>Examen conjoint, coordination par le syndic</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      L'accès à ces locaux dépend du syndic ou du gardien. L'obtenir <strong>au moment du
+      diagnostic</strong>, et non après, change nettement la qualité du résultat.
+    </p>
+
+    <h2>Ce qu’il faut éviter collectivement</h2>
+    <ul class="list-check">
+      <li><strong>Attendre que la situation se stabilise.</strong> Une population de blattes germaniques ne se stabilise pas ; elle s'étend tant que les conditions le permettent.</li>
+      <li><strong>Traiter uniquement les parties communes.</strong> Cela limite la circulation mais laisse en place les populations des logements. Les deux volets sont complémentaires.</li>
+      <li><strong>Distribuer des produits aux occupants.</strong> Les aérosols dispersent les insectes vers les logements voisins et aggravent la diffusion à l'échelle du bâtiment.</li>
+      <li><strong>Colmater les gaines avant le diagnostic.</strong> Ces passages sont un élément de compréhension du cheminement.</li>
+      <li><strong>Espacer les interventions.</strong> Des traitements réalisés à plusieurs semaines d'intervalle se neutralisent mutuellement.</li>
+    </ul>
+
+    <h2>Le suivi fait partie de l’opération</h2>
+    <p>
+      Les <a href="/ootheque-cafard">oothèques</a> — les enveloppes contenant les œufs — sont
+      protégées et peuvent éclore plusieurs semaines après une intervention. Une reprise à trois ou
+      quatre semaines, avec des individus nettement plus petits, est un phénomène prévisible.
+    </p>
+    <p>
+      Prévoir ce contrôle dans le calendrier de l'opération, et non le considérer comme une
+      prestation supplémentaire à décider plus tard, est ce qui distingue une opération qui tient
+      d'une opération à refaire.
+    </p>
+
+    <h2>Le document utile : un diagnostic écrit</h2>
+    <p>
+      Pour un syndic ou un conseil syndical, le document le plus exploitable n'est pas un devis
+      mais un <strong>diagnostic</strong> : quels logements, quels niveaux, quelle colonne, quel
+      état des gaines, quelle situation des locaux de déchets et des caves, quels chemins de
+      circulation constatés.
+    </p>
+    <p>
+      C'est sur cette base qu'un périmètre peut être présenté en assemblée et défendu, plutôt que
+      sur une estimation générale.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+  .steps-wrap { margin-top: 1.75rem; }
+  .steps-after { margin-top: 1.75rem; }
+</style>

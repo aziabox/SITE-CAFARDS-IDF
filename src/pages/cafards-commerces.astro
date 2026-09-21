@@ -1,0 +1,209 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Un commerce non alimentaire peut-il être concerné ?',
+    a: "Oui. Un local de vente sans denrées peut héberger une population dans sa réserve, dès lors que des cartons y sont stockés et qu'un point d'eau ou une source de chaleur se trouve à proximité. Les espaces de pause du personnel constituent également des zones favorables.",
+  },
+  {
+    q: 'Faut-il fermer la boutique pendant l’intervention ?',
+    a: "Généralement non. L'intervention porte d'abord sur la réserve, l'arrière-boutique et les locaux techniques, qui ne sont pas accessibles à la clientèle. Elle se planifie avant l'ouverture ou après la fermeture selon la configuration du local.",
+  },
+  {
+    q: 'Les réserves d’une galerie marchande sont-elles reliées entre elles ?',
+    a: "Cela dépend de la configuration. Des quais de livraison, des couloirs de service et des locaux de déchets mutualisés peuvent relier plusieurs enseignes. Lorsque c'est le cas, le périmètre d'inspection dépasse le local d'où vient le signalement et une coordination avec le gestionnaire du site devient nécessaire.",
+  },
+  {
+    q: 'Comment éviter une réintroduction par les livraisons ?',
+    a: "En déballant à la réception plutôt qu'en réserve, en évacuant immédiatement les emballages et en contrôlant visuellement les angles des cageots et des cartons. Ce sont les interstices du cannelage et des angles qui abritent les individus transportés.",
+  },
+  {
+    q: 'Que faut-il préparer avant la visite ?',
+    a: "Un accès à la réserve, à l'arrière-boutique, au local de déchets et au local de ménage, ainsi qu'un dégagement suffisant le long des murs. Il est également utile de ne pas nettoyer les traces de déjections et de signaler les observations faites par le personnel.",
+  },
+];
+
+const related = [
+  { label: 'Restaurants', href: '/cafards-restaurants', text: "Cuisine professionnelle, plonge, contraintes de service." },
+  { label: 'Désinsectisation professionnelle', href: '/desinsectisation-cafards', text: "Traçabilité et plan de surveillance." },
+  { label: 'Entreprises et bureaux', href: '/cafards-entreprises', text: "Cafétérias, espaces de pause, locaux techniques." },
+  { label: 'Hôtels', href: '/cafards-hotels', text: "Cuisines de production et offices d'étage." },
+  { label: 'Copropriétés', href: '/cafards-coproprietes', text: "Commerce en pied d'immeuble et logements au-dessus." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Contrôle des voies d'introduction." },
+];
+---
+
+<TopicPage
+  title="Cafards en commerce : réserves et livraisons | Blattis"
+  description="Cafards en commerce : traitement des réserves et arrière-boutiques, organisation du stockage, contrôle des flux de livraison, galeries marchandes et locaux mutualisés."
+  h1="Cafards et blattes en commerce"
+  label="Commerces"
+  lede="Dans un commerce, la population se trouve rarement dans l'espace de vente. Elle est en réserve, et c'est le rythme des livraisons qui l'alimente."
+  bullets={['Réserves et arrière-boutique', 'Contrôle des livraisons', 'Hors heures d’ouverture']}
+  breadcrumbs={[{ label: 'Commerces', href: '/cafards-commerces' }]}
+  {faq}
+  faqTitle="Questions des commerçants"
+  {related}
+  relatedTitle="Pages liées"
+  service={{
+    name: 'Traitement des cafards en commerce',
+    description:
+      "Diagnostic des réserves, de l'arrière-boutique et des locaux techniques, traitement hors heures d'ouverture, mesures sur l'organisation du stockage et le contrôle des flux entrants.",
+  }}
+  ctaTitle="Faire évaluer un local commercial"
+  ctaText="Type d'activité, configuration de la réserve, rythme des livraisons : ces éléments déterminent l'approche et les créneaux d'intervention."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Pourquoi la réserve plutôt que la surface de vente ?">
+      <p>
+        Parce qu'un espace de vente est éclairé, fréquenté et dégagé — trois conditions
+        défavorables. Une réserve, au contraire, est sombre, peu fréquentée la nuit et remplie de
+        cartons empilés au sol contre les murs : des abris secs, resserrés et renouvelés à chaque
+        livraison.
+      </p>
+    </Answer>
+
+    <h2>Les zones à examiner selon le type de commerce</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Type de commerce</th><th>Zones prioritaires</th><th>Facteur dominant</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Alimentation générale, supérette</strong></td>
+            <td>Réserve, quai de réception, local de déchets, bacs à fruits et légumes</td>
+            <td>Flux de cageots et de cartons</td>
+          </tr>
+          <tr>
+            <td><strong>Boulangerie, pâtisserie</strong></td>
+            <td>Fournil, pétrin, socle des équipements, réserve de farine</td>
+            <td>Chaleur permanente et denrées pulvérulentes</td>
+          </tr>
+          <tr>
+            <td><strong>Boucherie, traiteur</strong></td>
+            <td>Plonge, groupe froid, caniveaux, local de déchets</td>
+            <td>Humidité et matière organique</td>
+          </tr>
+          <tr>
+            <td><strong>Commerce non alimentaire</strong></td>
+            <td>Réserve de cartons, espace de pause du personnel, local de ménage</td>
+            <td>Abris en carton et point d'eau du coin cuisine</td>
+          </tr>
+          <tr>
+            <td><strong>Enseigne en galerie marchande</strong></td>
+            <td>Réserve, couloir de service, quai mutualisé, local de déchets commun</td>
+            <td>Locaux partagés avec les enseignes voisines</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Un point mérite d'être souligné : un commerce <strong>non alimentaire</strong> n'est pas à
+      l'abri. Le coin cuisine du personnel — micro-ondes, réfrigérateur, évier — réunit à lui seul
+      chaleur, humidité, nourriture et interstices, et il est souvent le seul point d'eau du local.
+    </p>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Le flux de livraison : l’élément central</h2>
+    <p>
+      Dans un commerce, la question n'est pas seulement « comment éliminer la population présente »
+      mais « comment éviter qu'elle soit renouvelée chaque semaine ». Les cartons, cageots et
+      palettes figurent parmi les vecteurs d'introduction les mieux documentés.
+    </p>
+    <h3>Trois points de contrôle</h3>
+    <ul class="list-check">
+      <li><strong>À la réception</strong> — contrôle visuel des angles et des interstices des cageots et cartons, avant la mise en réserve.</li>
+      <li><strong>Au déballage</strong> — déballer hors de la réserve lorsque la configuration le permet, et évacuer immédiatement les emballages.</li>
+      <li><strong>Au stockage</strong> — pas de cartons vides conservés, stockages surélevés, passage dégagé le long des murs.</li>
+    </ul>
+    <p>
+      Ces trois points ne coûtent rien et sont vérifiables. Ils ont souvent plus d'effet qu'un
+      traitement supplémentaire, en particulier dans un local approvisionné par des circuits de
+      gros.
+    </p>
+
+    <h2>Les locaux mutualisés d’une galerie ou d’un centre</h2>
+    <p>
+      C'est une situation particulière et fréquemment mal traitée. Lorsque plusieurs enseignes
+      partagent un quai de livraison, un couloir de service ou un local de déchets, une population
+      installée dans ces espaces concerne toutes les enseignes voisines.
+    </p>
+    <p>
+      Deux conséquences pratiques. D'abord, le périmètre d'inspection dépasse le local d'où vient
+      le signalement. Ensuite, la décision relative aux espaces communs appartient au gestionnaire
+      du site, pas à l'exploitant : un signalement écrit auprès de lui est la démarche
+      déterminante.
+    </p>
+    <div class="note">
+      <p>
+        Dans ce contexte, un <strong>diagnostic écrit</strong> décrivant les zones concernées et
+        les chemins de circulation constatés est la pièce la plus utile pour obtenir une
+        intervention sur les parties mutualisées — de la même manière qu'en
+        <a href="/cafards-coproprietes">copropriété</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Le cas du commerce en pied d’immeuble</h2>
+    <p>
+      Lorsqu'un local commercial se trouve au rez-de-chaussée d'un immeuble d'habitation, les
+      cheminements techniques entre le local et les logements des étages doivent être examinés.
+      Cours intérieures, conduits, passages de canalisation, coffrages : ces liaisons existent
+      souvent dans le bâti ancien.
+    </p>
+    <p>
+      Deux scénarios se rencontrent. Le local peut être l'origine d'une présence signalée dans les
+      appartements ; il peut aussi en être la victime, réalimenté depuis une colonne technique.
+      Le diagnostic cherche à établir les chemins réels, pas à désigner un responsable — et dans
+      les deux cas, un examen conjoint évite un traitement partiel suivi d'une réapparition.
+    </p>
+
+    <h2>L’intervention et les contraintes d’ouverture</h2>
+    <h3>Horaires</h3>
+    <p>
+      L'intervention porte d'abord sur la réserve, l'arrière-boutique et les locaux techniques, qui
+      ne sont pas accessibles à la clientèle. Elle se planifie avant l'ouverture ou après la
+      fermeture, selon la configuration du local. Une fermeture de la surface de vente est rarement
+      nécessaire.
+    </p>
+    <h3>Accès</h3>
+    <p>
+      Ce qui conditionne le plus la qualité du diagnostic, c'est l'accès : pouvoir approcher les
+      murs, les angles et les sous-faces de rayonnage. Un dégagement préalable de quinze à vingt
+      centimètres le long des murs change davantage le résultat que le choix du produit.
+    </p>
+    <h3>Discrétion</h3>
+    <p>
+      Matériel compact, véhicule non identifié, créneaux hors présence de clientèle. Pour un
+      commerce de proximité, c'est une condition pratique du recours à une intervention.
+    </p>
+
+    <h2>Traçabilité et surveillance</h2>
+    <p>
+      Pour un commerce manipulant des denrées alimentaires, la lutte contre les nuisibles entre
+      dans le cadre des obligations générales d'hygiène et de maîtrise sanitaire. La conservation
+      des rapports d'intervention, des recommandations et du relevé des observations internes
+      constitue la trace de l'action menée.
+    </p>
+    <p>
+      Pour tous les commerces, alimentaires ou non, une surveillance régulière est souvent plus
+      économique qu'une succession d'interventions curatives : elle permet de détecter tôt et de
+      traiter sur un périmètre restreint. Le dispositif est détaillé sur la page
+      <a href="/desinsectisation-cafards">désinsectisation en local professionnel</a>.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

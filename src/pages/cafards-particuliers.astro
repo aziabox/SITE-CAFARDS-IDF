@@ -1,0 +1,209 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Qui doit payer le traitement : locataire ou propriétaire ?',
+    a: "La répartition dépend du bail, du règlement de copropriété et de l'origine de l'infestation. Le traitement des parties communes relève de la copropriété ou du bailleur. Pour le logement, un diagnostic écrit précisant si la présence provient des réseaux communs ou du logement lui-même constitue l'élément le plus utile pour trancher la discussion.",
+  },
+  {
+    q: 'Faut-il quitter son logement pendant le traitement ?',
+    a: "Dans la plupart des configurations en habitation, le traitement est conçu pour permettre une occupation normale des lieux. Les consignes précises — délai avant nettoyage de certaines zones, accès des animaux domestiques, aération éventuelle — sont indiquées avant l'intervention et rappelées après.",
+  },
+  {
+    q: 'L’intervention est-elle discrète vis-à-vis des voisins ?',
+    a: "Le matériel utilisé est compact et le véhicule n'est pas identifié. La visite peut être planifiée sur un créneau choisi, et aucune information n'est communiquée aux autres occupants ni au syndic sans votre accord.",
+  },
+  {
+    q: 'Que faire avant la visite ?',
+    a: "Trois choses : rendre accessibles le dessous de l'évier, l'arrière du réfrigérateur et les placards bas ; ne pas nettoyer les traces de déjections, qui constituent la piste principale ; ne rien colmater, car les passages de canalisation renseignent sur le cheminement.",
+  },
+  {
+    q: 'Un devis est-il établi avant l’intervention ?',
+    a: "Le périmètre et les modalités sont précisés lors de l'échange initial, puis confirmés au regard de ce que révèle l'inspection. Un diagnostic peut conduire à proposer un périmètre différent de celui envisagé au départ, notamment en immeuble : ce point est expliqué avant toute intervention.",
+  },
+  {
+    q: 'Et si la présence vient de chez un voisin ?',
+    a: "C'est une situation fréquente en immeuble. Traiter votre logement réduit la population chez vous, mais elle se reconstituera si le logement voisin reste concerné. Le signalement écrit au syndic ou au bailleur est alors la démarche déterminante, et un diagnostic décrivant les chemins de circulation l'appuie utilement.",
+  },
+];
+
+const related = [
+  { label: 'Cafards en appartement', href: '/cafards-appartement', text: "La démarche spécifique au logement collectif." },
+  { label: 'Cafards en maison', href: '/cafards-maison', text: "Points d'entrée, sous-sol, buanderie, garage." },
+  { label: 'Cafards dans la cuisine', href: '/cafards-cuisine', text: "Les dix zones à inspecter, dans l'ordre." },
+  { label: 'Copropriétés', href: '/cafards-coproprietes', text: "Quand l'immeuble entier est concerné." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Les mesures durables après un traitement." },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Déroulement complet d'une intervention." },
+];
+---
+
+<TopicPage
+  title="Cafards chez les particuliers : intervention en logement | Blattis"
+  description="Cafards chez les particuliers : déroulement de la visite, discrétion, consignes d'occupation et répartition locataire-propriétaire."
+  h1="Cafards et blattes chez les particuliers"
+  label="Particuliers"
+  lede="Dans un logement, trois questions reviennent avant toute autre : est-ce que je peux rester chez moi, est-ce que cela se verra, et qui doit prendre en charge le traitement. Cette page y répond avant d'entrer dans la technique."
+  bullets={['Occupation normale des lieux', 'Intervention discrète', 'Rapport écrit remis']}
+  breadcrumbs={[{ label: 'Particuliers', href: '/cafards-particuliers' }]}
+  {faq}
+  faqTitle="Les questions des particuliers"
+  {related}
+  relatedTitle="Selon votre situation"
+  service={{
+    name: 'Traitement des cafards en logement de particulier',
+    description:
+      "Diagnostic du logement, inspection des zones de refuge, traitement permettant l'occupation normale des lieux, conseils de prévention et contrôle après intervention.",
+  }}
+  ctaTitle="Décrire la situation de votre logement"
+  ctaText="Les pièces concernées, la fréquence des observations et le type de bâtiment suffisent à préparer une visite utile."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Peut-on rester chez soi pendant le traitement ?">
+      <p>
+        Dans la grande majorité des configurations en habitation, oui. Le traitement est positionné
+        dans des volumes fermés — socles d'appareils, coffrages, vides de plinthe — et hors de
+        portée directe. Des consignes précises sont remises selon la méthode retenue, en tenant
+        compte de la présence d'enfants ou d'animaux domestiques.
+      </p>
+    </Answer>
+
+    <h2>Ce qui compte pour un particulier, au-delà de la technique</h2>
+    <p>
+      Une présence de blattes dans un logement soulève des préoccupations qui n'ont rien à voir
+      avec l'entomologie : la gêne vis-à-vis du voisinage, la question de la responsabilité, le
+      souci de savoir si les lieux resteront habitables. Ce sont des questions légitimes, et elles
+      se règlent en amont.
+    </p>
+
+    <h3>La discrétion</h3>
+    <p>
+      Le matériel employé est compact et se transporte dans une mallette. Le véhicule n'est pas
+      identifié. La visite peut être planifiée sur un créneau que vous choisissez, y compris en
+      dehors des horaires où l'immeuble est fréquenté.
+    </p>
+    <p>
+      Aucune information n'est transmise au syndic, au bailleur ou aux autres occupants sans votre
+      accord. Si le diagnostic conclut à un cheminement par les parties communes, vous décidez de
+      ce que vous en faites — et le document écrit vous appartient.
+    </p>
+
+    <h3>La question de la prise en charge</h3>
+    <p>
+      C'est le point qui bloque le plus souvent. Il se traite mieux avec un document qu'avec une
+      discussion.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Ce que révèle le diagnostic</th><th>Qui est concerné en pratique</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Présence limitée au logement, refuges internes, aucun cheminement externe</td>
+            <td>Le traitement du logement, selon les termes du bail s'il s'agit d'une location</td>
+          </tr>
+          <tr>
+            <td>Cheminement par une gaine technique ou une colonne partagée</td>
+            <td>Les parties communes relèvent de la copropriété ou du bailleur</td>
+          </tr>
+          <tr>
+            <td>Réalimentation depuis un local de déchets, une cave, une chaufferie</td>
+            <td>La copropriété, sur décision du syndic ou de l'assemblée</td>
+          </tr>
+          <tr>
+            <td>Local commercial alimentaire en pied d'immeuble</td>
+            <td>Examen conjoint, coordination par le syndic</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Le <strong>rapport écrit</strong> remis après l'intervention décrit les constats, les zones
+      traitées et les chemins de circulation relevés. C'est la pièce la plus utile pour appuyer une
+      demande auprès d'un propriétaire, d'un syndic ou d'un bailleur.
+    </p>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Préparer la visite : trois consignes, et une à ne pas suivre</h2>
+    <h3>Ce qui aide</h3>
+    <ul class="list-check">
+      <li><strong>Rendre les zones accessibles.</strong> Vider le dessous de l'évier, pouvoir dégager le réfrigérateur et le lave-vaisselle, rendre les placards bas et les tiroirs accessibles. Signaler l'existence d'une trappe de gaine technique.</li>
+      <li><strong>Noter les observations.</strong> Dates, heures, pièces. En immeuble, cette chronologie aide à identifier la colonne concernée.</li>
+      <li><strong>Signaler les contraintes.</strong> Présence d'enfants, d'animaux, allergies, activité à domicile : ces éléments influencent le choix des méthodes.</li>
+    </ul>
+    <h3>Ce qu’il faut éviter</h3>
+    <div class="note">
+      <p>
+        <strong>Ne pas nettoyer les traces de déjections avant la visite.</strong> C'est le réflexe
+        le plus naturel, et c'est contre-productif : ces petits points noirs constituent la piste
+        principale vers les refuges. Leur densité indique la proximité de la zone où vit la
+        population.
+      </p>
+      <p>
+        <strong>Ne pas utiliser d'aérosol.</strong> Le produit agit comme un répulsif sur la
+        population et la disperse vers d'autres pièces ou, en immeuble, vers les logements voisins.
+        Les refuges initiaux sont abandonnés, ce qui rend l'inspection nettement plus difficile.
+      </p>
+      <p>
+        <strong>Ne rien colmater.</strong> Les passages de canalisation non étanches indiquent le
+        cheminement. Le colmatage est une bonne mesure — après le traitement.
+      </p>
+    </div>
+
+    <h2>Ce que vous pouvez faire dès maintenant</h2>
+    <p>
+      Trois gestes utiles, sans risque de compliquer le diagnostic.
+    </p>
+    <ol class="list-plain">
+      <li><strong>Supprimer l'eau disponible la nuit</strong> — évier essuyé, pas de vaisselle humide, bac de dégivrage du réfrigérateur vidé, gamelles d'animaux retirées. C'est le levier le plus efficace à court terme.</li>
+      <li><strong>Fermer les denrées sèches</strong> dans des contenants rigides, y compris les aliments pour animaux.</li>
+      <li><strong>Retirer les cartons et papiers</strong> des placards bas : ce sont des abris que vous pouvez supprimer sans attendre.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Après l’intervention : ce qui va se passer</h2>
+    <p>
+      Connaître la séquence évite beaucoup d'inquiétude. Voici ce qui est observé le plus souvent,
+      sans que cela constitue un engagement.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Période</th><th>Ce qui est généralement constaté</th><th>Interprétation</th></tr></thead>
+        <tbody>
+          <tr><td>Jours 1 à 3</td><td>Les observations peuvent augmenter</td><td>Normal : les individus circulent davantage</td></tr>
+          <tr><td>Semaines 1 à 2</td><td>Diminution nette</td><td>Les adultes en circulation sont atteints</td></tr>
+          <tr><td>Semaines 3 à 4</td><td>Possible reprise, individus nettement plus petits</td><td>Éclosion des oothèques présentes lors du traitement</td></tr>
+          <tr><td>Au-delà</td><td>Arrêt des observations si le contrôle a couvert cette vague</td><td>Une reprise ultérieure oriente vers une réalimentation externe</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      La reprise de la troisième semaine n'est pas un échec : c'est un phénomène prévisible, lié au
+      fait que les <a href="/ootheque-cafard">oothèques</a> — les enveloppes contenant les œufs —
+      sont protégées et que la femelle de la blatte germanique les porte sur elle jusqu'à un stade
+      avancé. Le contrôle vise cette génération avant qu'elle atteigne l'âge de reproduction.
+    </p>
+
+    <h2>Logement, appartement ou maison : les pages détaillées</h2>
+    <p>
+      Les questions ne sont pas les mêmes selon le type de logement. En
+      <a href="/cafards-appartement">appartement</a>, la difficulté centrale est la circulation
+      entre logements par les réseaux. En <a href="/cafards-maison">maison</a>, elle porte sur les
+      points d'entrée depuis l'extérieur et les zones humides en partie basse — buanderie, cave,
+      garage — où l'espèce rencontrée n'est souvent pas la même.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

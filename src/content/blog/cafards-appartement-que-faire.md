@@ -1,5 +1,6 @@
 ---
 title: "Cafards dans un appartement : que faire ?"
+metaTitle: "Cafards dans un appartement : la marche à suivre pas à pas"
 description: "La démarche à suivre dans un logement collectif : évaluer, signaler, préparer l'intervention, et ce qu'il faut absolument éviter de faire en premier."
 date: 2025-04-12
 category: habitation

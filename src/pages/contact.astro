@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Answer from '../components/Answer.astro';
+import { site, cta } from '../data/site';
+import { serviceSchema } from '../lib/schema';
+
+const breadcrumbs = [{ label: 'Contact', href: '/contact' }];
+const jours = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'];
+const schema = [
+  serviceSchema({
+    url: '/contact',
+    name: 'Demande d’intervention contre les cafards en Île-de-France',
+    description:
+      "Prise de contact pour une intervention contre les cafards et les blattes en Île-de-France : description de la situation, type de bâtiment et pièces concernées.",
+  }),
+];
+---
+
+<BaseLayout
+  title={`Demander une intervention — contact | ${site.brand}`}
+  description="Demander une intervention contre les cafards en Île-de-France : décrivez les pièces concernées, la fréquence et le type de bâtiment."
+  {breadcrumbs}
+  {schema}
+>
+  <Hero
+    label="Contact"
+    title="Décrire votre situation"
+    text="Quelques informations suffisent à préparer un échange utile : les pièces concernées, la fréquence des observations, la taille des individus vus et le type de bâtiment."
+    bullets={['Réponse sous 24 h ouvrées', 'Habitations et professionnels', 'Paris et les 8 départements']}
+    primaryLabel={cta.describe}
+    {breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap ct">
+      <div class="ct__form">
+        <h2 class="ct__h2">Formulaire de demande</h2>
+        <p class="ct__intro">
+          Les champs marqués d'un astérisque sont nécessaires pour vous rappeler. Plus la
+          description est précise, plus l'échange initial permet de distinguer une observation
+          isolée d'une population installée.
+        </p>
+        <ContactForm />
+      </div>
+
+      <aside class="ct__aside">
+        <div class="ct__block ct__block--tel">
+          <h2>Par téléphone</h2>
+          <a class="ct__tel" href={site.phoneHref}>{site.phoneDisplay}</a>
+          <p>
+            Pour une situation urgente ou si vous préférez décrire la situation de vive voix.
+          </p>
+          <dl class="ct__hours">
+            {site.openingHours.map((h) => (
+              <div>
+                <dt>
+                  {h.days.length > 1
+                    ? `${jours[0].charAt(0).toUpperCase() + jours[0].slice(1)} au ${jours[jours.length - 1]}`
+                    : 'Samedi'}
+                </dt>
+                <dd>{h.opens.replace(':', ' h ')} – {h.closes.replace(':', ' h ')}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div class="ct__block">
+          <h2>Ce qui est utile de préparer</h2>
+          <ul class="list-check">
+            <li>Les pièces où des insectes ont été vus</li>
+            <li>La fréquence et les horaires des observations</li>
+            <li>La taille approximative des individus</li>
+            <li>Le type de bâtiment et l'étage s'il y a lieu</li>
+            <li>La présence éventuelle d'observations chez un voisin</li>
+            <li>La présence d'enfants ou d'animaux domestiques</li>
+          </ul>
+        </div>
+
+        <div class="ct__block">
+          <h2>Avant la visite</h2>
+          <p>
+            Trois consignes améliorent nettement la qualité du diagnostic : ne pas nettoyer les
+            traces de déjections, ne rien colmater, et ne pas utiliser d'aérosol — il disperse la
+            population et fait abandonner les refuges.
+          </p>
+          <a class="link-more" href="/traitement-cafards">Déroulement d’une intervention</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--creme">
+    <div class="wrap prose">
+      <Answer question="Un diagnostic à distance est-il possible ?">
+        <p>
+          Une photo prise de dessus permet souvent d'orienter l'identification de l'espèce, ce qui
+          est utile. Elle ne remplace pas une inspection : connaître l'espèce ne dit rien de
+          l'étendue de la présence ni de la localisation des refuges, qui sont les deux éléments
+          déterminants pour définir un périmètre de traitement.
+        </p>
+      </Answer>
+
+      <h2>Zones couvertes</h2>
+      <p>
+        Paris et les huit départements d'Île-de-France. Les pages départementales listent les
+        principales communes desservies ; pour les communes les plus éloignées de la grande
+        couronne, les modalités et les délais sont confirmés lors de la prise de contact plutôt
+        qu'annoncés par avance.
+      </p>
+      <p>
+        Voir le détail sur la page <a href="/zones-intervention">zones d'intervention en
+        Île-de-France</a>.
+      </p>
+
+      <h2>Protection des données</h2>
+      <p>
+        Les informations transmises par ce formulaire servent uniquement à traiter votre demande.
+        Elles ne sont pas utilisées à des fins publicitaires et ne sont pas cédées à des tiers.
+        Les modalités de conservation et vos droits sont décrits dans la
+        <a href="/politique-confidentialite">politique de confidentialité</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ct { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(280px, 1fr); gap: clamp(1.75rem, 4vw, 3.25rem); align-items: start; }
+  @media (max-width: 940px) { .ct { grid-template-columns: 1fr; } }
+
+  .ct__h2 { font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.7rem); margin-bottom: 0.6rem; }
+  .ct__intro { color: var(--ink-soft); max-width: 62ch; margin-bottom: 1.75rem; }
+
+  .ct__aside { display: grid; gap: 1.1rem; }
+  .ct__block {
+    background: var(--surface); border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg); padding: 1.35rem 1.5rem;
+  }
+  .ct__block h2 { font-size: 1.02rem; margin-bottom: 0.75rem; }
+  .ct__block p { font-size: 0.93rem; color: var(--ink-soft); }
+  .ct__block .link-more { margin-top: 0.85rem; font-size: 0.87rem; }
+
+  .ct__block--tel {
+    background: var(--bx-800);
+    background-image: radial-gradient(420px 240px at 90% 0%, rgba(199, 123, 69, 0.24), transparent 65%);
+    border-color: transparent;
+  }
+  .ct__block--tel h2 { color: var(--ivoire); }
+  .ct__block--tel p { color: rgba(246, 240, 230, 0.8); }
+  .ct__tel {
+    display: block; margin-bottom: 0.7rem;
+    font-family: var(--font-display); font-size: clamp(1.4rem, 1.2rem + 0.9vw, 1.75rem);
+    font-weight: 700; letter-spacing: -0.02em;
+    color: var(--ivoire); text-decoration: none;
+  }
+  .ct__tel:hover { color: var(--cuivre); }
+  .ct__hours { margin: 1.1rem 0 0; display: grid; gap: 0.45rem; }
+  .ct__hours > div { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.88rem; }
+  .ct__hours dt { color: rgba(246, 240, 230, 0.7); }
+  .ct__hours dd { margin: 0; color: var(--ivoire); font-weight: 600; }
+</style>

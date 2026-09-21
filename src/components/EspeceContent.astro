@@ -1,0 +1,127 @@
+---
+import Answer from './Answer.astro';
+import type { Espece } from '../data/especes';
+import { especes } from '../data/especes';
+
+export interface Props { espece: Espece }
+const { espece: e } = Astro.props;
+const autres = especes.filter((x) => x.slug !== e.slug);
+---
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question={`Comment reconnaître la ${e.nom.toLowerCase()} ?`}>
+      <p>{e.answer}</p>
+    </Answer>
+
+    <div class="fiche">
+      <dl>
+        <div><dt>Nom scientifique</dt><dd><em>{e.nomLatin}</em></dd></div>
+        <div><dt>Taille</dt><dd>{e.taille}</dd></div>
+        <div><dt>Couleur</dt><dd>{e.couleur}</dd></div>
+      </dl>
+    </div>
+
+    <h2>Apparence</h2>
+    <ul class="list-check">
+      {e.apparence.map((a) => <li>{a}</li>)}
+    </ul>
+
+    <h2>Environnement recherché</h2>
+    {e.environnement.map((p) => <p>{p}</p>)}
+
+    <h2>Habitudes générales</h2>
+    <ul class="list-check">
+      {e.habitudes.map((h) => <li>{h}</li>)}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Signes possibles de sa présence</h2>
+    <p>
+      Aucun de ces indices, pris isolément, ne permet d'évaluer l'ampleur d'une situation. C'est
+      leur cumul qui est informatif.
+    </p>
+    <ul class="list-check">
+      {e.signes.map((s) => <li>{s}</li>)}
+    </ul>
+
+    <h2>Lieux fréquentés</h2>
+    <div class="lieux-grid">
+      {e.lieux.map((l) => <span class="lieux-tag">{l}</span>)}
+    </div>
+    <p class="lieux-note">
+      Ces emplacements ne sont pas interchangeables avec ceux des autres espèces : c'est
+      précisément ce qui rend l'identification utile avant toute intervention. Voir la page
+      <a href="/identifier-cafard">identifier un cafard</a>.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Méthodes de prévention</h2>
+    <ul class="list-check">
+      {e.prevention.map((p) => <li>{p}</li>)}
+    </ul>
+    <p>
+      La page <a href="/prevention-cafards">prévention des cafards</a> rassemble l'ensemble des
+      mesures, y compris le contrôle des voies d'introduction.
+    </p>
+
+    <h2>Traitement professionnel</h2>
+    {e.traitement.map((t) => <p>{t}</p>)}
+    <p>
+      Le déroulement complet d'une intervention est décrit sur la page
+      <a href="/traitement-cafards">traitement des cafards</a>, et les différences de protocole
+      entre espèces sur la page <a href="/traitement-blattes">traitement des blattes</a>.
+    </p>
+
+    <h2>Les autres espèces rencontrées</h2>
+    <div class="grid grid-2 autres">
+      {autres.map((a) => (
+        <a class="card" href={`/${a.slug}`}>
+          <span class="card__meta">{a.taille}</span>
+          <h3>{a.nom}</h3>
+          <p>{a.short}</p>
+          <span class="link-more" aria-hidden="true">Comparer</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .prose .grid { max-width: none; }
+
+  .fiche {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: 1.25rem 1.4rem;
+    margin: 0 0 2.25rem;
+  }
+  .fiche dl {
+    margin: 0; display: grid; gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+  .fiche dt {
+    font-family: var(--font-display); font-size: 0.755rem; font-weight: 600;
+    letter-spacing: 0.11em; text-transform: uppercase; color: var(--terra-600);
+    margin-bottom: 0.3rem;
+  }
+  .fiche dd { margin: 0; font-size: 0.97rem; color: var(--ink); }
+
+  .lieux-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.25rem; }
+  .lieux-tag {
+    display: inline-block; padding: 0.45rem 0.85rem;
+    background: var(--surface); border: 1px solid var(--line-soft);
+    border-radius: 999px; font-size: 0.87rem; color: var(--ink-soft);
+  }
+  .lieux-note { font-size: 0.97rem; }
+  .autres { margin-top: 1.5rem; }
+  .autres .card h3 { font-size: 1.05rem; }
+  .autres .link-more { margin-top: 0.9rem; font-size: 0.86rem; }
+</style>

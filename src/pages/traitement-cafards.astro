@@ -1,0 +1,225 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+import Steps from '../components/Steps.astro';
+
+const etapes = [
+  { title: 'Échange initial', text: "Pièces concernées, fréquence des observations, tailles des individus vus, type de bâtiment, contraintes d'occupation." },
+  { title: 'Analyse du contexte', text: "Lecture du lieu : configuration, équipements, parties communes reliées, trappes techniques, état des jonctions." },
+  { title: 'Identification des zones', text: "Ouverture ou dégagement des volumes fermés. Recherche d'individus, de mues et d'accumulations de déjections." },
+  { title: 'Recherche des points favorables', text: "Relevé des fuites, siphons asséchés, denrées accessibles, cartons, passages de canalisation non colmatés." },
+  { title: 'Traitement adapté', text: "Positionnement dans les refuges identifiés, hors de portée directe, selon l'espèce et les contraintes du lieu." },
+  { title: 'Conseils de prévention', text: "Consignes liées au traitement et recommandations concrètes sur les points relevés lors de l'inspection." },
+  { title: 'Suivi lorsque nécessaire', text: "Contrôle visant la génération issue des oothèques, et vérification du périmètre initial." },
+];
+
+const faq = [
+  {
+    q: 'Comment traiter les cafards ?',
+    a: "Un traitement efficace repose sur trois éléments : identifier l'espèce, localiser les zones de refuge par inspection, puis positionner le traitement dans ces volumes fermés plutôt que sur les surfaces visibles. En habitat collectif, le périmètre inclut les logements voisins et les réseaux reliés lorsque le diagnostic le justifie.",
+  },
+  {
+    q: 'Faut-il quitter son logement pendant le traitement ?',
+    a: "Dans la plupart des configurations en habitation, le traitement est conçu pour permettre une occupation normale des lieux. Des consignes précises sont données selon la méthode retenue et selon la présence d'enfants ou d'animaux domestiques. Aucune règle générale ne s'applique à toutes les situations : les modalités sont indiquées avant l'intervention.",
+  },
+  {
+    q: 'Combien de visites faut-il prévoir ?',
+    a: "Dans une situation récente et limitée à une pièce, une intervention suivie d'un contrôle peut suffire. Dès que plusieurs pièces ou plusieurs logements sont concernés, une seconde intervention est généralement nécessaire en raison du cycle des oothèques. Le nombre est précisé après le diagnostic, pas avant.",
+  },
+  {
+    q: 'Est-il normal de voir encore des cafards après l’intervention ?',
+    a: "Dans les premiers jours, oui : les individus circulent davantage et deviennent plus visibles. Ce qui compte est la tendance sur plusieurs semaines. Une reprise à trois ou quatre semaines, avec des individus nettement plus petits, correspond à l'éclosion des oothèques présentes lors du traitement.",
+  },
+  {
+    q: 'Faut-il vider les placards avant la visite ?',
+    a: "Pas systématiquement. Il est en revanche utile de pouvoir accéder au fond des placards bas, au dessous de l'évier et à l'arrière des appareils. Il est également préférable de ne pas nettoyer les traces de déjections avant la visite : elles constituent la piste principale vers les refuges.",
+  },
+  {
+    q: 'Le traitement est-il compatible avec la présence d’animaux ?',
+    a: "Les modalités sont adaptées en conséquence, avec un positionnement dans des volumes fermés et hors de portée, et des consignes spécifiques d'accès aux zones traitées. Ce point doit être signalé lors de l'échange initial car il influence le choix des méthodes.",
+  },
+];
+
+const related = [
+  { label: 'Traitement des blattes par espèce', href: '/traitement-blattes', text: "Comment le protocole change selon l'espèce identifiée." },
+  { label: 'Désinsectisation professionnelle', href: '/desinsectisation-cafards', text: "Locaux professionnels, traçabilité et plan de lutte." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Les mesures durables qui évitent une nouvelle installation." },
+  { label: 'Reconnaître un nid', href: '/nid-cafards', text: "Localiser les zones de refuge avant d'agir." },
+  { label: 'Cafards en appartement', href: '/cafards-appartement', text: "La démarche spécifique au logement collectif." },
+  { label: 'Cafards en copropriété', href: '/cafards-coproprietes', text: "Coordination avec le syndic et parties communes." },
+];
+---
+
+<TopicPage
+  title="Traitement des cafards : méthode, déroulement et suivi | Blattis"
+  description="Comment se déroule un traitement contre les cafards : diagnostic, inspection des zones de refuge, méthodes, périmètre d'intervention, consignes et contrôle après traitement."
+  h1="Traitement des cafards : comment se déroule une intervention"
+  label="Intervention"
+  lede="Un traitement utile ne commence pas par un produit mais par une inspection. Cette page décrit précisément ce qui se passe, dans quel ordre, et ce qui détermine la durabilité du résultat."
+  bullets={['Inspection avant traitement', '7 étapes détaillées', 'Contrôle après intervention']}
+  breadcrumbs={[{ label: 'Traitement', href: '/traitement-cafards' }]}
+  {faq}
+  {related}
+  relatedTitle="Aller plus loin"
+  service={{
+    name: 'Traitement des cafards',
+    description:
+      "Diagnostic, inspection des zones de refuge, traitement adapté au contexte, conseils de prévention et contrôle après intervention, en habitation comme en local professionnel.",
+    serviceType: 'Traitement des cafards',
+  }}
+  ctaTitle="Faire évaluer la situation"
+  ctaText="Un échange de quelques minutes permet de préciser les pièces concernées, la fréquence des observations et le périmètre utile d'une intervention."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Ce qui détermine le résultat d’un traitement">
+      <p>
+        Le produit compte moins que son <strong>emplacement</strong>. Les blattes passent
+        l'essentiel de leur temps dans des volumes fermés — socle d'appareil, coffrage de
+        canalisation, vide de plinthe, gaine technique — que rien appliqué en surface n'atteint.
+        C'est la principale explication du sentiment que « rien ne marche ».
+      </p>
+    </Answer>
+
+    <h2>Les sept étapes d’une intervention</h2>
+    <p>
+      L'ordre n'est pas négociable : comprendre, inspecter, puis traiter. Inverser ces étapes
+      revient à traiter au hasard. Dans un logement de taille standard, l'inspection représente
+      souvent la moitié du temps passé sur place.
+    </p>
+  </div>
+  <div class="wrap steps-wrap">
+    <Steps steps={etapes} />
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>L’inspection : ce qui est réellement examiné</h2>
+    <p>
+      Les zones ouvertes ou dégagées lors d'une inspection sont toujours les mêmes, parce qu'elles
+      réunissent chaleur, humidité, obscurité et espace resserré.
+    </p>
+    <ul class="list-check">
+      <li>Compartiment moteur et bac de dégivrage du réfrigérateur</li>
+      <li>Socle et flancs du lave-vaisselle</li>
+      <li>Habillage du four et contour de la plaque de cuisson</li>
+      <li>Dessous d'évier et coffrage des canalisations</li>
+      <li>Vides de plinthe des meubles bas</li>
+      <li>Charnières et rails de tiroir</li>
+      <li>Intérieur des petits appareils chauffants</li>
+      <li>Trappes de gaine technique en cuisine et en salle d'eau</li>
+      <li>En partie basse : buanderie, cave, siphons de sol, regards</li>
+    </ul>
+    <p>
+      On y recherche trois choses : des individus, des <strong>mues</strong> — les enveloppes
+      translucides abandonnées lors des changements de stade — et des
+      <strong>accumulations de déjections</strong>. La densité de ces traces indique à la fois la
+      proximité du refuge et l'ancienneté de la présence.
+    </p>
+    <p>
+      C'est aussi à ce stade que l'espèce est identifiée. Une blatte orientale en cave n'appelle
+      pas le même traitement qu'une blatte germanique en cuisine : la page
+      <a href="/traitement-blattes">traitement des blattes par espèce</a> détaille ces différences.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Le périmètre : la question la plus sous-estimée</h2>
+    <p>
+      À l'issue du diagnostic, le périmètre proposé peut dépasser le logement d'où vient la
+      demande. Ce n'est pas une manière d'élargir une prestation, c'est une conséquence de la
+      configuration du bâtiment.
+    </p>
+    <p>
+      Si l'inspection montre une présence limitée à un interstice de cuisine, le traitement reste
+      ciblé. Si elle révèle un cheminement par une gaine desservant plusieurs niveaux, traiter un
+      seul lot revient à réduire temporairement une population qui se reconstituera depuis les
+      logements voisins ou les réseaux.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Constat du diagnostic</th><th>Périmètre utile</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Présence récente, une seule pièce, refuges accessibles</td>
+            <td>Le logement, avec un contrôle de vérification</td>
+          </tr>
+          <tr>
+            <td>Deux pièces humides séparées, cheminement par une gaine interne</td>
+            <td>Le logement complet, gaine incluse</td>
+          </tr>
+          <tr>
+            <td>Plusieurs logements d'une même colonne concernés</td>
+            <td>Les logements concernés, leurs voisins verticaux et la gaine</td>
+          </tr>
+          <tr>
+            <td>Observations en rez-de-chaussée et local de déchets suspect</td>
+            <td>Logements bas + parties communes, sur décision de la copropriété</td>
+          </tr>
+          <tr>
+            <td>Local commercial alimentaire en pied d'immeuble</td>
+            <td>Examen conjoint du local et des logements situés au-dessus</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      En copropriété, la décision concernant les parties communes n'appartient pas à l'occupant.
+      C'est la raison pour laquelle un <strong>diagnostic écrit</strong> est souvent la pièce la
+      plus utile : il décrit les chemins de circulation constatés et permet d'appuyer une demande
+      auprès du syndic ou du bailleur.
+    </p>
+
+    <h2>Pourquoi un contrôle est techniquement nécessaire</h2>
+    <p>
+      Une <strong>oothèque</strong> est la capsule rigide contenant les œufs. Chez la blatte
+      germanique, la femelle la porte sur elle jusqu'à un stade avancé du développement, au fond
+      d'un interstice. Elle est donc protégée à la fois par sa paroi et par le comportement de
+      l'insecte.
+    </p>
+    <p>
+      Un traitement peut atteindre les adultes en circulation sans neutraliser ces enveloppes. Le
+      délai entre la ponte et l'éclosion crée mécaniquement une seconde vague, généralement
+      perceptible trois à quatre semaines après l'intervention, avec des individus nettement plus
+      petits.
+    </p>
+    <div class="note">
+      <p>
+        Le contrôle vise cette génération avant qu'elle atteigne l'âge de reproduction. C'est une
+        étape technique, pas une prestation additionnelle : un protocole en une seule visite ne
+        peut fonctionner que dans les situations récentes, où peu d'oothèques sont présentes.
+      </p>
+    </div>
+
+    <h2>Ce qui peut être annoncé, et ce qui ne peut pas l’être</h2>
+    <p>
+      Ce qui peut être décrit précisément avant l'intervention : la méthode, le périmètre proposé,
+      les étapes prévues, les consignes d'occupation des lieux et les recommandations de prévention.
+    </p>
+    <p>
+      Ce qui ne peut pas être annoncé honnêtement : un délai fixe de disparition, une garantie de
+      résultat en une seule visite, ou un diagnostic établi à distance sur la seule base d'une
+      photographie. L'espèce, l'étendue et l'accès obtenu aux zones de refuge conditionnent trop
+      fortement l'issue.
+    </p>
+
+    <h2>Préparer la visite : trois consignes utiles</h2>
+    <ol class="list-plain">
+      <li><strong>Rendre les zones accessibles</strong> — dessous d'évier vidé, possibilité de dégager le réfrigérateur et le lave-vaisselle, tiroirs bas accessibles, trappe de gaine signalée.</li>
+      <li><strong>Ne pas nettoyer les traces</strong> — les déjections indiquent les zones fréquentées et guident l'inspection.</li>
+      <li><strong>Ne rien colmater</strong> — les passages de canalisation renseignent sur le cheminement. Le colmatage vient après le traitement.</li>
+    </ol>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+  .steps-wrap { margin-top: 2rem; }
+</style>

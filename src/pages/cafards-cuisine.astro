@@ -1,0 +1,230 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const zones = [
+  { n: '01', t: 'Compartiment moteur du réfrigérateur', d: "Le compresseur chauffe en permanence, le bac de dégivrage fournit l'eau, la grille arrière offre les interstices. Presque systématiquement la première zone à vérifier." },
+  { n: '02', t: 'Socle et flancs du lave-vaisselle', d: "Chaleur résiduelle après chaque cycle, humidité constante, volume technique fermé sous l'appareil. Rivalise en fréquence avec la précédente." },
+  { n: '03', t: 'Habillage du four', d: "Non pas la cavité de cuisson, trop chaude et trop sèche, mais l'espace entre la coque et le meuble, ainsi que le socle d'un four encastré." },
+  { n: '04', t: 'Dessous d’évier et coffrage des canalisations', d: "Le point d'eau le plus direct, avec des passages de tuyaux rarement colmatés vers la pièce voisine ou le logement mitoyen." },
+  { n: '05', t: 'Vides de plinthe des meubles bas', d: "Le bandeau qui masque le socle crée un volume continu sur toute la longueur de la cuisine, généralement inaccessible." },
+  { n: '06', t: 'Charnières et rails de tiroir', d: "Les déjections s'y accumulent de façon très visible : c'est le meilleur indicateur de fréquentation d'un placard." },
+  { n: '07', t: 'Intérieur des petits appareils', d: "Machine à café, grille-pain, micro-ondes : chaleur, miettes et interstices réunis dans un même boîtier." },
+  { n: '08', t: 'Contour de la hotte et son conduit', d: "Graisse, tiédeur et accès vers d'autres volumes, parfois vers une gaine technique." },
+  { n: '09', t: 'Trappe de gaine technique', d: "Quand elle existe en cuisine ou en salle d'eau contiguë, elle est à ouvrir : c'est souvent par là que la population circule entre logements." },
+  { n: '10', t: 'Dessous du plan de travail scellé', d: "Là où le plan repose sur le meuble, l'interstice est parfois continu sur plusieurs mètres." },
+];
+
+const faq = [
+  {
+    q: 'Comment traiter une cuisine infestée ?',
+    a: "En traitant les volumes fermés, pas les surfaces. Les dix zones à examiner sont connues : compartiment moteur du réfrigérateur, socle du lave-vaisselle, habillage du four, dessous d'évier, vides de plinthe, charnières, petits appareils, hotte, trappe de gaine et dessous du plan de travail. Un produit appliqué sur un plan de travail n'atteint pratiquement pas la population.",
+  },
+  {
+    q: 'Les cafards peuvent-ils vivre dans un four ?',
+    a: "Pas dans la cavité de cuisson, trop chaude et trop sèche, mais très souvent dans l'habillage extérieur et l'espace technique autour : l'isolation y crée un volume tiède et protégé en permanence.",
+  },
+  {
+    q: 'Faut-il démonter les meubles de cuisine ?',
+    a: "Rarement. Il suffit généralement de dégager les appareils, d'ouvrir les trappes et de retirer les tiroirs bas, ce qui donne accès à l'essentiel des zones utiles. Un démontage n'est envisagé que si l'inspection le justifie.",
+  },
+  {
+    q: 'Une cuisine impeccable peut-elle être concernée ?',
+    a: "Oui, et c'est fréquent. La propreté supprime la nourriture accessible en surface, mais pas la chaleur des appareils, l'humidité autour des points d'eau, ni les interstices techniques. En immeuble, elle ne change rien aux réseaux partagés.",
+  },
+  {
+    q: 'Faut-il jeter les aliments ?',
+    a: "Les denrées dans des contenants hermétiques intacts ne sont pas concernées. Celles dont l'emballage a été percé ou souillé, ou qui présentent des traces, sont à éliminer. Le reste peut être transféré dans des contenants fermés.",
+  },
+  {
+    q: 'Faut-il nettoyer avant la visite ?',
+    a: "Non, pas les traces de déjections : ces petits points noirs constituent la piste principale vers les refuges, et leur densité indique la proximité de la zone où vit la population. Un nettoyage complet avant la visite supprime cette information.",
+  },
+];
+
+const related = [
+  { label: 'Signes d’un nid', href: '/nid-cafards', text: "La méthode pour localiser une zone de refuge." },
+  { label: 'Blatte germanique', href: '/blatte-germanique', text: "L'espèce dominante en cuisine." },
+  { label: 'Cafards en appartement', href: '/cafards-appartement', text: "La démarche en logement collectif." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Les mesures durables, dont la routine du soir." },
+  { label: 'Restaurants', href: '/cafards-restaurants', text: "La version professionnelle : plonge, réserves, équipements." },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Déroulement complet d'une intervention." },
+];
+---
+
+<TopicPage
+  title="Cafards dans la cuisine : les 10 zones à inspecter | Blattis"
+  description="Cafards dans une cuisine : les dix zones où les blattes s'installent réellement, dans l'ordre à inspecter, et les gestes qui ont un effet."
+  h1="Cafards dans la cuisine : où ils se cachent vraiment"
+  label="Cuisine"
+  lede="C'est la pièce où l'on observe les blattes, mais ce n'est pas exactement là où elles vivent. La distinction a une conséquence directe : un traitement appliqué sur les surfaces visibles n'atteint presque jamais la population."
+  bullets={['10 zones, dans l’ordre', 'Méthode d’inspection', 'La routine du soir']}
+  breadcrumbs={[
+    { label: 'Cafards & blattes', href: '/cafards' },
+    { label: 'Cuisine', href: '/cafards-cuisine' },
+  ]}
+  {faq}
+  {related}
+  relatedTitle="Pages liées"
+  ctaTitle="Une présence en cuisine à faire évaluer ?"
+  ctaText="Indiquez les zones où les insectes disparaissent quand vous allumez : cette information oriente directement l'inspection."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Pourquoi les surfaces visibles ne comptent-elles pas ?">
+      <p>
+        Une blatte passe la très grande majorité de son temps dans un refuge. Les sorties servent à
+        s'alimenter et à boire, sur des trajets courts, le long des angles et des jonctions.
+        Appliquer un produit sur un plan de travail revient donc à traiter un espace que l'insecte
+        traverse brièvement — d'où le sentiment fréquent que « rien ne marche ».
+      </p>
+    </Answer>
+
+    <h2>Le critère commun à toutes les cachettes</h2>
+    <p>
+      Les blattes recherchent une combinaison précise : <strong>chaleur produite en
+      continu</strong>, <strong>humidité disponible</strong>, <strong>obscurité</strong> et
+      <strong>espace resserré</strong>.
+    </p>
+    <p>
+      Ce dernier point est le plus souvent sous-estimé. Un cafard ne se contente pas d'un endroit
+      sombre : il lui faut un contact avec les parois de part et d'autre de son corps. C'est la
+      raison pour laquelle les interstices de deux à cinq millimètres sont privilégiés — et pourquoi
+      un placard vaste est bien moins attractif qu'un vide de plinthe.
+    </p>
+    <p>
+      Chaque fois qu'un volume de cuisine réunit ces quatre conditions, il devient candidat.
+    </p>
+
+    <h2>Les dix zones, dans l’ordre à inspecter</h2>
+  </div>
+  <div class="wrap zones-wrap">
+    <ol class="zones">
+      {zones.map((z) => (
+        <li>
+          <span class="zones__n" aria-hidden="true">{z.n}</span>
+          <div>
+            <h3>{z.t}</h3>
+            <p>{z.d}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Comment repérer sans tout démonter</h2>
+    <h3>Suivre les déjections</h3>
+    <p>
+      Ces petits points noirs, semblables à des grains de poivre, se concentrent à proximité
+      immédiate des refuges. En ouvrant les placards bas et en regardant les
+      <strong>angles intérieurs</strong>, les <strong>charnières</strong> et les
+      <strong>rails de tiroir</strong>, on identifie très vite les zones fréquentées : la densité
+      augmente à mesure qu'on approche.
+    </p>
+    <h3>Utiliser le rythme nocturne</h3>
+    <p>
+      Laissez la pièce dans le noir et le calme une à deux heures, entrez et allumez brusquement.
+      Ce qui compte n'est pas le nombre d'insectes visibles mais <strong>la direction de leur
+      fuite</strong>. Voir trois individus disparaître sous le socle du lave-vaisselle vaut tous
+      les comptages.
+    </p>
+    <h3>Chercher les mues, pas seulement les insectes</h3>
+    <p>
+      Les <strong>mues</strong> sont des enveloppes translucides ayant exactement la forme de
+      l'insecte, abandonnées lors des changements de stade. Elles ne se déplacent pas : en trouver
+      dans un volume signifie que ce volume est un refuge, et non un lieu de passage.
+    </p>
+
+    <h2>La routine du soir : deux minutes qui comptent</h2>
+    <p>
+      Une blatte survit plusieurs semaines sans nourriture, mais bien moins longtemps sans eau.
+      C'est donc l'eau qu'il faut supprimer, et c'est la mesure la plus efficace à court terme.
+    </p>
+    <ul class="list-check">
+      <li>Essuyer l'évier et le plan de travail plutôt que de les laisser humides</li>
+      <li>Ne pas laisser de vaisselle mouillée dans l'égouttoir</li>
+      <li>Vider et essuyer périodiquement le bac de dégivrage du réfrigérateur</li>
+      <li>Retirer les gamelles d'eau des animaux pendant la nuit</li>
+      <li>Sortir les déchets alimentaires plutôt que de les laisser en cuisine</li>
+    </ul>
+    <div class="note">
+      <p>
+        Les <strong>miettes sous les appareils</strong> comptent davantage que celles sur le plan
+        de travail, parce qu'elles échappent au nettoyage courant. Dégager le dessous du
+        réfrigérateur et du lave-vaisselle tous les deux à trois mois est plus utile qu'un passage
+        supplémentaire sur les surfaces visibles.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Ce qu’il faut retirer d’une cuisine</h2>
+    <p>
+      Les <strong>cartons et les papiers</strong> sont les abris les plus efficaces qu'on puisse
+      offrir à une blatte : secs, sombres, feuilletés, avec des interstices exactement de la bonne
+      dimension. Les retirer des placards bas supprime une part notable des refuges disponibles,
+      sans aucun coût.
+    </p>
+    <p>
+      Même remarque pour les sacs en papier, les emballages conservés « au cas où » et les piles de
+      prospectus rangées sous l'évier.
+    </p>
+
+    <h2>Le colmatage : utile, mais après</h2>
+    <p>
+      Les passages qui comptent sont ceux qui relient la cuisine à autre chose : traversée de
+      canalisation sous l'évier, passage de l'évacuation du lave-vaisselle, percement vers la salle
+      d'eau contiguë, jonction non finie autour d'une gaine technique.
+    </p>
+    <p>
+      Ils se colmatent <strong>après</strong> le traitement. Avant, ils constituent une
+      information : ils indiquent par où circule la population, et cette information détermine le
+      positionnement du traitement. Une trappe de gaine technique, en particulier, ne doit jamais
+      être condamnée — elle sert à l'inspection.
+    </p>
+
+    <h2>En cuisine professionnelle, les priorités changent</h2>
+    <p>
+      Les mêmes principes s'appliquent, mais la hiérarchie des zones est différente : la plonge et
+      les réserves passent avant les équipements, et l'organisation du stockage devient un facteur
+      déterminant du résultat. Voir la page
+      <a href="/cafards-restaurants">cafards en restaurant</a>.
+    </p>
+
+    <h2>Quand faire intervenir</h2>
+    <p>
+      Quatre situations indiquent qu'une inspection professionnelle est justifiée : des observations
+      qui se répètent malgré la routine du soir, une présence dans plus d'une pièce, des individus
+      de <strong>tailles différentes</strong> — signe d'une reproduction sur place —, ou un voisin
+      direct qui signale la même situation.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+  .zones-wrap { margin-top: 2rem; }
+  .zones {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 1px; background: var(--line-soft);
+    border: 1px solid var(--line-soft); border-radius: var(--r-lg); overflow: hidden;
+  }
+  .zones > li {
+    background: var(--surface); padding: 1.3rem 1.4rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .zones__n {
+    font-family: var(--font-display); font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.06em; color: var(--terra); flex: none; padding-top: 0.15rem;
+  }
+  .zones h3 { font-size: 1rem; margin-bottom: 0.35rem; }
+  .zones p { margin: 0; font-size: 0.93rem; color: var(--ink-soft); }
+</style>

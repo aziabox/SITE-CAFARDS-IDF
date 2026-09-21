@@ -1,0 +1,228 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Des bureaux peuvent-ils avoir des cafards ?',
+    a: "Les plateaux de bureaux eux-mêmes sont rarement concernés : ils sont éclairés, fréquentés et dégagés. En revanche, les espaces de pause, les cafétérias, les tisaneries et les locaux techniques réunissent chaleur, humidité, nourriture et abris, et constituent les zones réellement exposées.",
+  },
+  {
+    q: 'Comment intervenir sur un site avec accès sécurisé ?',
+    a: "L'intervention se coordonne avec le service technique ou la direction des services généraux : créneaux, badges d'accès, accompagnement dans les zones réglementées, et information des occupants lorsque nécessaire. Ces contraintes sont intégrées au planning plutôt que traitées au dernier moment.",
+  },
+  {
+    q: 'La restauration collective est-elle la source la plus fréquente ?',
+    a: "C'est la zone la plus favorable dans un site tertiaire : cuisine de production, laverie, locaux de tri et de déchets. Lorsque des observations sont faites dans des espaces de bureau, la recherche remonte généralement vers ces zones ou vers les gaines qui les desservent.",
+  },
+  {
+    q: 'Faut-il informer les salariés ?',
+    a: "Cela dépend de la politique interne et de l'étendue. Un canal de signalement clair est en revanche très utile : les salariés voient les choses avant tout contrôle périodique. La manière de communiquer est décidée par l'entreprise, pas par le prestataire.",
+  },
+  {
+    q: 'Les locaux à déchets d’un immeuble tertiaire sont-ils concernés ?',
+    a: "Fréquemment. Un local de tri ou de déchets, chauffé et mal ventilé, peut héberger une population stable et réalimenter les niveaux desservis par les mêmes gaines ou circulations. Il est inspecté dès que des observations sont signalées en partie basse.",
+  },
+  {
+    q: 'Quelle fréquence de surveillance pour un site tertiaire ?',
+    a: "Elle dépend de la présence d'une activité de restauration, du volume de déchets et de la configuration du bâtiment. Sur un site avec cuisine de production, une surveillance régulière est généralement plus économique qu'une succession d'interventions curatives.",
+  },
+];
+
+const related = [
+  { label: 'Désinsectisation professionnelle', href: '/desinsectisation-cafards', text: "Traçabilité, plan de lutte et surveillance." },
+  { label: 'Restaurants', href: '/cafards-restaurants', text: "Cuisine de production, plonge, réserves." },
+  { label: 'Commerces', href: '/cafards-commerces', text: "Réserves et flux de livraison." },
+  { label: 'Hauts-de-Seine', href: '/zones-intervention/hauts-de-seine', text: "Sites tertiaires et restauration d'entreprise." },
+  { label: 'Cafards en cave', href: '/cafards-cave', text: "Parties basses, locaux techniques et parkings." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Contrôle des voies d'introduction." },
+];
+---
+
+<TopicPage
+  title="Cafards en entreprise : bureaux et locaux professionnels | Blattis"
+  description="Cafards en entreprise : espaces de pause, cafétérias, restauration collective et locaux techniques. Intervention hors heures d'activité."
+  h1="Cafards et blattes en entreprise"
+  label="Entreprises & bureaux"
+  lede="Sur un site tertiaire, les plateaux de bureaux sont rarement le problème. Ce sont les espaces de pause, la restauration collective et les locaux techniques qui réunissent les conditions d'une installation."
+  bullets={['Zones de pause et restauration', 'Coordination services techniques', 'Créneaux hors activité']}
+  breadcrumbs={[{ label: 'Entreprises & bureaux', href: '/cafards-entreprises' }]}
+  {faq}
+  faqTitle="Questions des services généraux"
+  {related}
+  relatedTitle="Pages liées"
+  service={{
+    name: 'Traitement des cafards en entreprise et locaux tertiaires',
+    description:
+      "Diagnostic des espaces de pause, cafétérias, cuisines de production, laveries et locaux techniques, intervention coordonnée avec les services techniques hors heures d'activité, rapport et surveillance.",
+  }}
+  ctaTitle="Faire évaluer un site tertiaire"
+  ctaText="Présence d'une restauration collective, nombre de niveaux, configuration des locaux techniques : ces éléments déterminent le périmètre et les créneaux d'intervention."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Pourquoi les bureaux eux-mêmes sont-ils peu concernés ?">
+      <p>
+        Parce qu'un plateau de bureaux est éclairé, fréquenté, ventilé et dégagé — l'inverse des
+        conditions recherchées. Une blatte a besoin de chaleur permanente, d'humidité, de nourriture
+        accessible et d'un abri resserré. Ces quatre éléments se trouvent dans la
+        <strong>tisanerie</strong>, la <strong>cafétéria</strong> et les <strong>locaux
+        techniques</strong>, pas devant un poste de travail.
+      </p>
+    </Answer>
+
+    <h2>Les zones réellement exposées</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Zone</th><th>Conditions réunies</th><th>Point d’inspection</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Cuisine de production</strong></td>
+            <td>Chaleur, humidité, matière organique, interstices techniques</td>
+            <td>Socle des équipements, plonge, caniveaux, réserves</td>
+          </tr>
+          <tr>
+            <td><strong>Laverie</strong></td>
+            <td>Chaleur de l'eau, humidité constante, résidus</td>
+            <td>Socle et arrière de la machine, évacuations</td>
+          </tr>
+          <tr>
+            <td><strong>Cafétéria, tisanerie, espace de pause</strong></td>
+            <td>Micro-ondes, réfrigérateur, machine à café, évier, miettes</td>
+            <td>Arrière et dessous des appareils, plinthes, placards bas</td>
+          </tr>
+          <tr>
+            <td><strong>Locaux de tri et de déchets</strong></td>
+            <td>Apport organique continu, chaleur, ventilation souvent insuffisante</td>
+            <td>Pourtour des bacs, sol, jonctions murales</td>
+          </tr>
+          <tr>
+            <td><strong>Monte-charges et gaines</strong></td>
+            <td>Voies de circulation verticale entre niveaux</td>
+            <td>Fosses, trappes, traversées de dalle</td>
+          </tr>
+          <tr>
+            <td><strong>Locaux techniques et sous-sols</strong></td>
+            <td>Chaleur des installations, humidité, réseaux</td>
+            <td>Abords de canalisations, siphons de sol, regards</td>
+          </tr>
+          <tr>
+            <td><strong>Vestiaires et local de ménage</strong></td>
+            <td>Humidité, chaleur, abris, denrées personnelles</td>
+            <td>Casiers, plinthes, sous-faces</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Lorsque des observations sont signalées dans un espace de bureau, la recherche remonte
+      généralement vers l'une de ces zones ou vers la gaine qui la dessert. C'est la raison pour
+      laquelle le périmètre d'inspection est défini à l'échelle du bâtiment plutôt que de l'étage
+      concerné.
+    </p>
+
+    <h2>L’espace de pause : la zone la plus sous-estimée</h2>
+    <p>
+      Sur un site sans restauration collective, c'est presque toujours par là que commence une
+      situation. Une tisanerie de six mètres carrés concentre : un point d'eau, un réfrigérateur
+      dont le compresseur chauffe en continu, un micro-ondes, une machine à café, des placards bas
+      contenant des denrées ouvertes, et des interstices derrière chaque appareil.
+    </p>
+    <p>
+      S'y ajoute un facteur d'usage : ces espaces sont nettoyés en surface mais rarement dégagés.
+      Le dessous du réfrigérateur et l'arrière du micro-ondes ne sont pratiquement jamais atteints
+      par le nettoyage courant.
+    </p>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Les contraintes propres aux sites tertiaires</h2>
+    <h3>Accès et sécurité</h3>
+    <p>
+      Badges, zones réglementées, accompagnement obligatoire dans certains locaux, procédures
+      d'accueil de prestataires : ces éléments conditionnent le planning autant que la technique.
+      Ils sont intégrés à la préparation plutôt que découverts le jour de l'intervention.
+    </p>
+    <h3>Plages horaires</h3>
+    <p>
+      La cuisine de production se traite hors service. Les espaces de pause et les plateaux se
+      traitent en dehors des heures d'occupation. Sur un site fonctionnant en continu, l'intervention
+      s'organise par zones et par créneaux successifs.
+    </p>
+    <h3>Coordination</h3>
+    <p>
+      Un interlocuteur unique côté client — services généraux, service technique ou responsable de
+      site — change considérablement le déroulement. C'est lui qui ouvre les locaux techniques,
+      identifie les gaines et connaît l'historique du bâtiment.
+    </p>
+    <h3>Prestataire de restauration</h3>
+    <p>
+      Lorsque la restauration est confiée à un prestataire, la coordination porte sur deux
+      organisations distinctes. Il est utile de déterminer en amont qui est responsable de quelles
+      zones : cuisine, laverie, réserves, locaux de déchets.
+    </p>
+
+    <h2>Le canal de signalement</h2>
+    <div class="note">
+      <p>
+        Sur un site de plusieurs centaines de personnes, l'information existe déjà — elle ne remonte
+        pas. Un salarié qui voit un insecte dans une tisanerie ne sait généralement pas à qui le
+        signaler, et suppose que « quelqu'un s'en occupe ».
+      </p>
+      <p>
+        Mettre en place un point de remontée identifié, avec trois informations à noter — le
+        <strong>local</strong>, la <strong>date</strong> et l'<strong>endroit précis</strong> —
+        permet de recouper et d'identifier la zone concernée. C'est la mesure la moins coûteuse et
+        la plus efficace.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Les voies d’introduction sur un site tertiaire</h2>
+    <ul class="list-check">
+      <li><strong>Les livraisons de la restauration</strong> — cartons, cageots, palettes. Le déballage à la réception et l'évacuation immédiate des emballages sont les deux mesures les plus efficaces.</li>
+      <li><strong>Les colis et fournitures</strong> — moins fréquent, mais réel lorsque les cartons sont stockés durablement dans un local à proximité d'un point d'eau.</li>
+      <li><strong>Les effets personnels</strong> — voie difficile à maîtriser, qui justifie une vigilance plutôt qu'un dispositif particulier.</li>
+      <li><strong>Les réseaux du bâtiment</strong> — colonnes d'eaux usées, gaines, parkings et locaux techniques en sous-sol. Sur un bâtiment ancien ou mitoyen, cette voie mérite un examen spécifique.</li>
+    </ul>
+
+    <h2>Traçabilité et surveillance</h2>
+    <p>
+      Un site disposant d'une activité de restauration collective est soumis aux obligations
+      générales d'hygiène et de maîtrise sanitaire, qui incluent la lutte contre les nuisibles.
+      La conservation des rapports d'intervention, des recommandations et du relevé des
+      observations internes constitue la trace de l'action menée.
+    </p>
+    <p>
+      Pour les sites sans restauration, la traçabilité garde un intérêt pratique : elle permet de
+      constater si les mêmes zones reviennent, ce qui oriente vers un problème structurel —
+      ventilation d'un local de déchets, suintement d'une canalisation, configuration d'une gaine —
+      plutôt que vers un traitement répété. Le dispositif complet est décrit sur la page
+      <a href="/desinsectisation-cafards">désinsectisation en local professionnel</a>.
+    </p>
+
+    <h2>Le suivi après intervention</h2>
+    <p>
+      Les <a href="/ootheque-cafard">oothèques</a> sont protégées et peuvent éclore plusieurs
+      semaines après un traitement. Une reprise à trois ou quatre semaines, avec des individus
+      nettement plus petits, correspond à cette éclosion : le contrôle vise cette génération avant
+      qu'elle atteigne l'âge de reproduction.
+    </p>
+    <p>
+      Sur un site tertiaire, ce contrôle est aussi l'occasion de vérifier que les mesures
+      correctives recommandées — ventilation, étanchéité, organisation du stockage — ont bien été
+      mises en œuvre. C'est souvent là, et non dans le traitement, que se joue la durabilité.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

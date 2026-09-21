@@ -1,0 +1,253 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+import { especes, autresEspeces } from '../data/especes';
+
+const faq = [
+  {
+    q: 'Comment reconnaître un cafard à coup sûr ?',
+    a: "Quatre critères combinés suffisent : un corps ovale très aplati, de longues antennes fines en mouvement permanent, six pattes épineuses et une fuite rapide vers un interstice dès qu'une lumière s'allume. La tête est orientée vers le bas et souvent invisible lorsqu'on observe l'insecte de dessus.",
+  },
+  {
+    q: 'Comment reconnaître une blatte germanique ?',
+    a: "Par les deux bandes sombres parallèles sur le pronotum, la plaque située juste derrière la tête, sur un corps brun clair de 10 à 15 mm. Aucune autre espèce courante en France ne présente cette combinaison : la blatte orientale a un pronotum uniformément noir, la blatte américaine un liseré clair sur le pourtour.",
+  },
+  {
+    q: 'Pourquoi le cafard que j’ai vu était-il presque blanc ?',
+    a: "Un cafard qui vient de muer est temporairement très clair, presque blanc, avant que sa cuticule ne durcisse et ne se pigmente. Ce n'est pas une espèce différente : c'est le même insecte quelques heures après un changement de stade.",
+  },
+  {
+    q: 'Tous les cafards volent-ils ?',
+    a: "Non. La plupart des adultes possèdent des ailes, mais leur usage est très limité. La blatte germanique ne s'en sert pratiquement pas, la blatte orientale ne vole pas, et la blatte américaine peut seulement effectuer un vol plané depuis un point haut. Les jeunes n'ont pas d'ailes développées.",
+  },
+  {
+    q: 'Une photo suffit-elle à identifier l’espèce ?',
+    a: "Une photo prise de dessus, montrant le pronotum, permet souvent d'orienter l'identification. Elle ne remplace pas une inspection, car connaître l'espèce ne dit rien de l'étendue de la présence ni de la localisation des refuges — qui sont les deux éléments déterminants pour un traitement.",
+  },
+  {
+    q: 'Peut-on confondre un cafard avec un autre insecte ?',
+    a: "Oui, principalement avec les blattes forestières du genre Ectobius, qui vivent dehors et entrent accidentellement, avec certains coléoptères de denrées au corps dur et aux antennes courtes, avec les perce-oreilles qui portent des pinces à l'arrière, et plus rarement avec les grillons domestiques dont les pattes arrière sont conçues pour le saut.",
+  },
+];
+
+const related = [
+  { label: 'Blatte germanique', href: '/blatte-germanique', text: "10–15 mm, deux bandes sombres, cuisines et salles de bain." },
+  { label: 'Blatte orientale', href: '/blatte-orientale', text: "20–30 mm, presque noire, caves et sous-sols." },
+  { label: 'Blatte américaine', href: '/blatte-americaine', text: "30–40 mm, liseré clair, réseaux techniques." },
+  { label: 'Signes d’un nid', href: '/nid-cafards', text: "Localiser les zones de refuge à partir des traces." },
+  { label: 'Oothèque de cafard', href: '/ootheque-cafard', text: "Reconnaître une enveloppe d'œufs et ce qu'elle indique." },
+  { label: 'Page de référence', href: '/cafards', text: "Mode de vie, conditions d'installation, méthodes." },
+];
+---
+
+<TopicPage
+  title="Identifier un cafard : guide d’identification | Blattis"
+  description="Guide d'identification des cafards : critères visuels, taille, couleur, marques du pronotum, différences entre espèces et confusions fréquentes avec d'autres insectes."
+  h1="Identifier un cafard : guide pratique"
+  label="Identification"
+  lede="Savoir à quoi l'on a affaire change la suite : les trois espèces courantes n'occupent pas les mêmes zones et ne se traitent pas de la même façon. Le critère décisif tient en un détail, sur la plaque située derrière la tête."
+  bullets={['4 critères de base', 'Clé par espèce', 'Confusions fréquentes']}
+  breadcrumbs={[
+    { label: 'Cafards & blattes', href: '/cafards' },
+    { label: 'Identifier un cafard', href: '/identifier-cafard' },
+  ]}
+  {faq}
+  faqTitle="Questions d’identification"
+  {related}
+  relatedTitle="Fiches et pages liées"
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Est-ce bien un cafard ?">
+      <p>
+        Un cafard présente quatre caractères combinés : un <strong>corps ovale très aplati</strong>,
+        de <strong>longues antennes fines</strong> en mouvement permanent, <strong>six pattes
+        épineuses</strong>, et une <strong>fuite immédiate vers un interstice</strong> dès qu'une
+        lumière s'allume. Si les antennes sont courtes, ce n'est pas un cafard.
+      </p>
+    </Answer>
+
+    <h2>Les quatre critères de base</h2>
+    <p>
+      Un cafard se voit en général une fraction de seconde. Ces quatre éléments permettent de
+      trancher rapidement, même sur une observation brève.
+    </p>
+    <ul class="list-check">
+      <li><strong>Un corps ovale et plat.</strong> Vu de dessus, un ovale régulier ; vu de côté, remarquablement aplati. Cette morphologie lui permet de se glisser dans un interstice de deux millimètres.</li>
+      <li><strong>Des antennes longues et fines</strong>, souvent aussi longues que le corps, agitées en permanence. C'est le critère le plus rapide à vérifier.</li>
+      <li><strong>Une tête orientée vers le bas</strong>, presque cachée sous le pronotum. Sur beaucoup d'espèces, on ne la voit pas du tout en regardant l'insecte de dessus.</li>
+      <li><strong>Des pattes épineuses</strong> et un déplacement rapide, rectiligne, avec fuite vers l'ombre.</li>
+    </ul>
+
+    <h2>Le critère décisif : le pronotum</h2>
+    <p>
+      Le pronotum est la plaque qui couvre l'avant du dos, juste derrière la tête. C'est là que se
+      joue l'essentiel de l'identification d'espèce — et c'est pour cela qu'une photographie prise
+      <strong>de dessus</strong> vaut bien plus qu'une photographie de profil.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Aspect du pronotum</th><th>Espèce</th><th>Taille adulte</th><th>Couleur générale</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Deux bandes sombres parallèles</strong></td>
+            <td><a href="/blatte-germanique">Blatte germanique</a></td>
+            <td>10–15 mm</td>
+            <td>Brun clair à ocre</td>
+          </tr>
+          <tr>
+            <td><strong>Uniformément noir, luisant</strong></td>
+            <td><a href="/blatte-orientale">Blatte orientale</a></td>
+            <td>20–30 mm</td>
+            <td>Brun très foncé à noir</td>
+          </tr>
+          <tr>
+            <td><strong>Liseré clair sur le pourtour</strong></td>
+            <td><a href="/blatte-americaine">Blatte américaine</a></td>
+            <td>30–40 mm</td>
+            <td>Brun-roux à acajou</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Pourquoi la taille seule ne suffit pas</h2>
+    <p>
+      Une confusion fréquente consiste à interpréter la taille comme un indicateur d'âge. C'est
+      vrai à l'intérieur d'une espèce, mais trompeur entre espèces : un insecte de 12 mm peut être
+      une <strong>blatte germanique adulte</strong> ou une <strong>jeune blatte orientale</strong>.
+    </p>
+    <p>
+      La différence apparaît sur deux points. Les jeunes blattes germaniques sont très sombres,
+      presque noires, mais portent une <strong>bande claire visible sur le dos</strong> ; leur
+      silhouette reste élancée. Les jeunes blattes orientales sont uniformément très sombres, sans
+      bande, et nettement plus trapues.
+    </p>
+    <p>
+      Croiser la taille, la couleur, les marques du pronotum et <strong>l'endroit de
+      l'observation</strong> donne une identification fiable dans la grande majorité des cas.
+    </p>
+
+    <h2>L’endroit de l’observation est un indice à part entière</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Où l’insecte a été vu</th><th>Espèce la plus probable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cuisine, près de l'évier ou d'un appareil chauffant</td><td>Blatte germanique</td></tr>
+          <tr><td>Salle de bain, le soir</td><td>Blatte germanique, ou blatte orientale remontée par une gaine</td></tr>
+          <tr><td>Cave, buanderie, garage semi-enterré</td><td>Blatte orientale</td></tr>
+          <tr><td>Près d'un siphon de sol ou d'un regard</td><td>Blatte orientale, parfois blatte américaine</td></tr>
+          <tr><td>Local technique chauffé, galerie, vide technique</td><td>Blatte américaine</td></tr>
+          <tr><td>Rebord de fenêtre, en été, après une soirée dehors</td><td>Blatte forestière (Ectobius), entrée accidentelle</td></tr>
+          <tr><td>Derrière un cadre, dans du mobilier, près d'un appareil électrique</td><td>Blatte rayée (Supella longipalpa), plus rare</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Les confusions les plus fréquentes</h2>
+    <h3>Blattes forestières (genre <em>Ectobius</em>)</h3>
+    <p>
+      Ce sont les sosies les plus troublants de la blatte germanique. Elles vivent dehors, dans la
+      végétation et la litière, et pénètrent accidentellement dans les habitations, surtout en été
+      et surtout au niveau des ouvertures. Elles <strong>ne s'installent pas durablement</strong> :
+      un logement chauffé ne leur convient pas.
+    </p>
+    <p>
+      L'indice le plus utile est le contexte : un individu isolé trouvé près d'une fenêtre ouverte,
+      en été, sans aucune trace de déjections ni observation en cuisine, oriente vers cette
+      hypothèse. Les traiter est inutile.
+    </p>
+    <h3>Coléoptères de denrées</h3>
+    <p>
+      Dermestes, silvains et autres petits coléoptères de stockage ont un corps
+      <strong>dur et bombé</strong> et des <strong>antennes courtes</strong>. Le critère des
+      antennes tranche immédiatement.
+    </p>
+    <h3>Perce-oreilles</h3>
+    <p>
+      Ils portent des <strong>pinces bien visibles</strong> à l'extrémité de l'abdomen, absentes
+      chez tous les cafards.
+    </p>
+    <h3>Grillons domestiques</h3>
+    <p>
+      Plus rares en logement, ils se distinguent par des <strong>pattes arrière épaisses</strong>
+      conçues pour le saut, que les cafards n'ont jamais.
+    </p>
+
+    <h2>Espèces plus rares mais réellement présentes</h2>
+    {autresEspeces.map((a) => (
+      <p><strong>{a.nom}</strong> — {a.text}</p>
+    ))}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Les autres éléments identifiables</h2>
+    <p>
+      L'insecte n'est pas le seul élément qui renseigne. Trois traces sont identifiables à l'œil nu
+      et souvent plus faciles à observer qu'un individu.
+    </p>
+    <ul class="list-check">
+      <li><strong>Les déjections</strong> — de petits points noirs ressemblant à des grains de poivre, accumulés dans les angles de placards, sur les charnières et les rails de tiroir. Leur densité augmente à mesure qu'on approche du refuge.</li>
+      <li><strong>Les mues</strong> — des enveloppes translucides, de la forme exacte de l'insecte, abandonnées lors des changements de stade. Elles se trouvent dans les refuges.</li>
+      <li><strong>Les oothèques</strong> — des capsules brunes allongées d'environ 8 mm pour la blatte germanique, glissées dans un interstice. En trouver signifie que la reproduction a lieu sur place. Voir la page <a href="/ootheque-cafard">oothèque de cafard</a>.</li>
+    </ul>
+
+    <h2>Que faire de l’insecte trouvé</h2>
+    <div class="note">
+      <p>
+        Le plus utile est de le conserver — même mort — dans un petit contenant fermé, ou de le
+        photographier <strong>de dessus</strong> avec un objet de taille connue à côté (une pièce
+        de monnaie, par exemple). Cela permet de préparer l'échange sans avoir à deviner, et de
+        confirmer l'identification lors de la visite.
+      </p>
+      <p>
+        Notez également <strong>où</strong> et <strong>quand</strong> vous l'avez vu. Cette
+        information vaut autant que l'identification elle-même : elle indique la direction dans
+        laquelle chercher les refuges.
+      </p>
+    </div>
+
+    <h2>Ce que l’identification ne dit pas</h2>
+    <p>
+      Connaître l'espèce oriente le traitement, mais ne renseigne ni sur l'étendue de la présence
+      ni sur la localisation exacte des refuges. Ce sont ces deux éléments qui déterminent le
+      périmètre d'une intervention, et ils supposent une inspection.
+    </p>
+    <p>
+      La page <a href="/nid-cafards">signes d'un nid de cafards</a> décrit la méthode pour
+      localiser une zone de refuge, et la page
+      <a href="/traitement-blattes">traitement des blattes par espèce</a> explique comment le
+      protocole change selon l'identification.
+    </p>
+
+    <div class="grid grid-3 esp-grid">
+      {especes.map((e) => (
+        <a class="card" href={`/${e.slug}`}>
+          <span class="card__meta">{e.taille}</span>
+          <h3>{e.nom}</h3>
+          <p>{e.couleur}</p>
+          <span class="link-more" aria-hidden="true">Fiche complète</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll, .prose .grid { max-width: none; }
+  .esp-grid { margin-top: 2rem; }
+  .esp-grid .card h3 { font-size: 1.05rem; }
+  .esp-grid .link-more { margin-top: 0.9rem; font-size: 0.86rem; }
+</style>

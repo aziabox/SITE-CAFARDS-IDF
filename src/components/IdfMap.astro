@@ -12,8 +12,18 @@ export interface Props {
 }
 const { active, withList = true, title = "Carte des zones d'intervention en Île-de-France" } = Astro.props;
 
-const bySlug = new Map(departements.map((d) => [d.slug, d]));
 const byCode = new Map(departements.map((d) => [d.code, d]));
+
+/**
+ * Les quatre départements centraux sont trop proches : leurs étiquettes sont
+ * décalées vers l'extérieur pour rester lisibles.
+ */
+const codeNudge: Record<string, [number, number]> = {
+  '75': [3, 3],
+  '92': [-34, 12],
+  '93': [14, -22],
+  '94': [16, 24],
+};
 
 const shapes = mapData.departements
   .map((f) => {
@@ -72,9 +82,10 @@ const shapes = mapData.departements
           ))}
 
           <g class="map__labels" aria-hidden="true">
-            {mapData.departements.map((f) => (
-              <text x={f.labelX} y={f.labelY} class="map__code">{f.code}</text>
-            ))}
+            {mapData.departements.map((f) => {
+              const [dx, dy] = codeNudge[f.code] ?? [0, 0];
+              return <text x={f.labelX + dx} y={f.labelY + dy} class="map__code">{f.code}</text>;
+            })}
           </g>
 
           {villes.map((v) => (
@@ -87,8 +98,8 @@ const shapes = mapData.departements
               aria-label={`${v.nom} — voir la page locale`}
             >
               <title>{v.nom}</title>
-              <circle cx={v.mapX} cy={v.mapY} r="5.5" class="map__city-hit" />
-              <circle cx={v.mapX} cy={v.mapY} r="3.2" class="map__city-dot" />
+              <circle cx={v.mapX} cy={v.mapY} r="18" class="map__city-hit" />
+              <circle cx={v.mapX} cy={v.mapY} r="3.6" class="map__city-dot" />
             </a>
           ))}
         </g>
@@ -110,6 +121,13 @@ const shapes = mapData.departements
     </aside>
   </div>
 
+  {/*
+    Les points de ville constituent un raccourci visuel. Sur petit écran, leur
+    surface de contact reste inférieure à 24 px : la liste textuelle ci-dessous
+    (ou la section « villes » de la page hôte) fournit les mêmes liens à taille
+    normale, ce qui correspond à l'exception « contrôle équivalent » du critère
+    WCAG 2.5.8.
+  */}
   {withList && (
     <div class="map__list">
       {departements.map((d) => (
@@ -156,7 +174,7 @@ const shapes = mapData.departements
 
   .map__body {
     display: grid; grid-template-columns: minmax(0, 1.72fr) minmax(240px, 1fr);
-    gap: clamp(1rem, 2.5vw, 1.75rem); align-items: stretch;
+    gap: clamp(1rem, 2.5vw, 1.75rem); align-items: start;
   }
 
   .map__canvas {
@@ -166,28 +184,32 @@ const shapes = mapData.departements
     overflow: hidden;
     cursor: grab;
     touch-action: pan-y;
+    /* La carte reste dans le HTML (maillage interne et accessibilité) mais n'est
+       pas mise en page ni rastérisée tant qu'elle est hors de l'écran. */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 560px;
   }
   .map__canvas.is-dragging { cursor: grabbing; }
   .map__canvas svg { display: block; width: 100%; height: auto; }
 
   .map__dep path {
-    fill: var(--creme);
+    fill: #EFE3D3;
     stroke: var(--bx-700);
-    stroke-width: 1.6;
+    stroke-width: 2.1;
     stroke-linejoin: round;
     transition: fill 0.16s ease, stroke 0.16s ease;
   }
   .map__dep { cursor: pointer; }
-  .map__dep:hover path, .map__dep:focus-visible path { fill: var(--terra-100); stroke: var(--terra-600); }
+  .map__dep:hover path, .map__dep:focus-visible path { fill: #EBC9B4; stroke: var(--terra-600); stroke-width: 2.6; }
   .map__dep.is-active path { fill: var(--bx-800); stroke: var(--bx-900); }
   .map__dep:focus-visible { outline: none; }
   .map__dep:focus-visible path { stroke-width: 3; stroke: var(--terra); }
 
   .map__code {
-    font-family: var(--font-display); font-size: 17px; font-weight: 700;
-    fill: var(--bx-800); fill-opacity: 0.42; text-anchor: middle; pointer-events: none;
+    font-family: var(--font-display); font-size: 21px; font-weight: 700;
+    fill: var(--bx-800); fill-opacity: 0.72; text-anchor: middle; pointer-events: none;
+    paint-order: stroke; stroke: #FFFDF8; stroke-width: 3.5; stroke-opacity: 0.85;
   }
-  .map__dep.is-active + .map__labels .map__code { fill-opacity: 0.42; }
 
   .map__city-hit { fill: transparent; }
   .map__city-dot { fill: var(--terra); stroke: var(--ivoire); stroke-width: 1.6; transition: r 0.14s ease; }
@@ -201,16 +223,17 @@ const shapes = mapData.departements
     border-radius: var(--r);
     padding: clamp(1.05rem, 2vw, 1.4rem);
     display: flex; flex-direction: column;
+    align-self: start;
   }
   .map__panel-kicker {
-    font-family: var(--font-display); font-size: 0.66rem; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra-600);
+    font-family: var(--font-display); font-size: 0.755rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--terra-600);
     margin: 0 0 0.5rem;
   }
   .map__panel h3 { font-size: 1.16rem; margin-bottom: 0.6rem; }
   .map__panel p { font-size: 0.93rem; color: var(--ink-soft); line-height: 1.58; }
-  .map__panel-cta { margin-top: auto; align-self: flex-start; padding: 0.7rem 1.1rem; font-size: 0.875rem; min-height: 42px; }
-  .map__hint { margin: 0.9rem 0 0; font-size: 0.78rem; color: var(--ink-muted); }
+  .map__panel-cta { margin-top: 1.25rem; align-self: flex-start; padding: 0.7rem 1.1rem; font-size: 0.875rem; min-height: 44px; }
+  .map__hint { margin: 0.9rem 0 0; font-size: 0.815rem; color: var(--ink-muted); }
 
   .map__list {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -220,10 +243,10 @@ const shapes = mapData.departements
     border-top: 1px solid var(--line-soft);
   }
   .map__list-col h3 { font-size: 0.95rem; margin-bottom: 0.45rem; }
-  .map__list-col h3 a { text-decoration: none; }
+  .map__list-col h3 a { display: inline-block; padding-block: 4px; text-decoration: none; }
   .map__list-col h3 span { color: var(--ink-muted); font-weight: 400; }
   .map__list-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
-  .map__list-col li a { font-size: 0.88rem; color: var(--ink-soft); text-decoration: none; }
+  .map__list-col li a { display: inline-block; padding-block: 3px; font-size: 0.89rem; color: var(--ink-soft); text-decoration: none; }
   .map__list-col li a:hover { color: var(--terra-600); text-decoration: underline; text-underline-offset: 0.2em; }
 
   @media (max-width: 860px) {

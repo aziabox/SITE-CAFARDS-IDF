@@ -43,7 +43,7 @@ export const villes: Ville[] = [
     mapY: 279.9,
     metaTitle: 'Cafards à Paris : traitement et intervention spécialisée',
     metaDescription:
-      "Infestation de cafards à Paris : diagnostic du logement et de l'immeuble, traitement adapté au bâti ancien, coordination avec le syndic. Intervention sur tous les arrondissements.",
+      "Infestation de cafards à Paris : diagnostic du logement et de l'immeuble, bâti ancien, colonnes techniques et coordination avec le syndic.",
     h1: 'Cafards et blattes à Paris : diagnostic et traitement',
     lede:
       "À Paris, la difficulté principale n'est pas de traiter un logement mais de comprendre comment un immeuble entier peut alimenter une infestation.",

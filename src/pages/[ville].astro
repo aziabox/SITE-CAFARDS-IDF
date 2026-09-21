@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Answer from '../components/Answer.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import { villes } from '../data/villes';
+import { departements } from '../data/departements';
+import { site } from '../data/site';
+import { serviceSchema, faqSchema } from '../lib/schema';
+
+export function getStaticPaths() {
+  return villes.map((v) => ({ params: { ville: v.slug }, props: { ville: v } }));
+}
+
+const { ville: v } = Astro.props;
+const dep = departements.find((d) => d.slug === v.departement)!;
+const path = `/${v.slug}`;
+const voisines = villes.filter((x) => x.departement === v.departement && x.slug !== v.slug);
+
+const breadcrumbs = [
+  { label: "Zones d'intervention", href: '/zones-intervention' },
+  { label: `${dep.nom} (${dep.code})`, href: `/zones-intervention/${dep.slug}` },
+  { label: v.nom, href: path },
+];
+
+const schema = [
+  serviceSchema({
+    url: path,
+    name: `Traitement des cafards ${v.loc}`,
+    description: v.metaDescription,
+    areaServed: [v.nom, dep.nom],
+  }),
+  faqSchema(path, v.faq),
+];
+
+const related = [
+  { label: `Traitement des cafards ${dep.loc}`, href: `/zones-intervention/${dep.slug}`, text: `Contexte départemental et communes desservies dans le ${dep.code}.` },
+  { label: 'Identifier un cafard', href: '/identifier-cafard', text: "Reconnaître l'espèce à partir du pronotum." },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Déroulement, inspection et périmètre." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Les mesures durables, et celles qui ne servent à rien." },
+];
+---
+
+<BaseLayout
+  title={`${v.metaTitle} | ${site.brand}`}
+  description={v.metaDescription}
+  {breadcrumbs}
+  {schema}
+>
+  <Hero
+    label={`${dep.nom} · ${dep.code}`}
+    title={v.h1}
+    text={v.lede}
+    bullets={['Contexte local du bâti', 'Habitations et professionnels', 'Diagnostic avant traitement']}
+    {breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap prose">
+      <Answer question={`Que faire face à des cafards ${v.loc} ?`}>
+        <p>{v.intro[0]}</p>
+      </Answer>
+      {v.intro.slice(1).map((p) => <p>{p}</p>)}
+
+      <h2>{v.batiTitle}</h2>
+      {v.bati.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <section class="section section--creme">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Problématiques</p>
+        <h2>Ce que l’on rencontre {v.loc}</h2>
+      </div>
+      <div class="grid grid-3">
+        {v.problematiques.map((p) => (
+          <div class="card">
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap ville-grid">
+      <div class="prose">
+        <h2>{v.preventionTitle}</h2>
+        <ul class="list-check">
+          {v.prevention.map((p) => <li>{p}</li>)}
+        </ul>
+        <p class="ville-note">
+          La page <a href="/prevention-cafards">prévention des cafards</a> rassemble l'ensemble des
+          mesures, y compris le contrôle des voies d'introduction.
+        </p>
+      </div>
+      <aside class="ville-aside">
+        <h2>{v.quartiersLabel}</h2>
+        <ul class="ville-quartiers">
+          {v.quartiers.map((q) => <li>{q}</li>)}
+        </ul>
+        <p class="ville-aside__note">
+          Interventions en habitation comme en local professionnel. Pour les communes voisines,
+          voir la page <a href={`/zones-intervention/${dep.slug}`}>{dep.nom}</a>.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <Faq
+    items={v.faq}
+    eyebrow="FAQ locale"
+    title={`Questions fréquentes ${v.loc}`}
+    id="faq"
+  />
+
+  <section class="section section--creme">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">{dep.nom}</p>
+        <h2>Le contexte départemental</h2>
+        <p class="lede">{dep.lede}</p>
+      </div>
+      <a class="btn btn--ghost" href={`/zones-intervention/${dep.slug}`}>
+        Voir la page {dep.nom} ({dep.code})
+      </a>
+      {voisines.length > 0 && (
+        <div class="voisines">
+          <h3>Autres communes du département avec une page dédiée</h3>
+          <ul>
+            {voisines.map((x) => <li><a href={`/${x.slug}`}>{x.nom}</a></li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <RelatedLinks links={related} title="Pages utiles" />
+
+  <CtaBand
+    title={`Une intervention ${v.loc} ?`}
+    text="Indiquez le type de bâtiment, les pièces concernées et la fréquence des observations : ces éléments permettent de préparer une visite utile."
+  />
+</BaseLayout>
+
+<style>
+  .ville-note { margin-top: 1.5rem; font-size: 0.97rem; }
+
+  .ville-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(250px, 1fr); gap: clamp(1.75rem, 4vw, 3.25rem); align-items: start; }
+  @media (max-width: 860px) { .ville-grid { grid-template-columns: 1fr; } }
+
+  .ville-aside {
+    background: var(--surface); border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg); padding: 1.35rem 1.5rem;
+  }
+  .ville-aside h2 { font-size: 1rem; margin-bottom: 0.9rem; }
+  .ville-quartiers { list-style: none; margin: 0 0 1.1rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .ville-quartiers li {
+    padding: 0.38rem 0.75rem; background: var(--creme-2);
+    border: 1px solid var(--line-soft); border-radius: 999px;
+    font-size: 0.84rem; color: var(--ink-soft);
+  }
+  .ville-aside__note { margin: 0; font-size: 0.87rem; color: var(--ink-muted); }
+
+  .voisines { margin-top: clamp(1.75rem, 3vw, 2.5rem); }
+  .voisines h3 { font-size: 1rem; margin-bottom: 0.9rem; }
+  .voisines ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 0; padding: 0; }
+  .voisines a {
+    display: inline-block; padding: 0.5rem 0.95rem;
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: 999px;
+    font-size: 0.89rem; text-decoration: none; color: var(--bx-700);
+  }
+  .voisines a:hover { border-color: var(--terra); color: var(--terra-600); }
+</style>

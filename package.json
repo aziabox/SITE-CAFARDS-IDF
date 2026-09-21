@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Blattis — site specialise dans le traitement des cafards et blattes en Ile-de-France",
+  "description": "Blattis — site spécialisé dans le traitement des cafards et des blattes en Île-de-France",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -15,5 +15,9 @@
   "dependencies": {
     "@astrojs/sitemap": "3.7.0",
     "astro": "5.18.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.4",
+    "typescript": "5.9.2"
   }
 }

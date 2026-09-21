@@ -1,0 +1,240 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Par où circulent les cafards dans un immeuble ?',
+    a: "Principalement par les gaines techniques verticales, les colonnes d'eaux usées, les passages de canalisation non colmatés sous les éviers et derrière les équipements sanitaires, les coffrages, les anciens vide-ordures et les circulations reliant les locaux techniques aux niveaux bas.",
+  },
+  {
+    q: 'Une gaine technique peut-elle relier tous les étages ?',
+    a: "C'est fréquent. Une gaine verticale desservant les cuisines et salles de bain traverse généralement l'ensemble des niveaux d'une même colonne. Les trappes de visite en salle de bain donnent accès à ce volume, chaud, humide et rarement ouvert.",
+  },
+  {
+    q: 'Faut-il obturer les gaines ?',
+    a: "Non, pas les gaines elles-mêmes, qui doivent rester accessibles pour l'entretien et l'inspection. Ce qui se colmate, ce sont les traversées : le passage d'une canalisation à travers une dalle ou une cloison, non rebouché après travaux. Et ce colmatage intervient après le traitement.",
+  },
+  {
+    q: 'Pourquoi les logements en rez-de-chaussée sont-ils plus exposés ?',
+    a: "Parce qu'ils sont à proximité immédiate des locaux techniques, des locaux de déchets, des caves et des accès extérieurs. Ils sont souvent les premiers à signaler une présence, et les premiers à voir la situation revenir si les parties communes restent hors du périmètre de traitement.",
+  },
+  {
+    q: 'Un ancien vide-ordures désaffecté pose-t-il problème ?',
+    a: "Il peut constituer un volume non entretenu, relié à tous les niveaux et rarement inspecté. Lorsqu'il existe, il est examiné : son obturation définitive fait partie des mesures correctives envisageables, décidée par la copropriété.",
+  },
+];
+
+const related = [
+  { label: 'Copropriétés', href: '/cafards-coproprietes', text: "Diagnostic de bâtiment et décisions collectives." },
+  { label: 'Cafards en appartement', href: '/cafards-appartement', text: "Ce qu'un occupant peut faire de son côté." },
+  { label: 'Cafards en cave', href: '/cafards-cave', text: "Parties basses, humidité et locaux techniques." },
+  { label: 'Blatte germanique', href: '/blatte-germanique', text: "L'espèce qui circule par les gaines." },
+  { label: 'Blatte orientale', href: '/blatte-orientale', text: "L'espèce des parties basses et des réseaux." },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Comment le périmètre est défini." },
+];
+---
+
+<TopicPage
+  title="Cafards dans un immeuble : comment ils circulent | Blattis"
+  description="Cafards dans un immeuble : gaines, colonnes, traversées de canalisation et locaux communs. Comprendre la circulation verticale des blattes."
+  h1="Cafards dans un immeuble : comprendre la circulation"
+  label="Immeuble"
+  lede="Pour comprendre pourquoi un traitement lot par lot échoue, il faut regarder l'immeuble comme un ensemble de volumes creux reliés entre eux. Cette page décrit cette anatomie technique."
+  bullets={['Gaines et colonnes', 'Traversées de canalisation', 'Locaux techniques']}
+  breadcrumbs={[
+    { label: 'Copropriétés', href: '/cafards-coproprietes' },
+    { label: 'Immeuble', href: '/cafards-immeuble' },
+  ]}
+  {faq}
+  {related}
+  relatedTitle="Pages liées"
+  ctaTitle="Faire établir un diagnostic de bâtiment"
+  ctaText="Nombre de logements concernés, niveaux, état des locaux communs : ces éléments permettent de proposer un périmètre cohérent."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Pourquoi un immeuble se comporte-t-il comme un seul volume ?">
+      <p>
+        Parce que les logements sont reliés par des <strong>vides techniques continus</strong> :
+        gaines verticales, colonnes d'eaux usées, coffrages, traversées de dalle non rebouchées. Ces
+        volumes sont chauds, humides et jamais éclairés — des conditions stables toute l'année. Une
+        population qui s'y installe dispose d'un accès à plusieurs niveaux.
+      </p>
+    </Answer>
+
+    <h2>L’anatomie technique d’un immeuble collectif</h2>
+    <h3>Les gaines techniques verticales</h3>
+    <p>
+      Ce sont les volumes les plus déterminants. Une gaine dessert généralement les cuisines et les
+      salles de bain d'une même colonne, sur l'ensemble des niveaux. Elle est accessible par des
+      trappes de visite, souvent situées en salle de bain, parfois dissimulées derrière un
+      habillage.
+    </p>
+    <p>
+      Trois caractéristiques en font un refuge de première qualité : les canalisations d'eau chaude
+      y maintiennent une température élevée, la condensation y entretient une humidité permanente,
+      et le volume n'est pratiquement jamais ouvert.
+    </p>
+    <h3>Les colonnes d’eaux usées</h3>
+    <p>
+      Elles descendent du dernier niveau jusqu'au réseau d'évacuation. Leur intérêt pour une blatte
+      n'est pas l'intérieur du tuyau mais son pourtour : le vide entre la canalisation et le
+      coffrage, ou entre la canalisation et la dalle qu'elle traverse.
+    </p>
+    <h3>Les traversées de canalisation</h3>
+    <p>
+      C'est le point le plus fréquemment en cause, et le plus simple à corriger. Lorsqu'une
+      canalisation traverse une cloison ou une dalle, le percement est souvent plus large que le
+      tuyau. Si ce jeu n'a pas été rebouché après travaux, il constitue un passage direct entre
+      deux logements.
+    </p>
+    <p>
+      On les trouve typiquement sous l'évier, derrière le lave-linge, derrière les équipements
+      sanitaires et dans les coffrages.
+    </p>
+    <h3>Les anciens vide-ordures</h3>
+    <p>
+      Lorsqu'un immeuble en comportait et qu'ils ont été désaffectés, le conduit subsiste souvent :
+      un volume vertical non entretenu, relié à tous les niveaux, rarement inspecté. Il est examiné
+      lorsqu'il existe.
+    </p>
+    <h3>Les faux plafonds et coffrages</h3>
+    <p>
+      Ajoutés lors de rénovations, ils créent des volumes continus au-dessus de plusieurs pièces,
+      parfois au-delà des cloisons d'un logement. Dans le bâti ancien rénové, ces cheminements ne
+      suivent pas les plans d'origine, ce qui rend l'inspection plus longue mais plus nécessaire.
+    </p>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Les locaux communs et leur rôle</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Local</th><th>Rôle possible</th><th>Espèce concernée en priorité</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Local de collecte des déchets</strong></td>
+            <td>Réservoir : chaleur, humidité et apport organique continus</td>
+            <td>Blatte germanique, parfois blatte orientale</td>
+          </tr>
+          <tr>
+            <td><strong>Chaufferie</strong></td>
+            <td>Chaleur permanente et proximité des réseaux</td>
+            <td>Blatte germanique, blatte américaine</td>
+          </tr>
+          <tr>
+            <td><strong>Caves et sous-sols</strong></td>
+            <td>Humidité et stabilité thermique</td>
+            <td>Blatte orientale</td>
+          </tr>
+          <tr>
+            <td><strong>Parking en sous-sol</strong></td>
+            <td>Rarement un foyer, mais un chemin de circulation entre bâtiments</td>
+            <td>Blatte orientale</td>
+          </tr>
+          <tr>
+            <td><strong>Local commercial en pied d’immeuble</strong></td>
+            <td>Peut entretenir une population indépendante des logements</td>
+            <td>Blatte germanique</td>
+          </tr>
+          <tr>
+            <td><strong>Circulations et halls</strong></td>
+            <td>Zones de passage, pas de refuge</td>
+            <td>Toutes, en déplacement</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      La distinction entre <strong>réservoir</strong> et <strong>chemin de circulation</strong> est
+      importante. Un parking traité alors qu'il n'est qu'un couloir n'apporte rien ; un local de
+      déchets laissé de côté alors qu'il héberge une population stable annule le reste.
+    </p>
+
+    <h2>Pourquoi les niveaux bas signalent en premier</h2>
+    <p>
+      Les logements de rez-de-chaussée et de premier étage sont à proximité immédiate des locaux
+      techniques, des locaux de déchets, des caves et des accès extérieurs. Ils constituent souvent
+      le point de contact entre une population installée en partie basse et les logements.
+    </p>
+    <p>
+      Conséquence pratique : lorsqu'un immeuble présente des observations concentrées sur les
+      premiers niveaux, l'hypothèse d'un réservoir en partie basse doit être vérifiée avant toute
+      autre. Traiter les logements sans inspecter les locaux communs revient à intervenir en bout de
+      chaîne.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Lire la diffusion d’une infestation</h2>
+    <p>
+      La répartition des signalements dans un immeuble est un indice à part entière. Trois motifs
+      reviennent.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Répartition observée</th><th>Hypothèse la plus probable</th><th>Vérification</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Logements superposés, même côté de la cage</td>
+            <td>Colonne technique concernée</td>
+            <td>Inspection de la gaine par les trappes de visite</td>
+          </tr>
+          <tr>
+            <td>Logements des premiers niveaux uniquement</td>
+            <td>Réservoir en partie basse</td>
+            <td>Local de déchets, caves, chaufferie</td>
+          </tr>
+          <tr>
+            <td>Logements dispersés, sans logique verticale</td>
+            <td>Introductions indépendantes, ou circulation par les circulations communes</td>
+            <td>Historique des signalements, examen des halls et locaux</td>
+          </tr>
+          <tr>
+            <td>Un seul logement, aucun voisin</td>
+            <td>Introduction récente, population encore locale</td>
+            <td>Inspection ciblée du logement</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Cette lecture n'est possible que si les signalements sont recoupés. C'est pourquoi la
+      première étape d'une opération sur un immeuble consiste à recueillir l'information auprès des
+      occupants, et non à traiter — voir la page
+      <a href="/cafards-coproprietes">cafards en copropriété</a>.
+    </p>
+
+    <h2>Les mesures correctives sur le bâtiment</h2>
+    <p>
+      Un traitement agit sur la population ; il ne modifie pas le bâtiment. Cinq mesures réduisent
+      durablement les possibilités de circulation, et elles s'appliquent <strong>après</strong> le
+      diagnostic et le traitement.
+    </p>
+    <ul class="list-check">
+      <li><strong>Colmater les traversées de canalisation</strong> entre logements et vers les gaines, avec un mastic ou une mousse adaptée.</li>
+      <li><strong>Ventiler le local de collecte des déchets</strong> et revoir la fréquence d'évacuation ainsi que l'entretien des bacs.</li>
+      <li><strong>Obturer définitivement un ancien vide-ordures</strong> lorsque la configuration le permet.</li>
+      <li><strong>Maintenir les siphons de sol en eau</strong> dans les caves, buanderies et locaux techniques : un siphon asséché laisse passer les insectes depuis le réseau.</li>
+      <li><strong>Réduire les stockages au sol</strong> dans les caves et locaux communs, et dégager un passage le long des murs.</li>
+    </ul>
+    <div class="note">
+      <p>
+        Deux précautions : ne jamais obturer une grille de ventilation, ce qui créerait de
+        l'humidité et aggraverait la situation ; ne pas condamner une trappe de gaine technique,
+        qui doit rester accessible pour l'entretien et les inspections futures.
+      </p>
+    </div>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

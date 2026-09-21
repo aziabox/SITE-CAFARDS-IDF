@@ -1,0 +1,218 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+import Steps from '../components/Steps.astro';
+
+const etapes = [
+  { title: 'Évaluer', text: "Noter les pièces concernées, la fréquence et les tailles observées. Trois soirs suffisent à savoir si la présence est cantonnée ou diffuse." },
+  { title: 'Signaler', text: "Un courriel factuel au syndic ou au bailleur, avec pièces, fréquence et période. C'est la seule façon de recouper avec d'autres logements." },
+  { title: 'Préparer', text: "Rendre les zones accessibles, ne pas nettoyer les traces, ne rien colmater. Signaler la présence d'enfants ou d'animaux." },
+  { title: 'Comprendre le périmètre', text: "Le diagnostic peut conclure à un périmètre dépassant votre logement. Le document écrit sert alors à appuyer une demande." },
+];
+
+const faq = [
+  {
+    q: 'Que faire après avoir vu un cafard dans mon appartement ?',
+    a: "Noter l'endroit, l'heure et les circonstances, puis inspecter les zones fermées voisines : dessous d'évier, arrière du réfrigérateur, socle du lave-vaisselle. Éviter absolument les aérosols, qui dispersent les insectes vers les logements voisins par les passages de canalisation.",
+  },
+  {
+    q: 'Les cafards peuvent-ils passer d’un appartement à l’autre ?',
+    a: "Oui. Les gaines techniques, les colonnes d'eau, les passages de canalisation et les vides derrière les coffrages relient les logements. C'est l'une des principales raisons pour lesquelles une infestation réapparaît après un traitement réalisé dans un seul appartement.",
+  },
+  {
+    q: 'Mes voisins n’ont rien signalé : est-ce possible ?',
+    a: "Oui. Une population peut rester longtemps confinée à une seule cuisine, et des voisins peuvent héberger des blattes sans les remarquer, en particulier s'ils cuisinent peu. L'absence de signalement ne prouve pas l'absence d'insectes.",
+  },
+  {
+    q: 'Dois-je prévenir mes voisins ?',
+    a: "Ce n'est pas obligatoire, mais c'est utile. Un traitement simultané ou rapproché des logements concernés donne des résultats nettement plus stables qu'une série d'interventions espacées dans le temps.",
+  },
+  {
+    q: 'Qui paie le traitement en location ?',
+    a: "La répartition dépend du bail, du règlement de copropriété et de l'origine de l'infestation. Le traitement des parties communes relève de la copropriété ou du bailleur. Un diagnostic écrit indiquant si la présence provient des réseaux communs ou du logement lui-même est l'élément le plus utile pour trancher.",
+  },
+  {
+    q: 'Un studio se traite-t-il différemment ?',
+    a: "Le principe reste identique, mais le positionnement demande plus de précision : la cuisine, le rangement et le couchage partagent le même volume. On privilégie les zones fermées et hors de portée — intérieur des coffrages, arrière des appareils, dessous des meubles bas — plutôt que les surfaces exposées.",
+  },
+];
+
+const related = [
+  { label: 'Cafards en immeuble', href: '/cafards-immeuble', text: "Comment circulent les blattes entre les logements." },
+  { label: 'Copropriétés', href: '/cafards-coproprietes', text: "La démarche collective et le rôle du syndic." },
+  { label: 'Cafards dans la cuisine', href: '/cafards-cuisine', text: "Les dix zones à inspecter, dans l'ordre." },
+  { label: 'Particuliers', href: '/cafards-particuliers', text: "Discrétion, consignes, prise en charge." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Les mesures durables en logement collectif." },
+  { label: 'Cafards à Paris', href: '/cafards-paris', text: "Le bâti parisien et les colonnes techniques." },
+];
+---
+
+<TopicPage
+  title="Cafards dans un appartement : que faire ? | Blattis"
+  description="Cafards dans un appartement : évaluer l'étendue, signaler au syndic, préparer l'intervention et comprendre le périmètre de traitement."
+  h1="Cafards dans un appartement : la démarche à suivre"
+  label="Appartement"
+  lede="Un appartement n'est pas une maison isolée : c'est un volume relié à d'autres par des réseaux. Cette différence commande toute la démarche, et explique pourquoi certains traitements ne tiennent pas."
+  bullets={['4 étapes concrètes', 'Signalement au syndic', 'Ce qu’il faut éviter']}
+  breadcrumbs={[
+    { label: 'Particuliers', href: '/cafards-particuliers' },
+    { label: 'Appartement', href: '/cafards-appartement' },
+  ]}
+  {faq}
+  {related}
+  relatedTitle="Pages liées"
+  ctaTitle="Décrire la situation de votre appartement"
+  ctaText="Pièces concernées, fréquence, étage, présence éventuelle chez un voisin : ces éléments permettent de préparer une visite utile."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Quelle est la première chose à faire ?">
+      <p>
+        <strong>Évaluer, pas traiter.</strong> Trois informations déterminent toute la suite : les
+        pièces concernées, la fréquence des observations et les tailles des individus vus. Elles
+        prennent deux ou trois soirs à rassembler et changent complètement la réponse à apporter.
+      </p>
+    </Answer>
+
+    <h2>La démarche en quatre étapes</h2>
+  </div>
+  <div class="wrap steps-wrap">
+    <Steps steps={etapes} />
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Étape 1 — Évaluer avant d’agir</h2>
+    <h3>Les pièces concernées</h3>
+    <p>
+      Cuisine seule, cuisine et salle de bain, ou davantage. Une présence dans
+      <strong>deux pièces humides séparées</strong> suggère un cheminement par une gaine plutôt
+      qu'un déplacement au sol : c'est une information directement exploitable.
+    </p>
+    <h3>La fréquence</h3>
+    <p>
+      Une observation unique il y a dix jours n'a pas le même sens que trois observations par
+      soir. Notez les dates et les heures : dans un immeuble, cette chronologie aide à identifier
+      la colonne concernée.
+    </p>
+    <h3>Les tailles observées</h3>
+    <p>
+      Voir uniquement de grands individus oriente vers une arrivée récente. Voir à la fois de
+      petits individus très sombres et des adultes plus clairs indique une
+      <strong>reproduction sur place</strong>.
+    </p>
+    <h3>Une méthode simple</h3>
+    <p>
+      Laissez la pièce dans l'obscurité et le calme pendant une à deux heures, puis entrez et
+      allumez d'un coup. Ce qui compte n'est pas le nombre d'insectes visibles mais
+      <strong>la direction de leur fuite</strong> : en quelques secondes, chacun rejoint son
+      refuge, et cette direction indique où chercher.
+    </p>
+
+    <h2>Étape 2 — Signaler, même si vous semblez seul concerné</h2>
+    <p>
+      C'est l'étape que l'on saute le plus souvent, et c'est une erreur. Dans un immeuble, les
+      gaines techniques, les colonnes d'eau et les passages de canalisation relient les logements.
+      Un appartement parfaitement tenu peut être le point d'arrivée d'une population installée deux
+      étages plus bas ou dans un local technique.
+    </p>
+    <p>
+      Un signalement écrit au syndic ou au bailleur — un courriel suffit — permet deux choses :
+      recouper votre observation avec d'éventuelles autres, et ouvrir la question des parties
+      communes, qui ne relève pas de vous.
+    </p>
+    <div class="note">
+      <p>
+        <strong>Ce qu'il est utile d'écrire :</strong> les pièces concernées, la fréquence des
+        observations, la période depuis laquelle elles ont lieu, et l'étage. Un constat factuel et
+        daté est plus efficace qu'une formulation inquiète.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Étape 3 — Préparer l’intervention</h2>
+    <p>
+      Quelques préparatifs simples améliorent nettement la qualité du diagnostic — et deux réflexes
+      naturels le dégradent.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>À faire</th><th>À ne pas faire</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Vider le dessous de l'évier</td>
+            <td>Nettoyer les traces de déjections : elles sont la piste principale</td>
+          </tr>
+          <tr>
+            <td>Pouvoir dégager le réfrigérateur et le lave-vaisselle</td>
+            <td>Colmater les passages de canalisation avant le diagnostic</td>
+          </tr>
+          <tr>
+            <td>Rendre les placards bas et tiroirs accessibles</td>
+            <td>Utiliser un aérosol : il disperse la population vers les voisins</td>
+          </tr>
+          <tr>
+            <td>Signaler la trappe de gaine technique si elle existe</td>
+            <td>Condamner cette trappe : elle sert à l'inspection</td>
+          </tr>
+          <tr>
+            <td>Indiquer la présence d'enfants ou d'animaux</td>
+            <td>Repeindre ou reboucher une plinthe décollée</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Étape 4 — Comprendre le périmètre proposé</h2>
+    <p>
+      À l'issue du diagnostic, le périmètre peut dépasser votre logement. Ce n'est pas une manière
+      de gonfler une prestation, c'est une conséquence de la configuration.
+    </p>
+    <p>
+      Si l'inspection montre une présence limitée à un interstice de votre cuisine, le traitement
+      reste ciblé. Si elle révèle un cheminement par une gaine desservant plusieurs niveaux,
+      traiter un seul lot revient à réduire temporairement une population qui se reconstituera.
+    </p>
+    <p>
+      Dans ce second cas, la décision concernant les parties communes appartient à la copropriété
+      ou au bailleur. Votre diagnostic devient alors la pièce utile pour appuyer la demande — voir
+      la page <a href="/cafards-coproprietes">cafards en copropriété</a>.
+    </p>
+
+    <h2>Le cas particulier des petites surfaces</h2>
+    <p>
+      Dans un studio, la cuisine, le rangement et le couchage se partagent le même volume. Le
+      principe du traitement ne change pas, mais son positionnement demande plus de précision : on
+      privilégie les zones fermées et hors de portée — intérieur des coffrages, arrière des
+      appareils, dessous des meubles bas — plutôt que les surfaces exposées.
+    </p>
+    <p>
+      C'est un point à signaler lors de l'échange initial, car il influence le choix des méthodes.
+    </p>
+
+    <h2>En attendant l’intervention</h2>
+    <p>
+      Trois gestes utiles, sans risque de compliquer la suite.
+    </p>
+    <ol class="list-plain">
+      <li><strong>Supprimer l'eau disponible la nuit</strong> — évier essuyé, pas de vaisselle humide, bac de dégivrage du réfrigérateur vidé, gamelle d'eau retirée. C'est le levier le plus efficace à court terme.</li>
+      <li><strong>Fermer les denrées sèches</strong> dans des contenants rigides, y compris les aliments pour animaux.</li>
+      <li><strong>Retirer les cartons et papiers</strong> des placards bas : ce sont des abris que vous pouvez supprimer immédiatement.</li>
+    </ol>
+    <p>
+      La page <a href="/prevention-cafards">prévention</a> détaille ces mesures et celles qui ne
+      servent à rien.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+  .steps-wrap { margin-top: 1.75rem; }
+</style>

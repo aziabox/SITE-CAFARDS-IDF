@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import { site } from '../data/site';
+
+const breadcrumbs = [{ label: 'Mentions légales', href: '/mentions-legales' }];
+---
+<BaseLayout
+  title={`Mentions légales | ${site.brand}`}
+  description="Mentions légales du site : éditeur, hébergeur, propriété intellectuelle, responsabilité et liens externes."
+  {breadcrumbs}
+>
+  <Hero
+    label="Informations légales"
+    title="Mentions légales"
+    text="Informations relatives à l'éditeur du site, à son hébergement et aux conditions d'utilisation."
+    {breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap prose">
+      <div class="note note--todo">
+        <p>
+          <strong>À compléter avant la mise en ligne.</strong> Les champs signalés
+          <code>[à compléter]</code> doivent être renseignés avec les informations réelles de
+          l'entreprise. Aucune donnée d'identification (raison sociale complète, SIREN, SIRET,
+          numéro de TVA, adresse du siège, assurance, certification) n'a été inventée : il est
+          obligatoire de les renseigner et interdit de publier des informations inexactes.
+        </p>
+      </div>
+
+      <h2>Éditeur du site</h2>
+      <ul class="list-plain">
+        <li><strong>Nom commercial :</strong> {site.brand}</li>
+        <li><strong>Raison sociale :</strong> <code>[à compléter]</code></li>
+        <li><strong>Forme juridique :</strong> <code>[à compléter]</code></li>
+        <li><strong>Siège social :</strong> <code>[à compléter]</code></li>
+        <li><strong>SIREN / SIRET :</strong> <code>[à compléter]</code></li>
+        <li><strong>Numéro de TVA intracommunautaire :</strong> <code>[à compléter]</code></li>
+        <li><strong>Directeur de la publication :</strong> <code>[à compléter]</code></li>
+        <li><strong>Téléphone :</strong> <a href={site.phoneHref}>{site.phoneDisplay}</a></li>
+        <li><strong>Courriel :</strong> {site.email}</li>
+      </ul>
+
+      <h2>Hébergement</h2>
+      <ul class="list-plain">
+        <li><strong>Hébergeur :</strong> <code>[à compléter]</code></li>
+        <li><strong>Adresse :</strong> <code>[à compléter]</code></li>
+        <li><strong>Contact :</strong> <code>[à compléter]</code></li>
+      </ul>
+
+      <h2>Activité</h2>
+      <p>
+        Le site présente une activité de traitement des cafards et des blattes en Île-de-France :
+        diagnostic, traitement, prévention et suivi, en habitation comme en local professionnel.
+      </p>
+      <p>
+        Les éventuelles mentions d'agrément, de certification ou d'assurance professionnelle ne
+        peuvent figurer sur ce site que si elles correspondent à des documents réels et en cours de
+        validité. Elles doivent être ajoutées ici : <code>[à compléter]</code>.
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des contenus du site — textes, illustrations vectorielles, mise en page,
+        structure et code — est protégé par le droit d'auteur. Toute reproduction ou représentation,
+        totale ou partielle, sans autorisation écrite préalable est interdite.
+      </p>
+      <p>
+        Les polices de caractères utilisées (Sora et Source Sans 3) sont distribuées sous licence
+        SIL Open Font License et hébergées sur ce site conformément aux termes de cette licence.
+      </p>
+      <p>
+        Les contours administratifs utilisés pour la carte interactive de l'Île-de-France sont
+        issus de données géographiques publiques françaises. Ils sont fournis à titre illustratif et
+        ne constituent pas un document cadastral ou administratif.
+      </p>
+
+      <h2>Nature des informations publiées</h2>
+      <p>
+        Les informations relatives aux espèces, aux signes d'infestation et aux méthodes
+        d'intervention sont fournies à titre informatif. Elles ne constituent ni un diagnostic, ni
+        un engagement de résultat : l'espèce concernée, l'étendue de la population et l'accès aux
+        zones de refuge conditionnent chaque situation et supposent une inspection sur place.
+      </p>
+      <p>
+        Aucune durée de traitement, aucun taux d'efficacité et aucune garantie de résultat ne sont
+        annoncés sur ce site en dehors de ce qui serait contractuellement prévu dans un document
+        remis au client.
+      </p>
+
+      <h2>Avis et témoignages</h2>
+      <p>
+        Le site ne publie aucun avis client fictif. Tant qu'aucun avis réel et vérifiable n'a été
+        recueilli, la section correspondante reste vide : le composant prévu à cet effet n'affiche
+        rien en l'absence de contenu authentique.
+      </p>
+
+      <h2>Responsabilité</h2>
+      <p>
+        L'éditeur s'efforce de maintenir les informations exactes et à jour, sans pouvoir garantir
+        leur exhaustivité. Il ne saurait être tenu responsable des conséquences d'une interprétation
+        des contenus sans inspection préalable des lieux.
+      </p>
+
+      <h2>Liens externes</h2>
+      <p>
+        Le site peut comporter des liens vers des ressources externes. L'éditeur n'exerce aucun
+        contrôle sur ces ressources et décline toute responsabilité quant à leur contenu.
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Le traitement des données transmises via le formulaire de contact est décrit dans la
+        <a href="/politique-confidentialite">politique de confidentialité</a>.
+      </p>
+
+      <h2>Droit applicable</h2>
+      <p>
+        Le présent site est soumis au droit français. En cas de litige, les tribunaux français sont
+        seuls compétents.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .note--todo { border: 1px solid rgba(180, 81, 44, 0.35); background: var(--terra-100); }
+  .note--todo p { color: var(--bx-900); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em; background: var(--creme-2);
+    border: 1px solid var(--line-soft); border-radius: 4px; padding: 0.1em 0.35em;
+  }
+</style>

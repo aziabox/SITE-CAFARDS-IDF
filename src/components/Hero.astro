@@ -95,21 +95,22 @@ const all = breadcrumbs.length ? [{ label: 'Accueil', href: '/' }, ...breadcrumb
 
   .hero__label {
     display: inline-block;
-    font-family: var(--font-display); font-size: 0.685rem; font-weight: 600;
-    letter-spacing: 0.15em; text-transform: uppercase;
+    font-family: var(--font-display); font-size: 0.755rem; font-weight: 600;
+    letter-spacing: 0.13em; text-transform: uppercase;
     color: var(--cuivre);
     padding: 0.42rem 0.8rem;
     border: 1px solid rgba(199, 123, 69, 0.4);
     border-radius: 999px;
     margin: 0 0 1.4rem;
   }
-  .hero h1 { color: var(--ivoire); max-width: 20ch; margin-bottom: 1.05rem; }
+  .hero h1 { color: var(--ivoire); max-width: 26ch; margin-bottom: 1.05rem; }
   .hero--art h1 { max-width: 17ch; }
+  .hero--art .hero__lede { max-width: 54ch; }
   .hero__lede {
     font-size: clamp(1.05rem, 1rem + 0.35vw, 1.2rem);
     line-height: 1.62;
     color: rgba(246, 240, 230, 0.84);
-    max-width: 56ch;
+    max-width: 66ch;
     margin-bottom: 1.6rem;
   }
   .hero__bullets {
@@ -138,6 +139,19 @@ const all = breadcrumbs.length ? [{ label: 'Accueil', href: '/' }, ...breadcrumb
     .hero--art .hero__inner { grid-template-columns: 1fr; }
     .hero--art h1 { max-width: 24ch; }
     .hero__art { order: -1; }
+  }
+  @media (max-width: 620px) {
+    /* Sur petit écran, le label passerait sur deux lignes dans une pastille
+       arrondie : on le rend alors sous forme d'intitulé simple. */
+    .hero__label {
+      border: 0; border-radius: 0; padding: 0 0 0 1.9rem;
+      position: relative; font-size: 0.72rem; letter-spacing: 0.12em;
+      margin-bottom: 1.15rem;
+    }
+    .hero__label::before {
+      content: ''; position: absolute; left: 0; top: 0.58em;
+      width: 22px; height: 1.5px; background: var(--cuivre);
+    }
   }
   @media (max-width: 560px) {
     .hero__cta .btn { flex: 1 1 100%; }

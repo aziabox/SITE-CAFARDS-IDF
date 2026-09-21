@@ -36,7 +36,7 @@ export const especes: Espece[] = [
     nomLatin: 'Blattella germanica',
     short:
       "L'espèce la plus fréquemment rencontrée en logement et en cuisine professionnelle. De petite taille, elle reste à proximité immédiate de la chaleur et de l'eau.",
-    metaTitle: 'Blatte germanique : reconnaître Blattella germanica et la traiter',
+    metaTitle: 'Blatte germanique : la reconnaître et la traiter',
     metaDescription:
       "Blatte germanique (Blattella germanica) : apparence, taille, environnement, signes d'infestation, lieux fréquentés, prévention et traitement professionnel.",
     h1: 'Blatte germanique (Blattella germanica)',
@@ -124,7 +124,7 @@ export const especes: Espece[] = [
     nomLatin: 'Blatta orientalis',
     short:
       "Plus grande et plus sombre, elle recherche les endroits frais et humides : caves, sous-sols, canalisations, locaux techniques en partie basse.",
-    metaTitle: 'Blatte orientale : reconnaître Blatta orientalis et la traiter',
+    metaTitle: 'Blatte orientale : la reconnaître et la traiter',
     metaDescription:
       "Blatte orientale (Blatta orientalis) : apparence, taille, environnement humide et frais, signes, lieux fréquentés, prévention et traitement professionnel.",
     h1: 'Blatte orientale (Blatta orientalis)',
@@ -207,7 +207,7 @@ export const especes: Espece[] = [
     nomLatin: 'Periplaneta americana',
     short:
       "La plus grande des espèces couramment citées. Elle est associée aux réseaux chauds et humides et reste moins fréquente en logement en France.",
-    metaTitle: 'Blatte américaine : reconnaître Periplaneta americana',
+    metaTitle: 'Blatte américaine : la reconnaître et la traiter',
     metaDescription:
       "Blatte américaine (Periplaneta americana) : apparence, taille, environnement, signes, lieux fréquentés, prévention et traitement professionnel.",
     h1: 'Blatte américaine (Periplaneta americana)',

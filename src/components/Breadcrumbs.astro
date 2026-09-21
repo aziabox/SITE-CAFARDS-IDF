@@ -25,7 +25,7 @@ const all = [{ label: 'Accueil', href: '/' }, ...items];
   }
   .bc li { display: flex; align-items: center; gap: 0.5rem; color: var(--ink-muted); }
   .bc li + li::before { content: '/'; color: var(--line-strong); }
-  .bc a { color: var(--ink-soft); text-decoration: none; }
+  .bc a { display: inline-block; padding-block: 2px; color: var(--ink-soft); text-decoration: none; }
   .bc a:hover { color: var(--bx-700); text-decoration: underline; text-underline-offset: 0.2em; }
   .bc span[aria-current] { color: var(--bx-800); font-weight: 600; }
   .bc--dark li, .bc--dark a { color: rgba(246, 240, 230, 0.7); }

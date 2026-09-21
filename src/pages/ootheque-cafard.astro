@@ -1,0 +1,220 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Qu’est-ce qu’une oothèque de cafard ?',
+    a: "C'est la capsule rigide qui contient les œufs d'une blatte. Chez la blatte germanique, elle mesure environ 8 mm, elle est brune, allongée et finement striée. Elle est faite d'une substance protéique qui durcit au contact de l'air, ce qui la rend peu sensible aux produits appliqués à l'extérieur.",
+  },
+  {
+    q: 'Combien d’œufs contient une oothèque ?',
+    a: "Le nombre varie selon l'espèce : une oothèque de blatte germanique contient plusieurs dizaines d'œufs. C'est cet ordre de grandeur qui explique qu'une population puisse se reconstituer rapidement lorsque les enveloppes n'ont pas été atteintes par le traitement.",
+  },
+  {
+    q: 'Une oothèque vide signifie-t-elle que les jeunes sont sortis ?',
+    a: "Oui. Une enveloppe fendue sur sa longueur et d'aspect plus clair indique que l'éclosion a eu lieu. En trouver plusieurs signifie que la reproduction se déroule sur place depuis un certain temps, et non qu'il s'agit d'une arrivée récente.",
+  },
+  {
+    q: 'Faut-il détruire les oothèques trouvées ?',
+    a: "Les retirer est utile. Le plus simple est de les prélever avec un mouchoir, de les placer dans un contenant fermé et de les jeter à l'extérieur du logement. Surtout, notez l'emplacement exact : là où se trouve une oothèque se trouve un refuge, et c'est là que le traitement doit porter.",
+  },
+  {
+    q: 'Pourquoi des cafards reviennent-ils un mois après le traitement ?',
+    a: "Le plus souvent parce que des oothèques présentes lors de l'intervention ont éclos. Ces jeunes n'étaient atteignables ni par le produit ni par l'inspection, puisqu'ils n'étaient pas encore nés. Le signe distinctif est la taille : des individus nettement plus petits que ceux observés au départ.",
+  },
+];
+
+const related = [
+  { label: 'Signes d’un nid', href: '/nid-cafards', text: "Localiser la zone de refuge où se trouvent les oothèques." },
+  { label: 'Blatte germanique', href: '/blatte-germanique', text: "L'espèce dont la femelle porte son oothèque." },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Pourquoi un contrôle après intervention est nécessaire." },
+  { label: 'Identifier un cafard', href: '/identifier-cafard', text: "Reconnaître l'espèce et les autres traces." },
+];
+---
+
+<TopicPage
+  title="Oothèque de cafard : reconnaître les œufs de blatte | Blattis"
+  description="L'oothèque de cafard expliquée : aspect, taille, couleur, emplacements, différences entre espèces et raison pour laquelle elle explique les reprises après un traitement."
+  h1="Oothèque de cafard : reconnaître les œufs"
+  label="Reproduction"
+  lede="C'est un mot technique, mais il explique à lui seul la plupart des situations où « le traitement n'a pas marché ». Comprendre ce qu'est une oothèque permet d'anticiper ce qui va se passer dans les semaines suivant une intervention."
+  bullets={['Aspect et taille', 'Où les trouver', 'Pourquoi deux passages']}
+  breadcrumbs={[
+    { label: 'Cafards & blattes', href: '/cafards' },
+    { label: 'Oothèque de cafard', href: '/ootheque-cafard' },
+  ]}
+  {faq}
+  {related}
+  ctaTitle="Vous avez trouvé des oothèques ?"
+  ctaText="C'est l'indice d'une reproduction sur place. Décrivez l'emplacement et la pièce concernée : cette information permet de préparer un traitement ciblé plutôt qu'une inspection générale."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="À quoi ressemble une oothèque de cafard ?">
+      <p>
+        Chez la blatte germanique, l'oothèque mesure environ <strong>8 mm</strong>. Elle est
+        allongée, légèrement incurvée, de couleur brun clair à brun foncé, avec une surface
+        finement striée dans le sens de la largeur. Sa forme rappelle un petit grain de riz un peu
+        bombé, ou une gousse minuscule. On la trouve glissée dans un interstice.
+      </p>
+    </Answer>
+
+    <h2>Une enveloppe, pas des œufs isolés</h2>
+    <p>
+      Les blattes ne pondent pas des œufs séparés. Elles produisent une capsule rigide — l'oothèque
+      — contenant plusieurs dizaines d'œufs disposés en rangées. Cette enveloppe est constituée
+      d'une substance protéique qui durcit au contact de l'air.
+    </p>
+    <p>
+      Sa fonction est protectrice : elle limite la déshydratation des œufs et constitue une
+      barrière physique. C'est aussi ce qui la rend peu sensible aux produits appliqués à
+      l'extérieur — et c'est précisément le problème.
+    </p>
+
+    <h2>L’aspect selon l’espèce</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Espèce</th><th>Taille approximative</th><th>Aspect</th><th>Comportement de la femelle</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="/blatte-germanique">Blatte germanique</a></td>
+            <td>≈ 8 mm</td>
+            <td>Brun clair à foncé, allongée, finement striée</td>
+            <td><strong>Portée</strong> jusqu'à un stade avancé du développement</td>
+          </tr>
+          <tr>
+            <td><a href="/blatte-orientale">Blatte orientale</a></td>
+            <td>Plus grande</td>
+            <td>Plus sombre et plus massive</td>
+            <td><strong>Déposée</strong> dans un endroit abrité</td>
+          </tr>
+          <tr>
+            <td><a href="/blatte-americaine">Blatte américaine</a></td>
+            <td>Plus grande</td>
+            <td>Brune, volumineuse</td>
+            <td><strong>Déposée</strong> dans un abri, souvent près d'une source de chaleur</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Une oothèque <strong>vide</strong> est fendue sur sa longueur, souvent d'aspect plus clair,
+      et reste en place dans l'interstice où elle se trouvait.
+    </p>
+
+    <h2>Où les trouver</h2>
+    <p>
+      Elles se situent là où se trouvent les refuges, c'est-à-dire dans les volumes chauds, humides
+      et resserrés.
+    </p>
+    <ul class="list-check">
+      <li>Interstices derrière et sous le réfrigérateur</li>
+      <li>Socle et flancs du lave-vaisselle</li>
+      <li>Angles intérieurs de placards bas et rails de tiroir</li>
+      <li>Vides de plinthe des meubles</li>
+      <li>Coffrages de canalisations et trappes de gaine technique</li>
+      <li>Arrière des équipements sanitaires</li>
+      <li>Interstices de sol ou de mur de sous-sol, pour la blatte orientale</li>
+    </ul>
+    <p>
+      En trouver a une signification précise : la <strong>reproduction a lieu sur place</strong>.
+      Ce n'est pas une nuance, c'est ce qui distingue une introduction récente d'une population
+      installée. Voir la page <a href="/nid-cafards">signes d'un nid de cafards</a> pour la méthode
+      de localisation.
+    </p>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>La différence décisive entre les espèces</h2>
+    <p>
+      Chez la <strong>blatte germanique</strong>, la femelle porte son oothèque attachée à
+      l'extrémité de l'abdomen jusqu'à un stade très avancé du développement. Elle ne la dépose
+      que peu avant l'éclosion.
+    </p>
+    <p>
+      Conséquence directe : l'enveloppe reste en permanence dans le refuge, protégée par sa paroi
+      <em>et</em> par le comportement de l'insecte. Un traitement qui atteint les adultes en
+      circulation n'atteint pas nécessairement les oothèques portées par des femelles restées au
+      fond d'un interstice.
+    </p>
+    <p>
+      Chez la <strong>blatte orientale</strong> et la <strong>blatte américaine</strong>,
+      l'oothèque est déposée dans un abri. Elle est alors plus exposée, mais elle peut aussi se
+      trouver à une certaine distance des individus observés — ce qui déplace la question vers
+      l'inspection plutôt que vers le calendrier.
+    </p>
+
+    <h2>Pourquoi une reprise à trois ou quatre semaines est normale</h2>
+    <p>
+      C'est le point le plus utile de cette page, et il évite beaucoup d'inquiétude inutile.
+    </p>
+    <p>
+      Après une intervention correctement menée, les observations chutent rapidement : les adultes
+      en circulation sont atteints. Puis, quelques semaines plus tard, de petits individus très
+      sombres apparaissent. Beaucoup y voient un échec.
+    </p>
+    <p>
+      Il s'agit en réalité de l'éclosion d'oothèques présentes au moment du traitement. Ces jeunes
+      n'étaient atteignables ni par le produit ni par l'inspection, puisqu'ils n'étaient pas encore
+      nés.
+    </p>
+    <div class="note">
+      <p>
+        <strong>Le signe distinctif est la taille.</strong> Des individus <em>nettement plus
+        petits</em> que ceux observés au départ correspondent à une éclosion. Des individus de
+        taille comparable orientent plutôt vers des refuges non atteints ou une réalimentation
+        depuis un logement voisin.
+      </p>
+    </div>
+    <p>
+      C'est précisément ce que le <strong>contrôle après traitement</strong> vise : intervenir sur
+      cette nouvelle génération avant qu'elle atteigne l'âge de reproduction. Un protocole en deux
+      temps n'est donc pas une manière d'allonger une prestation — c'est une nécessité liée à la
+      biologie de l'insecte, et un protocole en une seule visite ne peut fonctionner que dans les
+      situations récentes, où peu d'oothèques sont présentes.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Que faire si vous en trouvez une</h2>
+    <ol class="list-plain">
+      <li><strong>Ne la manipulez pas à mains nues.</strong> Utilisez un mouchoir, puis lavez-vous les mains.</li>
+      <li><strong>Ne l'écrasez pas sur place.</strong> Placez-la dans un contenant fermé et jetez-la à l'extérieur du logement.</li>
+      <li><strong>Notez l'emplacement exact.</strong> C'est l'information la plus directement exploitable : là où se trouve une oothèque se trouve un refuge.</li>
+      <li><strong>Ne nettoyez pas la zone avant une visite.</strong> Les traces environnantes — déjections, mues — renseignent sur l'ancienneté de la présence.</li>
+      <li><strong>Ne colmatez pas l'interstice.</strong> Le colmatage vient après le traitement, pas avant.</li>
+    </ol>
+
+    <h2>Ce que la présence d’oothèques implique</h2>
+    <p>
+      Trois conclusions pratiques en découlent.
+    </p>
+    <p>
+      <strong>La présence n'est pas récente.</strong> Le temps nécessaire à un individu pour
+      atteindre l'âge de reproduction puis pondre implique une installation de plusieurs semaines
+      au minimum.
+    </p>
+    <p>
+      <strong>Un traitement en un seul passage est peu probable.</strong> Le calendrier doit
+      intégrer le cycle d'éclosion.
+    </p>
+    <p>
+      <strong>Le périmètre mérite d'être vérifié.</strong> Si la reproduction a lieu sur place
+      depuis un certain temps, des refuges satellites ont pu apparaître dans les pièces contiguës
+      ou, en immeuble, le long de la gaine. La page
+      <a href="/traitement-cafards">traitement des cafards</a> détaille comment le périmètre est
+      défini.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

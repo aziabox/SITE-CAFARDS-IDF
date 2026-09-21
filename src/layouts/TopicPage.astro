@@ -1,0 +1,69 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import { faqSchema, serviceSchema } from '../lib/schema';
+
+export interface Props {
+  title: string;
+  description: string;
+  h1: string;
+  label?: string;
+  lede: string;
+  bullets?: string[];
+  breadcrumbs: Array<{ label: string; href?: string }>;
+  faq?: Array<{ q: string; a: string | string[] }>;
+  faqTitle?: string;
+  faqIntro?: string;
+  related?: Array<{ label: string; href: string; text?: string }>;
+  relatedTitle?: string;
+  relatedIntro?: string;
+  /** Ajoute un nœud Service au JSON-LD (pages de prestation uniquement). */
+  service?: { name: string; description: string; serviceType?: string };
+  schema?: object[];
+  ctaTitle?: string;
+  ctaText?: string;
+}
+
+const {
+  title,
+  description,
+  h1,
+  label,
+  lede,
+  bullets = [],
+  breadcrumbs,
+  faq = [],
+  faqTitle = 'Questions fréquentes',
+  faqIntro,
+  related = [],
+  relatedTitle,
+  relatedIntro,
+  service,
+  schema = [],
+  ctaTitle,
+  ctaText,
+} = Astro.props;
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+const flatten = (a: string | string[]) => (Array.isArray(a) ? a.join(' ') : a);
+
+const nodes = [
+  ...(service ? [serviceSchema({ url: path, ...service })] : []),
+  ...(faq.length ? [faqSchema(path, faq.map((f) => ({ q: f.q, a: flatten(f.a) })))] : []),
+  ...schema,
+];
+---
+
+<BaseLayout {title} {description} {breadcrumbs} schema={nodes}>
+  <Hero title={h1} text={lede} {label} {bullets} {breadcrumbs} />
+  <slot />
+  {faq.length > 0 && <Faq items={faq} title={faqTitle} intro={faqIntro} />}
+  {related.length > 0 && (
+    <RelatedLinks links={related} title={relatedTitle ?? 'À consulter également'} intro={relatedIntro} />
+  )}
+  <CtaBand title={ctaTitle} text={ctaText} />
+</BaseLayout>

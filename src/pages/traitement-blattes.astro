@@ -1,0 +1,237 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+import { especes } from '../data/especes';
+
+const faq = [
+  {
+    q: 'Le traitement est-il le même pour toutes les blattes ?',
+    a: "Non. Le principe général reste identique — traiter les refuges plutôt que les surfaces — mais la localisation de ces refuges change complètement selon l'espèce. Une blatte germanique se traite dans les volumes chauds d'une cuisine, une blatte orientale dans les zones humides d'un sous-sol, une blatte américaine au niveau des points de remontée des réseaux.",
+  },
+  {
+    q: 'Pourquoi la blatte germanique demande-t-elle un second passage ?',
+    a: "Parce que la femelle porte son oothèque — l'enveloppe contenant les œufs — jusqu'à un stade avancé du développement, au fond d'un interstice. Cette enveloppe est protégée par sa paroi et par le comportement de l'insecte. Un traitement peut donc atteindre les adultes sans neutraliser la génération suivante, qui éclôt trois à quatre semaines plus tard.",
+  },
+  {
+    q: 'Comment traiter une blatte orientale en cave ?',
+    a: "L'intervention porte sur les zones humides et les réseaux, pas sur les pièces de vie. Deux points sont déterminants : identifier le point d'entrée — siphon asséché, regard mal refermé, passage de réseau non colmaté — et réduire l'humidité par la ventilation et la réparation des suintements. Sans ces corrections, un traitement reste temporaire.",
+  },
+  {
+    q: 'Faut-il identifier l’espèce avant d’intervenir ?',
+    a: "Oui, car elle détermine où chercher. Le critère le plus fiable est le pronotum, la plaque située derrière la tête : deux bandes sombres pour la germanique, uniformément noir pour l'orientale, liseré clair pour l'américaine. L'endroit de l'observation apporte déjà une orientation forte.",
+  },
+  {
+    q: 'Une même intervention peut-elle couvrir deux espèces ?',
+    a: "C'est possible lorsqu'un bâtiment présente une blatte germanique en cuisine et une blatte orientale en sous-sol, ce qui arrive. Le traitement comporte alors deux volets distincts, avec des zones et des priorités différentes, et non un protocole unique appliqué partout.",
+  },
+];
+
+const related = [
+  { label: 'Blatte germanique', href: '/blatte-germanique', text: "Fiche complète : apparence, environnement, signes, traitement." },
+  { label: 'Blatte orientale', href: '/blatte-orientale', text: "Fiche complète : zones humides, partie basse, réseaux." },
+  { label: 'Blatte américaine', href: '/blatte-americaine', text: "Fiche complète : réseaux techniques et grandes cuisines." },
+  { label: 'Déroulement d’une intervention', href: '/traitement-cafards', text: "Les sept étapes, l'inspection et le périmètre." },
+  { label: 'Identifier un cafard', href: '/identifier-cafard', text: "Les critères visuels et les cas limites." },
+  { label: 'Oothèque de cafard', href: '/ootheque-cafard', text: "Pourquoi les œufs expliquent les reprises." },
+];
+---
+
+<TopicPage
+  title="Traitement des blattes : protocole selon l’espèce | Blattis"
+  description="Traitement des blattes : le protocole change selon l'espèce — germanique, orientale, américaine. Zones ciblées et calendrier."
+  h1="Traitement des blattes : un protocole par espèce"
+  label="Par espèce"
+  lede="Les trois espèces rencontrées en Île-de-France n'occupent pas les mêmes zones et ne se reproduisent pas au même rythme. Appliquer un protocole unique aux trois donne trois résultats différents, dont deux décevants."
+  bullets={['3 protocoles distincts', 'Zones ciblées par espèce', 'Calendrier selon le cycle']}
+  breadcrumbs={[
+    { label: 'Traitement', href: '/traitement-cafards' },
+    { label: 'Traitement des blattes', href: '/traitement-blattes' },
+  ]}
+  {faq}
+  {related}
+  relatedTitle="Fiches détaillées"
+  service={{
+    name: 'Traitement des blattes',
+    description:
+      "Traitement adapté à l'espèce identifiée : blatte germanique, blatte orientale ou blatte américaine. Zones ciblées, calendrier lié au cycle de reproduction et corrections des conditions favorables.",
+    serviceType: 'Traitement des blattes',
+  }}
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Pourquoi l’espèce change-t-elle le traitement ?">
+      <p>
+        Parce qu'elle détermine <strong>où se trouvent les refuges</strong>. Le principe reste le
+        même — traiter les volumes fermés où vivent les insectes — mais ces volumes ne sont pas au
+        même endroit selon l'espèce. Traiter une cuisine parce qu'on a vu une blatte orientale en
+        cave est, littéralement, hors sujet.
+      </p>
+    </Answer>
+
+    <h2>Vue d’ensemble : trois logiques différentes</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Espèce</th><th>Zones à traiter</th><th>Rythme de reproduction</th><th>Correction déterminante</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Blatte germanique</strong></td>
+            <td>Volumes chauds et fermés : socles d'appareils, coffrages, vides de plinthe, gaines</td>
+            <td>Rapide — second passage généralement nécessaire</td>
+            <td>Suppression de l'eau disponible et fermeture des denrées</td>
+          </tr>
+          <tr>
+            <td><strong>Blatte orientale</strong></td>
+            <td>Parties basses et réseaux : caves, buanderies, abords de canalisations, regards</td>
+            <td>Lent — la difficulté vient de l'accès, pas du cycle</td>
+            <td>Réduction de l'humidité et colmatage du point d'entrée</td>
+          </tr>
+          <tr>
+            <td><strong>Blatte américaine</strong></td>
+            <td>Réseaux techniques : galeries, vides techniques, sous-sols chauffés</td>
+            <td>Intermédiaire — souvent hors du local observé</td>
+            <td>Étanchéité des points de remontée</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>Blatte germanique : atteindre des refuges très étroits</h2>
+    <p>
+      C'est l'espèce la plus fréquente en logement et en cuisine professionnelle, et celle qui pose
+      la contrainte la plus forte sur le calendrier.
+    </p>
+    <h3>Les zones ciblées</h3>
+    <p>
+      Elles sont resserrées et systématiquement liées à un appareil ou à une canalisation :
+      compartiment moteur du réfrigérateur, socle et flancs du lave-vaisselle, habillage du four,
+      dessous d'évier, coffrage de canalisations, vides de plinthe, charnières et rails de tiroir,
+      intérieur des petits appareils chauffants, trappes de gaine technique.
+    </p>
+    <h3>La contrainte du calendrier</h3>
+    <p>
+      La femelle <strong>porte son oothèque</strong> jusqu'à un stade avancé, au fond d'un
+      interstice. Cette enveloppe reste donc dans le refuge, protégée. Un traitement peut atteindre
+      les adultes sans la neutraliser.
+    </p>
+    <p>
+      Le déroulement typique est le suivant : chute nette des observations en une à deux semaines,
+      puis reprise à trois ou quatre semaines avec des individus <strong>nettement plus petits</strong>.
+      Ce n'est pas un échec mais l'éclosion des enveloppes présentes lors de l'intervention. Le
+      contrôle vise cette génération avant qu'elle atteigne l'âge de reproduction.
+    </p>
+    <h3>La correction qui compte</h3>
+    <p>
+      Cette espèce a besoin d'eau plus encore que de nourriture. Essuyer l'évier le soir, ne pas
+      laisser de vaisselle humide, vider le bac de dégivrage du réfrigérateur, réparer les
+      suintements : ces gestes réduisent l'attractivité du lieu de façon durable, ce qu'aucun
+      produit ne fait.
+    </p>
+
+    <h2>Blatte orientale : traiter l’humidité autant que l’insecte</h2>
+    <p>
+      Ici, le cycle de reproduction n'est pas le problème — il est plus lent. La difficulté vient
+      de l'accessibilité des zones occupées.
+    </p>
+    <h3>Les zones ciblées</h3>
+    <p>
+      Caves et sous-sols, locaux de chauffage, buanderies, abords de canalisations, siphons de sol,
+      regards d'évacuation, vides sanitaires, locaux de collecte des déchets, garages
+      semi-enterrés. En immeuble, l'accès à ces locaux dépend du syndic ou du gardien.
+    </p>
+    <h3>Le point d’entrée est déterminant</h3>
+    <p>
+      Cette espèce circule le long des réseaux d'évacuation. Un siphon de sol asséché — courant
+      dans une cave ou une buanderie peu utilisée — laisse passer les insectes depuis le réseau.
+      Un regard mal refermé ou un passage de canalisation non colmaté produit le même effet.
+    </p>
+    <p>
+      Traiter sans corriger cet accès donne un résultat temporaire. Verser un litre d'eau dans un
+      siphon peu utilisé, chaque mois, coûte moins qu'une seconde intervention.
+    </p>
+    <h3>La correction qui compte</h3>
+    <p>
+      La ventilation des locaux enterrés et la réparation des suintements. À cela s'ajoute une
+      mesure d'organisation souvent négligée : surélever les stockages et laisser un passage le
+      long des murs, ce qui rend l'espace moins accueillant et l'inspection possible.
+    </p>
+
+    <h2>Blatte américaine : chercher le point de remontée</h2>
+    <p>
+      Lorsque cette espèce est observée dans un logement ou un local, l'individu vu correspond
+      souvent à une remontée depuis un réseau, et non à une population installée sur place.
+    </p>
+    <h3>Les zones ciblées</h3>
+    <p>
+      Galeries et vides techniques, sous-sols chauffés, réseaux d'évacuation, chaufferies,
+      grandes cuisines collectives, locaux de production alimentaire, locaux de déchets de grands
+      ensembles.
+    </p>
+    <h3>La question centrale</h3>
+    <p>
+      Identifier <strong>par où</strong> les individus accèdent au local. La localisation des
+      observations est l'indice principal : proximité d'un siphon, d'un regard, d'une gaine ou
+      d'une trappe technique. Traiter la pièce où l'insecte a été vu ne change rien si le point de
+      remontée reste ouvert.
+    </p>
+    <h3>La coordination</h3>
+    <p>
+      Dans un bâtiment collectif ou tertiaire, l'intervention suppose l'accès aux locaux techniques
+      et la participation du service technique ou du gestionnaire. C'est souvent ce point
+      organisationnel, et non la technique, qui détermine la durée de l'opération.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Les cas mixtes</h2>
+    <p>
+      Un même bâtiment peut héberger deux espèces dans des zones différentes : une blatte
+      germanique en cuisine d'appartement et une blatte orientale en cave, par exemple. C'est
+      relativement fréquent en immeuble ancien.
+    </p>
+    <p>
+      Dans ce cas, le traitement comporte deux volets distincts, avec des zones, des priorités et
+      des calendriers différents. Appliquer le protocole de l'une aux zones de l'autre expliquerait
+      à lui seul un échec partiel.
+    </p>
+
+    <h2>Ce qui reste commun aux trois espèces</h2>
+    <ul class="list-check">
+      <li><strong>L'inspection précède le traitement.</strong> Sans localisation des refuges, le produit est appliqué au hasard.</li>
+      <li><strong>Les surfaces visibles ne comptent pas.</strong> Un plan de travail ou un sol dégagé n'est traversé que brièvement.</li>
+      <li><strong>Les aérosols sont contre-productifs.</strong> Ils dispersent la population vers d'autres zones et font abandonner les refuges initiaux, ce qui complique l'inspection.</li>
+      <li><strong>Le colmatage vient après le diagnostic.</strong> Les passages renseignent sur le cheminement.</li>
+      <li><strong>Les conditions favorables doivent être corrigées.</strong> Aucun produit ne répare une fuite ni ne retire les cartons d'un placard bas.</li>
+    </ul>
+
+    <h2>Fiches par espèce</h2>
+    <div class="grid grid-3 esp-grid">
+      {especes.map((e) => (
+        <a class="card" href={`/${e.slug}`}>
+          <span class="card__meta">{e.nomLatin}</span>
+          <h3>{e.nom}</h3>
+          <p>{e.short}</p>
+          <span class="link-more" aria-hidden="true">Consulter la fiche</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll, .prose .grid { max-width: none; }
+  .esp-grid { margin-top: 1.5rem; }
+  .esp-grid .card h3 { font-size: 1.05rem; }
+  .esp-grid .link-more { margin-top: 0.9rem; font-size: 0.86rem; }
+</style>

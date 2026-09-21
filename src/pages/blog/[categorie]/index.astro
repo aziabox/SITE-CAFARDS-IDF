@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Hero from '../../../components/Hero.astro';
+import PostCard from '../../../components/PostCard.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { getCollection } from 'astro:content';
+import { categories } from '../../../content.config';
+import { site } from '../../../data/site';
+
+/** Descriptions propres à chaque catégorie : aucune n'est générée à partir du nom. */
+const intros: Record<string, { meta: string; lede: string }> = {
+  cafards: {
+    meta: "Articles généraux sur les cafards : mode de vie, évaluation d'une infestation, rythme nocturne et guide complet pour l'Île-de-France.",
+    lede: "Les articles qui portent sur les cafards en général : comment ils vivent, comment évaluer l'ampleur d'une situation, et ce que le contexte francilien change.",
+  },
+  blattes: {
+    meta: "Articles consacrés aux espèces de blattes : blatte germanique, blatte orientale, caractéristiques, comportement et conséquences pour le traitement.",
+    lede: "Les articles par espèce. Distinguer une blatte germanique d'une blatte orientale n'est pas un détail : elles n'occupent pas les mêmes zones et ne se traitent pas de la même façon.",
+  },
+  identification: {
+    meta: "Articles d'identification : reconnaître un cafard, distinguer les espèces, trouver une zone de refuge, reconnaître une oothèque.",
+    lede: "Reconnaître avant d'agir. Ces articles portent sur les critères visuels, les traces à repérer et les confusions les plus fréquentes.",
+  },
+  prevention: {
+    meta: "Articles de prévention : éviter une infestation, protéger un logement, précautions d'hygiène et contrôle des voies d'introduction.",
+    lede: "Ce qui réduit réellement l'attractivité d'un lieu — et ce qui ne sert à rien, qu'il est utile de savoir avant d'acheter un produit.",
+  },
+  traitement: {
+    meta: "Articles sur le traitement : déroulement d'une intervention, délais, raisons d'une réapparition et rôle du contrôle après traitement.",
+    lede: "Comment se déroule une intervention, ce qui détermine sa durée, et pourquoi une reprise à trois semaines n'est pas un échec.",
+  },
+  copropriete: {
+    meta: "Articles sur les copropriétés : rôle du syndic, parties communes, diagnostic à l'échelle du bâtiment et opérations coordonnées.",
+    lede: "En copropriété, la difficulté est organisationnelle avant d'être technique. Ces articles portent sur la coordination et les parties communes.",
+  },
+  restaurant: {
+    meta: "Articles sur la restauration : zones à examiner en cuisine professionnelle, organisation du stockage, livraisons et traçabilité.",
+    lede: "Une cuisine professionnelle réunit par construction les conditions favorables aux blattes. Ces articles portent sur ce que cela implique concrètement.",
+  },
+  habitation: {
+    meta: "Articles sur l'habitation : cafards en appartement, zones d'une cuisine, raisons de leur apparition dans un logement.",
+    lede: "Ce qui se joue dans un logement : où se cachent réellement les blattes, pourquoi elles apparaissent, et quelle démarche suivre.",
+  },
+};
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return Object.keys(categories)
+    .filter((key) => posts.some((p) => p.data.category === key))
+    .map((key) => ({
+      params: { categorie: key },
+      props: {
+        categorie: key,
+        posts: posts
+          .filter((p) => p.data.category === key)
+          .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+      },
+    }));
+}
+
+const { categorie, posts } = Astro.props;
+const label = categories[categorie as keyof typeof categories];
+const info = intros[categorie];
+
+const breadcrumbs = [
+  { label: 'Blog', href: '/blog' },
+  { label, href: `/blog/${categorie}` },
+];
+
+const autres = Object.entries(categories).filter(([k]) => k !== categorie);
+---
+
+<BaseLayout
+  title={`${label} — articles cafards et blattes | ${site.brand}`}
+  description={info.meta}
+  {breadcrumbs}
+>
+  <Hero
+    label={`Blog · ${label}`}
+    title={`${label} : articles et guides`}
+    text={info.lede}
+    bullets={[`${posts.length} article${posts.length > 1 ? 's' : ''}`]}
+    {breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Catégorie</p>
+        <h2>
+          {posts.length === 1 ? 'Un article dans cette catégorie' : `Les ${posts.length} articles de cette catégorie`}
+        </h2>
+      </div>
+      <div class="grid grid-3">
+        {posts.map((p) => <PostCard post={p} showCategory={false} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--creme section--tight">
+    <div class="wrap">
+      <h2 class="cats-title">Autres catégories</h2>
+      <nav class="cats" aria-label="Autres catégories du blog">
+        {autres.map(([k, l]) => <a href={`/blog/${k}`}>{l}</a>)}
+        <a href="/blog">Tous les articles</a>
+      </nav>
+    </div>
+  </section>
+
+  <CtaBand variant="creme" />
+</BaseLayout>
+
+<style>
+  .cats-title { font-size: 1.1rem; margin-bottom: 1rem; }
+  .cats { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .cats a {
+    display: inline-block; padding: 0.55rem 1rem;
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: 999px;
+    font-family: var(--font-display); font-size: 0.89rem; font-weight: 600;
+    text-decoration: none; color: var(--bx-700);
+  }
+  .cats a:hover { border-color: var(--terra); color: var(--terra-600); }
+</style>

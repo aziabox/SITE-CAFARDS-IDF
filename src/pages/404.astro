@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const pistes = [
+  { label: 'Cafards et blattes', href: '/cafards', text: 'La page de référence : espèces, mode de vie, signes.' },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Déroulement, inspection et périmètre d'une intervention." },
+  { label: "Zones d'intervention", href: '/zones-intervention', text: 'Paris et les huit départements franciliens.' },
+  { label: 'FAQ', href: '/faq', text: 'Les questions les plus fréquentes, par thème.' },
+  { label: 'Blog', href: '/blog', text: '20 articles sur l’identification, la prévention et le traitement.' },
+  { label: 'Contact', href: '/contact', text: 'Décrire une situation et demander une intervention.' },
+];
+---
+<BaseLayout
+  title={`Page introuvable | ${site.brand}`}
+  description="Cette page n'existe pas ou a été déplacée. Retrouvez les pages principales du site : cafards, traitement, zones d'intervention, FAQ et blog."
+  noindex
+>
+  <section class="section nf">
+    <div class="wrap">
+      <p class="eyebrow">Erreur 404</p>
+      <h1>Cette page n’existe pas</h1>
+      <p class="lede">
+        L'adresse demandée est introuvable ou a été déplacée. Voici les pages les plus consultées
+        du site.
+      </p>
+
+      <div class="grid grid-3 nf__grid">
+        {pistes.map((p) => (
+          <a class="card" href={p.href}>
+            <h2>{p.label}</h2>
+            <p>{p.text}</p>
+          </a>
+        ))}
+      </div>
+
+      <p class="nf__tel">
+        Pour une demande directe : <a href={site.phoneHref}><strong>{site.phoneDisplay}</strong></a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf h1 { max-width: 20ch; }
+  .nf__grid { margin-top: 2.25rem; }
+  .nf__grid .card h2 { font-size: 1.04rem; margin-bottom: 0.4rem; }
+  .nf__grid .card p { font-size: 0.93rem; }
+  .nf__tel { margin-top: 2rem; color: var(--ink-soft); }
+</style>

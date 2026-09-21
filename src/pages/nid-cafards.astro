@@ -1,0 +1,210 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+import Steps from '../components/Steps.astro';
+
+const methode = [
+  { title: 'Suivre les déjections', text: "Ouvrir les placards bas et inspecter les angles intérieurs, les charnières et les rails. La densité des points noirs augmente vers le refuge." },
+  { title: 'Utiliser la fuite', text: "Laisser la pièce dans le noir une à deux heures, entrer, allumer d'un coup. Observer la direction de fuite, pas les insectes." },
+  { title: 'Ouvrir et éclairer', text: "Dégager les appareils, retirer le socle du lave-vaisselle, ouvrir la trappe de gaine, sortir les tiroirs bas. Chercher mues et amas." },
+  { title: 'Vérifier la pièce voisine', text: "Une salle de bain contiguë partage souvent la même gaine. Un refuge secondaire s'y trouve fréquemment." },
+];
+
+const faq = [
+  {
+    q: 'Les cafards construisent-ils un nid ?',
+    a: "Non. Contrairement aux guêpes, aux fourmis ou aux termites, les blattes ne bâtissent aucune structure : ni galerie, ni alvéole, ni matériau rapporté. Ce que l'on appelle un nid est une zone de refuge, c'est-à-dire un interstice existant qu'elles colonisent parce qu'il réunit chaleur, humidité, obscurité et espace resserré.",
+  },
+  {
+    q: 'Un nid de cafards est-il visible à l’œil nu ?',
+    a: "Il n'y a pas de structure à voir, mais une zone de refuge est identifiable : un regroupement d'individus, des mues translucides abandonnées lors des changements de stade, et une accumulation de déjections nettement plus dense qu'ailleurs.",
+  },
+  {
+    q: 'Détruire le nid suffit-il à régler le problème ?',
+    a: "Non, pour deux raisons. Il existe généralement plusieurs zones de refuge dès que la population est installée depuis quelques semaines, et les oothèques déjà pondues peuvent éclore ailleurs. C'est la population entière qu'il faut atteindre, pas un point unique.",
+  },
+  {
+    q: 'Où se trouve le nid le plus souvent ?',
+    a: "Dans une cuisine, les trois zones qui reviennent le plus sont le compartiment moteur du réfrigérateur, le socle du lave-vaisselle et le coffrage des canalisations sous l'évier. En partie basse d'un bâtiment, ce sont les abords de canalisations, les siphons de sol et les regards d'évacuation.",
+  },
+  {
+    q: 'Peut-on trouver un nid dans un mur ?',
+    a: "Une population peut occuper un vide de cloison, un coffrage ou une gaine technique, ce qui revient pratiquement au même. Ce n'est pas le mur maçonné lui-même qui est colonisé, mais les volumes creux qui le traversent ou le doublent.",
+  },
+];
+
+const related = [
+  { label: 'Oothèque de cafard', href: '/ootheque-cafard', text: "L'enveloppe des œufs, son aspect et ce qu'elle implique." },
+  { label: 'Identifier un cafard', href: '/identifier-cafard', text: "Reconnaître l'espèce à partir du pronotum." },
+  { label: 'Cafards dans la cuisine', href: '/cafards-cuisine', text: "Les dix zones à inspecter, dans l'ordre." },
+  { label: 'Cafards en cave', href: '/cafards-cave', text: "Partie basse, humidité et points d'entrée." },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Ce qui se passe après la localisation des refuges." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Réduire les abris et les conditions favorables." },
+];
+---
+
+<TopicPage
+  title="Nid de cafards : comment reconnaître une zone de refuge | Blattis"
+  description="Les cafards ne construisent pas de nid : comment localiser une zone de refuge par les déjections et la direction de fuite."
+  h1="Nid de cafards : reconnaître les signes d’une infestation"
+  label="Localisation"
+  lede="L'expression est répandue mais trompeuse : les blattes ne bâtissent rien. Ce qu'on recherche est une zone de refuge — un interstice existant qu'elles colonisent. Savoir la localiser change tout le reste."
+  bullets={['4 conditions d’une zone de refuge', 'Méthode en 4 étapes', 'Pourquoi il y en a plusieurs']}
+  breadcrumbs={[
+    { label: 'Cafards & blattes', href: '/cafards' },
+    { label: 'Nid de cafards', href: '/nid-cafards' },
+  ]}
+  {faq}
+  {related}
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Qu’est-ce qu’un « nid » de cafards ?">
+      <p>
+        Les blattes ne construisent aucune structure. Ce que l'on appelle un nid est une
+        <strong>zone de refuge</strong> : un interstice déjà présent dans le bâtiment — socle
+        d'appareil, coffrage de canalisation, vide de plinthe — qu'elles colonisent parce qu'il
+        réunit chaleur, humidité, obscurité et espace resserré. On la reconnaît à trois choses :
+        des individus regroupés, des mues et une forte accumulation de déjections.
+      </p>
+    </Answer>
+
+    <h2>Les quatre conditions d’une zone de refuge</h2>
+    <p>
+      Un volume est colonisé quand il réunit quatre éléments. Le quatrième est celui qu'on oublie
+      le plus, et c'est pourtant le plus discriminant.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Condition</th><th>Précision</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Chaleur permanente</strong></td><td>Produite en continu, pas ponctuellement : compresseur, résistance, canalisation d'eau chaude</td></tr>
+          <tr><td><strong>Humidité à proximité</strong></td><td>Un point d'eau accessible à quelques dizaines de centimètres suffit</td></tr>
+          <tr><td><strong>Obscurité permanente</strong></td><td>Un volume qui n'est jamais éclairé, même brièvement</td></tr>
+          <tr><td><strong>Espace resserré</strong></td><td>Contact des parois sur les deux faces du corps — deux à cinq millimètres est l'idéal</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Ce dernier critère explique un phénomène contre-intuitif : un placard sombre et vaste est
+      bien <strong>moins</strong> attractif qu'un interstice de trois millimètres derrière une
+      plinthe. C'est pourquoi les refuges se trouvent presque toujours dans des volumes techniques
+      et non dans les espaces de rangement.
+    </p>
+
+    <h2>Ce qu’on trouve dans une zone de refuge</h2>
+    <ul class="list-check">
+      <li><strong>Des individus regroupés</strong>, souvent de tailles différentes, immobiles ou lents lorsqu'on les découvre.</li>
+      <li><strong>Des mues</strong> — des enveloppes translucides ayant exactement la forme de l'insecte, abandonnées lors des changements de stade. C'est un indice très fiable, car elles ne se déplacent pas.</li>
+      <li><strong>Une forte accumulation de déjections</strong>, nettement plus dense qu'ailleurs, parfois formant une pellicule sombre.</li>
+      <li><strong>Des oothèques</strong>, pleines ou vides et fendues, glissées dans les interstices.</li>
+      <li>Parfois une <strong>odeur</strong> particulière, un peu grasse, perceptible en ouvrant le volume.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>La méthode pour localiser une zone de refuge</h2>
+    <p>
+      Elle ne demande aucun matériel particulier, en dehors d'une lampe. L'étape la plus efficace
+      est la deuxième, et c'est aussi celle qu'on applique le moins souvent.
+    </p>
+  </div>
+  <div class="wrap steps-wrap">
+    <Steps steps={methode} />
+  </div>
+  <div class="wrap prose steps-after">
+    <div class="note">
+      <p>
+        <strong>Le point clé de l'étape 2 :</strong> ce qui compte n'est pas le nombre d'insectes
+        visibles, mais <strong>la direction de leur fuite</strong>. En quelques secondes, chacun
+        rejoint son refuge. Voir trois individus disparaître sous le socle du lave-vaisselle vaut
+        bien plus qu'un comptage précis.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Les emplacements les plus fréquents</h2>
+    <h3>En cuisine et salle d’eau</h3>
+    <ol class="list-plain">
+      <li>Compartiment moteur et bac de dégivrage du réfrigérateur</li>
+      <li>Socle et flancs du lave-vaisselle</li>
+      <li>Coffrage des canalisations sous l'évier</li>
+      <li>Habillage du four et contour de la plaque de cuisson</li>
+      <li>Vides de plinthe des meubles bas</li>
+      <li>Charnières et rails de tiroir</li>
+      <li>Intérieur des petits appareils chauffants</li>
+      <li>Trappe de gaine technique, en cuisine ou en salle de bain</li>
+      <li>Arrière des équipements sanitaires et vide derrière un tablier de baignoire</li>
+    </ol>
+    <h3>En partie basse d’un bâtiment</h3>
+    <p>
+      Lorsque l'espèce concernée est la <a href="/blatte-orientale">blatte orientale</a>, les zones
+      changent : abords de canalisations, siphons de sol, regards d'évacuation, interstices de sol
+      ou de mur de sous-sol, locaux de chauffage, buanderies, locaux de collecte des déchets.
+    </p>
+
+    <h2>Pourquoi il y a presque toujours plusieurs zones</h2>
+    <p>
+      Une population installée depuis plusieurs semaines occupe rarement un seul interstice. À
+      mesure que le nombre d'individus augmente, la zone initiale sature et des refuges satellites
+      apparaissent, généralement à quelques mètres — souvent dans la pièce contiguë, le long de la
+      même gaine.
+    </p>
+    <p>
+      C'est la raison pour laquelle l'idée de « trouver le nid et le détruire » ne fonctionne pas
+      comme on l'espère. Le traitement doit couvrir l'ensemble des zones identifiées ainsi que les
+      trajets qui les relient.
+    </p>
+
+    <h2>Les oothèques décalent le calendrier</h2>
+    <p>
+      Dans un refuge se trouvent aussi les <strong>oothèques</strong> : les capsules rigides
+      contenant les œufs. Chez la blatte germanique, la femelle la porte sur elle jusqu'à un stade
+      avancé, ce qui la protège des produits appliqués.
+    </p>
+    <p>
+      Ces enveloppes constituent une génération en attente. Une baisse nette des observations
+      suivie d'une reprise trois à quatre semaines plus tard, avec des individus nettement plus
+      petits, correspond à leur éclosion. Ce n'est pas un échec du traitement mais une étape
+      prévisible — et c'est précisément ce qu'un contrôle après intervention permet de couvrir.
+      Voir la page <a href="/ootheque-cafard">oothèque de cafard</a>.
+    </p>
+
+    <h2>Deux erreurs à éviter en trouvant un refuge</h2>
+    <div class="note">
+      <p>
+        <strong>Ne pas vaporiser d'aérosol dans l'interstice.</strong> Cela provoque une dispersion :
+        les individus fuient vers d'autres volumes, parfois vers d'autres pièces ou d'autres
+        logements. La zone semble nettoyée, mais la population s'est répartie — et les refuges
+        initiaux, désormais abandonnés, ne renseignent plus.
+      </p>
+      <p>
+        <strong>Ne pas colmater immédiatement.</strong> Le colmatage enferme une partie de la
+        population et supprime un élément de diagnostic utile. C'est une bonne mesure, mais après
+        le traitement.
+      </p>
+    </div>
+
+    <h2>Ce qu’il faut noter</h2>
+    <p>
+      Si vous localisez une zone de refuge, trois informations sont directement exploitables lors
+      d'une intervention : <strong>l'emplacement exact</strong>, la <strong>densité des traces</strong>
+      observée, et la <strong>présence ou non de mues et d'oothèques</strong>. Ces éléments
+      indiquent l'ancienneté de la présence et permettent de préparer le traitement plutôt que de
+      recommencer l'inspection depuis le début.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+  .steps-wrap { margin-top: 1.75rem; }
+  .steps-after { margin-top: 1.75rem; }
+</style>

@@ -1,0 +1,204 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Faut-il fermer des chambres pendant l’intervention ?',
+    a: "Le traitement porte en priorité sur les zones techniques et les cuisines, qui conditionnent souvent le reste. Lorsque des chambres sont concernées, elles sont traitées une fois libérées, ce qui suppose une coordination avec la réception plutôt qu'une fermeture générale.",
+  },
+  {
+    q: 'Comment préserver l’expérience client ?',
+    a: "Matériel compact, véhicule non identifié, intervention sur des créneaux de faible fréquentation et circulation par les zones de service. Le personnel de réception est informé du déroulement afin de pouvoir répondre sans improviser si une question est posée.",
+  },
+  {
+    q: 'Les chambres sont-elles souvent concernées ?',
+    a: "Moins que les zones techniques. Une chambre ne réunit généralement pas les quatre conditions favorables — chaleur permanente, humidité, nourriture accessible et abris resserrés — sauf autour de la salle de bain, d'une bouilloire ou d'un mini-bar. Les observations en chambre correspondent souvent à des individus en déplacement.",
+  },
+  {
+    q: 'D’où viennent les blattes dans un hôtel ?',
+    a: "Trois sources reviennent : les livraisons de la cuisine par les cartons et cageots, les bagages des clients, et les réseaux techniques desservant le bâtiment. Les offices d'étage et les locaux de linge constituent ensuite des relais favorables à une installation.",
+  },
+  {
+    q: 'Une surveillance régulière est-elle justifiée ?',
+    a: "Dans un établissement d'hébergement, la pression d'introduction est continue — livraisons quotidiennes et rotation de clientèle. Une surveillance régulière permet de détecter tôt et d'intervenir sur un périmètre restreint, ce qui limite l'impact sur l'exploitation.",
+  },
+  {
+    q: 'Le personnel peut-il participer à la détection ?',
+    a: "C'est le levier le plus efficace. Les équipes d'étage et de cuisine voient les choses bien avant un contrôle périodique. Un canal de signalement simple — fiche, cahier, référent identifié — réduit sensiblement le délai entre l'apparition et l'intervention.",
+  },
+];
+
+const related = [
+  { label: 'Restaurants', href: '/cafards-restaurants', text: "Cuisine de production, plonge, réserves." },
+  { label: 'Désinsectisation professionnelle', href: '/desinsectisation-cafards', text: "Traçabilité et plan de surveillance." },
+  { label: 'Entreprises et bureaux', href: '/cafards-entreprises', text: "Restauration collective et locaux techniques." },
+  { label: 'Blatte germanique', href: '/blatte-germanique', text: "L'espèce dominante en cuisine et en salle d'eau." },
+  { label: "Val-d'Oise", href: '/zones-intervention/val-doise', text: "Zone aéroportuaire et hôtellerie de volume." },
+  { label: 'Seine-et-Marne', href: '/zones-intervention/seine-et-marne', text: "Hôtellerie et restauration du département." },
+];
+---
+
+<TopicPage
+  title="Cafards en hôtel : intervention discrète et coordonnée | Blattis"
+  description="Cafards en hôtel : zones techniques, cuisines, offices d'étage et chambres. Intervention discrète, coordonnée avec la direction."
+  h1="Cafards et blattes en hôtel"
+  label="Hôtellerie"
+  lede="Dans un hôtel, la contrainte est double : préserver l'expérience client et intervenir dans des zones techniques peu visibles. La discrétion n'est pas un supplément, c'est une condition de l'intervention."
+  bullets={['Zones techniques en priorité', 'Chambres traitées après libération', 'Coordination avec la direction']}
+  breadcrumbs={[{ label: 'Hôtels', href: '/cafards-hotels' }]}
+  {faq}
+  faqTitle="Questions des exploitants hôteliers"
+  {related}
+  relatedTitle="Pages liées"
+  service={{
+    name: 'Traitement des cafards en hôtel',
+    description:
+      "Diagnostic des zones techniques, cuisines de production, offices d'étage et locaux de linge, traitement coordonné avec la direction, intervention discrète et mise en place d'une surveillance.",
+  }}
+  ctaTitle="Faire évaluer un établissement d’hébergement"
+  ctaText="Nombre de chambres, configuration des zones techniques, contraintes d'occupation : l'intervention se planifie pour ne pas interrompre l'exploitation."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Par où commence une intervention en hôtel ?">
+      <p>
+        Par les <strong>zones techniques et la cuisine de production</strong>, pas par les chambres.
+        Ce sont elles qui réunissent les conditions d'une installation durable, et elles
+        conditionnent souvent le reste : traiter des chambres sans traiter la plonge et les offices
+        d'étage revient à intervenir sur des individus en déplacement plutôt que sur la population.
+      </p>
+    </Answer>
+
+    <h2>La hiérarchie des zones</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Priorité</th><th>Zone</th><th>Pourquoi</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td>Cuisine de production et plonge</td><td>Chaleur continue, humidité permanente, matière organique, interstices techniques nombreux</td></tr>
+          <tr><td><strong>2</strong></td><td>Réserves et zone de réception des livraisons</td><td>Cartons et cageots stockés, renouvelés quotidiennement</td></tr>
+          <tr><td><strong>3</strong></td><td>Offices d'étage</td><td>Point d'eau, chaleur d'un appareil, stockage de consommables : relais idéal vers les chambres</td></tr>
+          <tr><td><strong>4</strong></td><td>Locaux de linge</td><td>Humidité, tiédeur, textile et abris resserrés</td></tr>
+          <tr><td><strong>5</strong></td><td>Local de déchets et circulations de service</td><td>Apport organique continu, chemins entre les niveaux</td></tr>
+          <tr><td><strong>6</strong></td><td>Gaines techniques et colonnes</td><td>Voies de circulation verticale entre étages</td></tr>
+          <tr><td><strong>7</strong></td><td>Chambres concernées</td><td>Traitées après libération : salle de bain, bouilloire, mini-bar, tête de lit</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Une observation utile : une chambre ne réunit pas naturellement les quatre conditions
+      favorables. Les observations en chambre correspondent souvent à des individus en déplacement
+      depuis un office d'étage ou une gaine, plutôt qu'à une population installée sur place.
+      C'est pourquoi le traitement remonte vers la source.
+    </p>
+
+    <h2>Les trois voies d’introduction</h2>
+    <ul class="list-check">
+      <li><strong>Les livraisons de la cuisine.</strong> Cartons, cageots et palettes : le vecteur le mieux documenté. Le déballage à la réception et l'évacuation immédiate des emballages réduisent sensiblement ce risque.</li>
+      <li><strong>Les bagages des clients.</strong> Voie réelle mais moins fréquente, et surtout non maîtrisable. Elle justifie une vigilance sur les chambres signalées plutôt qu'un dispositif particulier.</li>
+      <li><strong>Les réseaux techniques du bâtiment.</strong> Colonnes d'eaux usées, gaines, locaux techniques. Dans un bâtiment ancien ou un établissement intégré à un immeuble, cette voie mérite un examen spécifique.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>La discrétion : ce que cela implique concrètement</h2>
+    <p>
+      Pour un établissement recevant du public, une intervention visible peut coûter plus que la
+      situation elle-même. Quatre points sont organisés en conséquence.
+    </p>
+    <h3>Matériel et véhicule</h3>
+    <p>
+      Le matériel employé est compact et se transporte dans une mallette. Le véhicule n'est pas
+      identifié. Aucun élément visuel ne signale la nature de l'intervention dans les zones
+      accessibles à la clientèle.
+    </p>
+    <h3>Circulation</h3>
+    <p>
+      Les déplacements se font par les escaliers et ascenseurs de service lorsqu'ils existent, et
+      les zones techniques sont traitées avant les zones de circulation client.
+    </p>
+    <h3>Créneaux</h3>
+    <p>
+      Les cuisines sont traitées hors service. Les chambres sont traitées une fois libérées, sur
+      des créneaux de faible occupation coordonnés avec la réception. Une fermeture générale n'est
+      pas nécessaire : c'est l'étalement par zones qui permet de couvrir l'établissement.
+    </p>
+    <h3>Information du personnel</h3>
+    <p>
+      Le personnel de réception est informé du déroulement afin de pouvoir répondre sans improviser
+      si une question est posée. C'est un point souvent négligé et pourtant déterminant pour la
+      perception de l'établissement.
+    </p>
+
+    <h2>Le canal de signalement interne</h2>
+    <div class="note">
+      <p>
+        Dans un hôtel, les équipes d'étage entrent chaque jour dans des dizaines de chambres. Elles
+        voient les choses bien avant un contrôle périodique. Le levier le plus efficace consiste
+        donc à leur donner un moyen simple de signaler : une fiche, une entrée dans le logiciel
+        d'étage, ou un référent identifié.
+      </p>
+      <p>
+        Trois éléments sont utiles à noter : le <strong>numéro de la chambre ou du local</strong>,
+        la <strong>date</strong>, et l'<strong>endroit précis</strong> de l'observation. Ces trois
+        informations permettent ensuite de recouper et d'identifier une colonne ou un étage
+        concerné, ce qu'une remontée générale ne permet jamais.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Le cas des offices d’étage</h2>
+    <p>
+      Ils méritent un développement particulier, car ils sont fréquemment à l'origine d'observations
+      en chambre sans être eux-mêmes inspectés.
+    </p>
+    <p>
+      Un office d'étage réunit en général : un point d'eau, un appareil qui chauffe — bouilloire,
+      réfrigérateur de service, machine à café —, du stockage de consommables en carton, et un
+      volume technique fermé. Ce sont exactement les quatre conditions d'une installation.
+    </p>
+    <p>
+      S'y ajoute une position stratégique : l'office donne sur le couloir desservant les chambres du
+      niveau, et il est souvent adossé à une gaine technique. Une population qui s'y installe
+      dispose d'un accès direct aux chambres et d'une voie verticale vers les autres étages.
+    </p>
+
+    <h2>Traçabilité et surveillance</h2>
+    <p>
+      Un établissement disposant d'une activité de restauration est soumis aux obligations générales
+      d'hygiène et de maîtrise sanitaire, qui incluent la lutte contre les nuisibles. La
+      conservation des rapports d'intervention, des recommandations et du relevé des observations
+      internes constitue la trace de l'action menée.
+    </p>
+    <p>
+      Au-delà de cet aspect, la surveillance régulière a une justification économique directe dans
+      l'hôtellerie : une population détectée tôt se traite sur une ou deux chambres et une zone
+      technique ; la même population trois mois plus tard peut concerner un étage entier, avec les
+      conséquences d'exploitation correspondantes. Le dispositif est décrit sur la page
+      <a href="/desinsectisation-cafards">désinsectisation en local professionnel</a>.
+    </p>
+
+    <h2>Le suivi après intervention</h2>
+    <p>
+      Les <a href="/ootheque-cafard">oothèques</a> — les enveloppes contenant les œufs — sont
+      protégées et peuvent éclore plusieurs semaines après un traitement. Une reprise à trois ou
+      quatre semaines, avec des individus nettement plus petits, correspond à cette éclosion.
+    </p>
+    <p>
+      Le contrôle vise cette génération avant qu'elle atteigne l'âge de reproduction. Dans un hôtel,
+      il est également l'occasion de vérifier les chambres traitées en début d'opération et celles
+      qui ont été libérées depuis.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

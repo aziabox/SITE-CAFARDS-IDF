@@ -1,0 +1,295 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+import { especes, autresEspeces } from '../data/especes';
+import { departements } from '../data/departements';
+
+const faq = [
+  {
+    q: 'Qu’est-ce qu’un cafard exactement ?',
+    a: "Un cafard, ou blatte, est un insecte au corps ovale et aplati, doté de longues antennes fines et de six pattes épineuses. Il vit dans des interstices chauds et humides et sort principalement la nuit. Les deux mots désignent le même insecte : « blatte » relève du vocabulaire zoologique, « cafard » de l'usage courant.",
+  },
+  {
+    q: 'Combien d’espèces rencontre-t-on en Île-de-France ?',
+    a: "Trois espèces reviennent régulièrement : la blatte germanique, la plus fréquente en logement et en cuisine professionnelle ; la blatte orientale, présente en partie basse des bâtiments ; la blatte américaine, associée aux réseaux techniques chauds et humides. D'autres espèces existent mais restent peu fréquentes, comme la blatte rayée, ou n'entrent qu'accidentellement, comme les blattes forestières.",
+  },
+  {
+    q: 'Un logement propre peut-il avoir des cafards ?',
+    a: "Oui. La propreté supprime une partie de la nourriture accessible, mais elle ne change ni la chaleur produite par les appareils, ni l'humidité des points d'eau, ni le nombre d'interstices disponibles. En immeuble, elle ne change rien non plus aux réseaux qui relient les logements.",
+  },
+  {
+    q: 'Les cafards sont-ils dangereux ?',
+    a: "Ils circulent entre des zones souillées et des surfaces alimentaires, ce qui justifie des précautions d'hygiène : protéger les denrées, nettoyer les surfaces avant usage, laver la vaisselle stockée dans un placard concerné. Chez certaines personnes, les déjections et les mues peuvent contribuer à des réactions allergiques ou respiratoires. Le risque dépend fortement du contexte et de l'importance de la population.",
+  },
+  {
+    q: 'Pourquoi est-il difficile de s’en débarrasser seul ?',
+    a: "Parce que la population vit dans des volumes fermés — socles d'appareils, coffrages, vides de plinthe — que les produits appliqués en surface n'atteignent pas, et parce que les oothèques, les enveloppes contenant les œufs, sont protégées et peuvent éclore plusieurs semaines après un traitement.",
+  },
+  {
+    q: 'Quand faut-il faire appel à un professionnel ?',
+    a: "Dès que les observations se répètent, qu'elles concernent plus d'une pièce, que des individus de tailles différentes sont vus, ou qu'un voisin signale la même situation. Une observation unique et isolée peut d'abord faire l'objet d'une inspection des zones fermées voisines.",
+  },
+];
+
+const related = [
+  { label: 'Identifier un cafard', href: '/identifier-cafard', text: "Les critères visuels, les cas limites et les insectes avec lesquels on les confond." },
+  { label: 'Reconnaître un nid', href: '/nid-cafards', text: "Ce qu'on cherche réellement, puisque les blattes ne construisent rien." },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Déroulement, méthodes et périmètre d'une intervention." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Les mesures qui réduisent durablement l'attractivité d'un lieu." },
+  { label: "Oothèque de cafard", href: '/ootheque-cafard', text: "L'enveloppe des œufs, et pourquoi elle explique les reprises." },
+  { label: "Zones d'intervention", href: '/zones-intervention', text: "Paris et les huit départements, avec le contexte local du bâti." },
+];
+---
+
+<TopicPage
+  title="Cafards et blattes : comprendre, identifier, traiter | Blattis"
+  description="Page de référence sur les cafards et les blattes : espèces rencontrées en Île-de-France, mode de vie, signes d'infestation, méthodes de traitement et prévention."
+  h1="Cafards et blattes : tout ce qu’il faut savoir"
+  label="Page de référence"
+  lede="Comprendre comment vivent les blattes explique presque toutes les difficultés rencontrées lors d'un traitement. Cette page rassemble l'essentiel : espèces, mode de vie, signes, méthodes et prévention."
+  bullets={['3 espèces principales', 'Mode de vie et refuges', 'Méthodes et périmètre']}
+  breadcrumbs={[{ label: 'Cafards & blattes', href: '/cafards' }]}
+  {faq}
+  faqTitle="Les questions de base"
+  {related}
+  relatedTitle="Approfondir"
+  relatedIntro="Chaque volet est détaillé sur une page dédiée."
+  service={{
+    name: 'Traitement des cafards et des blattes',
+    description:
+      "Diagnostic de l'infestation, identification de l'espèce, traitement des zones de refuge, prévention et suivi, en habitation comme en local professionnel.",
+  }}
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Cafard et blatte : y a-t-il une différence ?">
+      <p>
+        Non. Les deux mots désignent exactement le même insecte. « Blatte » est le terme
+        employé en zoologie, « cafard » le terme courant ; « cancrelat » et « ravet » sont
+        deux autres synonymes. La distinction qui compte n'est pas entre ces mots, mais
+        <strong>entre les espèces</strong> — et celle-ci a des conséquences directes sur le
+        traitement.
+      </p>
+    </Answer>
+
+    <h2>Un insecte conçu pour vivre dans les interstices</h2>
+    <p>
+      Toute la difficulté d'un traitement tient à une caractéristique morphologique : le corps
+      d'une blatte est extrêmement aplati. Vu de dessus, il forme un ovale régulier ; vu de côté,
+      il est presque plat. Un adulte se glisse dans un interstice de deux millimètres.
+    </p>
+    <p>
+      À cela s'ajoute un comportement déterminant : les blattes recherchent le contact des parois
+      de part et d'autre de leur corps. Un placard sombre et vaste est donc bien moins attractif
+      qu'un espace de trois millimètres derrière une plinthe. C'est la raison pour laquelle les
+      refuges se situent presque toujours dans des volumes techniques — socle d'appareil, coffrage
+      de canalisation, habillage de four — et non dans les espaces de rangement.
+    </p>
+    <p>
+      Les blattes sont par ailleurs <em>lucifuges</em> : elles évitent activement la lumière.
+      L'activité se déclenche après l'extinction des lumières, dans une pièce calme, et atteint
+      son maximum plusieurs heures plus tard. Observer un individu en pleine journée indique
+      généralement que les refuges disponibles ne suffisent plus à héberger la population.
+    </p>
+
+    <h2>Les quatre conditions d’une installation</h2>
+    <p>
+      Une population ne s'installe durablement que si quatre éléments sont réunis au même endroit.
+      Il suffit d'en réduire fortement un pour qu'un lieu devienne nettement moins accueillant.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Condition</th><th>Où elle se trouve</th><th>Peut-on agir ?</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Chaleur permanente</strong></td>
+            <td>Compresseur de réfrigérateur, socle de lave-vaisselle, habillage de four, petits appareils</td>
+            <td>Difficilement : elle découle de l'usage normal des lieux</td>
+          </tr>
+          <tr>
+            <td><strong>Humidité</strong></td>
+            <td>Évier, bac de dégivrage, évacuations, siphons, buanderie</td>
+            <td>Oui, et c'est le levier le plus efficace</td>
+          </tr>
+          <tr>
+            <td><strong>Nourriture accessible</strong></td>
+            <td>Miettes sous les appareils, denrées en emballage papier, gamelles d'animaux</td>
+            <td>Oui, par la fermeture des denrées et le nettoyage des zones cachées</td>
+          </tr>
+          <tr>
+            <td><strong>Abris resserrés</strong></td>
+            <td>Vides de plinthe, charnières, rails, coffrages, cartons et papiers</td>
+            <td>Partiellement : les cartons et papiers sont supprimables</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Les trois espèces rencontrées en Île-de-France</h2>
+    <p>
+      Les distinguer n'est pas un exercice académique : elles n'occupent pas les mêmes zones,
+      ne se reproduisent pas au même rythme et ne se traitent pas de la même manière. Le critère
+      le plus fiable est le <strong>pronotum</strong>, la plaque située juste derrière la tête.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Espèce</th><th>Taille</th><th>Pronotum</th><th>Zones occupées</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="/blatte-germanique">Blatte germanique</a><br /><em>Blattella germanica</em></td>
+            <td>10–15 mm</td>
+            <td>Deux bandes sombres parallèles</td>
+            <td>Cuisines, salles de bain, socles d'appareils</td>
+          </tr>
+          <tr>
+            <td><a href="/blatte-orientale">Blatte orientale</a><br /><em>Blatta orientalis</em></td>
+            <td>20–30 mm</td>
+            <td>Uniformément noir, luisant</td>
+            <td>Caves, sous-sols, buanderies, canalisations</td>
+          </tr>
+          <tr>
+            <td><a href="/blatte-americaine">Blatte américaine</a><br /><em>Periplaneta americana</em></td>
+            <td>30–40 mm</td>
+            <td>Liseré clair sur le pourtour</td>
+            <td>Réseaux techniques, sous-sols chauffés, grandes cuisines</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid grid-3 esp-grid">
+      {especes.map((e) => (
+        <a class="card" href={`/${e.slug}`}>
+          <span class="card__meta">{e.nomLatin}</span>
+          <h3>{e.nom}</h3>
+          <p>{e.short}</p>
+          <span class="link-more" aria-hidden="true">Fiche complète</span>
+        </a>
+      ))}
+    </div>
+
+    <h3>Espèces plus rares, et confusions fréquentes</h3>
+    {autresEspeces.map((a) => (
+      <p><strong>{a.nom}</strong> — {a.text}</p>
+    ))}
+
+    <h2>Les signes d’une infestation</h2>
+    <p>
+      Une observation isolée ne permet pas de conclure sur l'ampleur d'une situation. En revanche,
+      le cumul d'indices est très informatif. Les <strong>déjections</strong> — de petits points
+      noirs ressemblant à des grains de poivre — constituent la piste la plus fiable : elles
+      s'accumulent dans les angles de placards, sur les charnières et les rails de tiroir, et leur
+      densité augmente à mesure qu'on approche du refuge.
+    </p>
+    <p>
+      Viennent ensuite les <strong>traces brunes</strong> sur les parois verticales, les
+      <strong>mues</strong> translucides abandonnées lors des changements de stade, les
+      <strong>oothèques</strong> glissées dans les interstices, et une
+      <strong>odeur</strong> particulière, un peu grasse, lorsque la population est ancienne.
+    </p>
+    <p>
+      Voir à la fois de petits individus très sombres et des adultes plus clairs indique une
+      reproduction sur place, et non une arrivée récente. La page
+      <a href="/nid-cafards">signes d'un nid de cafards</a> détaille la méthode pour localiser
+      les zones de refuge.
+    </p>
+
+    <h2>Comment les blattes arrivent dans un bâtiment</h2>
+    <p>
+      Quatre scénarios couvrent la grande majorité des situations, et aucun ne relève de la tenue
+      des lieux.
+    </p>
+    <ul class="list-check">
+      <li><strong>Une introduction par un objet</strong> — carton de livraison ayant séjourné en réserve, cageot, meuble récupéré, petit électroménager d'occasion. Le compartiment moteur d'un réfrigérateur de seconde main est un vecteur classique.</li>
+      <li><strong>Un cheminement depuis un logement voisin</strong> — en immeuble, les passages de canalisation sous l'évier et derrière les équipements sanitaires sont rarement étanches.</li>
+      <li><strong>Une remontée par un réseau</strong> — depuis une cave, un local de déchets, une chaufferie ou une colonne d'eaux usées.</li>
+      <li><strong>Un local commercial en pied d'immeuble</strong> — lorsque le bâtiment abrite une activité alimentaire, les cheminements techniques entre le local et les logements sont à examiner.</li>
+    </ul>
+
+    <h2>Le cycle de reproduction, et pourquoi il impose deux temps</h2>
+    <p>
+      Une <strong>oothèque</strong> est la capsule rigide contenant les œufs. Chez la blatte
+      germanique, la femelle la porte sur elle jusqu'à un stade avancé du développement, au fond
+      d'un interstice : elle est donc protégée à la fois par sa paroi et par le comportement de
+      l'insecte.
+    </p>
+    <p>
+      Conséquence pratique : après un traitement, les observations chutent, puis reprennent souvent
+      trois à quatre semaines plus tard avec des individus nettement plus petits. Il s'agit de
+      l'éclosion d'enveloppes présentes lors de l'intervention. Ce n'est pas un échec — c'est un
+      phénomène prévisible, et c'est précisément ce qu'un <strong>contrôle après traitement</strong>
+      vise à couvrir. La page <a href="/ootheque-cafard">oothèque de cafard</a> décrit leur aspect
+      et leur localisation.
+    </p>
+
+    <h2>Ce que suppose un traitement efficace</h2>
+    <p>
+      Trois conditions doivent être réunies, et l'absence d'une seule explique la plupart des
+      échecs constatés.
+    </p>
+    <ol class="list-plain">
+      <li><strong>Un positionnement dans les refuges réellement identifiés.</strong> Traiter un plan de travail ou un sol dégagé n'a pratiquement aucun effet sur une population qui vit dans le socle d'un lave-vaisselle.</li>
+      <li><strong>Un périmètre adapté.</strong> En habitat collectif, il inclut les logements voisins et les réseaux reliés lorsque le diagnostic le justifie. Traiter un seul lot revient souvent à réduire temporairement une population qui se reconstituera.</li>
+      <li><strong>Une correction des conditions favorables.</strong> Aucun produit ne répare une fuite, ne remet un siphon en eau ni ne retire les cartons d'un placard bas.</li>
+    </ol>
+    <p>
+      Le détail des méthodes figure sur la page <a href="/traitement-cafards">traitement des
+      cafards</a>, et le volet professionnel sur la page
+      <a href="/desinsectisation-cafards">désinsectisation</a>.
+    </p>
+
+    <h2>Ce qu’il faut éviter de faire</h2>
+    <div class="note">
+      <p>
+        <strong>Les aérosols.</strong> Appliqués sur les individus visibles, ils tuent quelques
+        insectes et agissent comme un répulsif sur les autres, qui se dispersent vers d'autres
+        pièces et, en immeuble, vers les logements voisins. La zone concernée s'étend au lieu de
+        se réduire, et l'inspection ultérieure devient plus difficile car les refuges initiaux sont
+        abandonnés.
+      </p>
+      <p>
+        <strong>Le colmatage anticipé.</strong> Les passages de canalisation renseignent sur le
+        cheminement de la population : ils sont à colmater après le traitement, pas avant.
+      </p>
+      <p>
+        <strong>Le nettoyage intégral avant la visite.</strong> Les traces de déjections
+        constituent la piste principale vers les refuges.
+      </p>
+    </div>
+
+    <h2>Le contexte francilien</h2>
+    <p>
+      Ce n'est pas l'ancienneté des immeubles qui pèse le plus, mais la <strong>mutualisation des
+      réseaux</strong>. À Paris et dans la petite couronne, les colonnes d'eau, les gaines
+      techniques et les percements réalisés au fil des rénovations relient des logements sans
+      rapport entre eux. Dans les départements où la maison individuelle domine, les questions
+      changent : point d'entrée depuis l'extérieur, sous-sol, buanderie, siphons asséchés.
+    </p>
+    <ul class="rel__inline zones">
+      {departements.map((d) => (
+        <li><a href={`/zones-intervention/${d.slug}`}>{d.nom} ({d.code})</a></li>
+      ))}
+    </ul>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .esp-grid { margin: 1.75rem 0 2.25rem; max-width: none; }
+  .esp-grid .card h3 { font-size: 1.05rem; }
+  .esp-grid .link-more { margin-top: 0.9rem; font-size: 0.86rem; }
+  .prose .zones { list-style: none; display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 1.5rem 0 0; padding: 0; }
+  .prose .zones a {
+    display: inline-block; padding: 0.5rem 0.9rem; background: var(--surface);
+    border: 1px solid var(--line-soft); border-radius: 999px;
+    font-size: 0.88rem; text-decoration: none; color: var(--bx-700);
+  }
+  .prose .zones a:hover { border-color: var(--line-strong); color: var(--terra-600); }
+  .prose .grid { max-width: none; }
+  .prose .table-scroll { max-width: none; }
+</style>

@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import { site } from '../data/site';
+
+const breadcrumbs = [{ label: 'Politique de confidentialité', href: '/politique-confidentialite' }];
+---
+<BaseLayout
+  title={`Politique de confidentialité | ${site.brand}`}
+  description="Politique de confidentialité : données collectées, finalité, durée de conservation, absence de traceurs publicitaires et vos droits."
+  {breadcrumbs}
+>
+  <Hero
+    label="Données personnelles"
+    title="Politique de confidentialité"
+    text="Quelles données sont collectées, pourquoi, pendant combien de temps, et comment exercer vos droits."
+    {breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap prose">
+      <div class="note note--todo">
+        <p>
+          <strong>À compléter avant la mise en ligne.</strong> L'identité du responsable de
+          traitement, l'hébergeur et le prestataire de traitement du formulaire doivent être
+          renseignés. Les durées indiquées ci-dessous sont des durées usuelles à confirmer selon
+          l'organisation réelle de l'entreprise.
+        </p>
+      </div>
+
+      <h2>Responsable de traitement</h2>
+      <p>
+        Le responsable du traitement des données est <code>[à compléter : raison sociale]</code>,
+        éditeur du site. Contact : <a href={`mailto:${site.email}`}>{site.email}</a> ou
+        <a href={site.phoneHref}>{site.phoneDisplay}</a>.
+      </p>
+
+      <h2>Données collectées</h2>
+      <p>
+        Le site ne collecte aucune donnée à votre insu. Les seules données recueillies sont celles
+        que vous transmettez volontairement via le formulaire de demande d'intervention :
+      </p>
+      <ul class="list-plain">
+        <li>nom ;</li>
+        <li>numéro de téléphone ;</li>
+        <li>adresse électronique, si vous la renseignez ;</li>
+        <li>ville et type de bâtiment ;</li>
+        <li>pièce ou zone concernée ;</li>
+        <li>nature du nuisible observé ;</li>
+        <li>description libre de la situation ;</li>
+        <li>photographie, si vous en joignez une.</li>
+      </ul>
+      <p>
+        Le formulaire comporte un champ technique invisible et un horodatage d'ouverture, utilisés
+        uniquement pour limiter les envois automatisés. Ils ne servent à aucune autre finalité.
+      </p>
+
+      <h2>Finalité</h2>
+      <p>
+        Ces données servent exclusivement à traiter votre demande : vous rappeler, préciser la
+        situation, préparer une visite et, le cas échéant, établir une proposition d'intervention.
+      </p>
+      <p>
+        Elles ne sont pas utilisées à des fins publicitaires, ne font l'objet d'aucune prospection
+        non sollicitée et ne sont pas cédées ni revendues à des tiers.
+      </p>
+
+      <h2>Base légale</h2>
+      <p>
+        Le traitement repose sur votre consentement, recueilli par la case à cocher du formulaire,
+        et sur l'exécution de mesures précontractuelles prises à votre demande.
+      </p>
+
+      <h2>Destinataires</h2>
+      <p>
+        Les données sont accessibles aux personnes de l'entreprise chargées du traitement des
+        demandes. Elles peuvent être traitées par les prestataires techniques strictement
+        nécessaires au fonctionnement du site et à l'acheminement des messages :
+        <code>[à compléter : hébergeur]</code> et
+        <code>[à compléter : service de traitement du formulaire]</code>.
+      </p>
+
+      <h2>Durée de conservation</h2>
+      <ul class="list-plain">
+        <li><strong>Demande sans suite :</strong> 12 mois à compter du dernier contact.</li>
+        <li><strong>Demande ayant donné lieu à une intervention :</strong> durée nécessaire au suivi du dossier, puis conservation des pièces comptables selon les obligations légales applicables.</li>
+        <li><strong>Photographies transmises :</strong> supprimées dès qu'elles ne sont plus utiles au traitement du dossier.</li>
+      </ul>
+
+      <h2>Cookies et mesure d’audience</h2>
+      <p>
+        Ce site <strong>ne dépose aucun cookie publicitaire ni aucun traceur tiers</strong>. Il
+        n'utilise ni régie publicitaire, ni bouton de partage de réseau social, ni service de
+        mesure d'audience externe. Les polices de caractères sont hébergées sur le site lui-même,
+        ce qui évite toute requête vers un service tiers lors de votre visite.
+      </p>
+      <p>
+        Si une solution de mesure d'audience était ajoutée ultérieurement, cette page serait mise à
+        jour et un mécanisme de consentement serait mis en place lorsque la réglementation
+        l'exige.
+      </p>
+
+      <h2>Sécurité</h2>
+      <p>
+        Le site est servi en HTTPS. Les données transmises par le formulaire circulent de manière
+        chiffrée. L'accès aux demandes reçues est restreint aux personnes qui en ont besoin pour
+        traiter le dossier.
+      </p>
+
+      <h2>Vos droits</h2>
+      <p>
+        Conformément au règlement général sur la protection des données et à la loi
+        « informatique et libertés », vous disposez d'un droit d'accès, de rectification,
+        d'effacement, de limitation et d'opposition, ainsi que d'un droit à la portabilité de vos
+        données.
+      </p>
+      <p>
+        Pour exercer ces droits, écrivez à <a href={`mailto:${site.email}`}>{site.email}</a> en
+        précisant votre demande. Une réponse vous sera apportée dans le délai prévu par la
+        réglementation.
+      </p>
+      <p>
+        Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous
+        pouvez adresser une réclamation à la Commission nationale de l'informatique et des libertés
+        (CNIL).
+      </p>
+
+      <h2>Mise à jour</h2>
+      <p>
+        Cette politique peut être modifiée pour tenir compte d'évolutions techniques ou
+        réglementaires. La version en ligne est celle qui s'applique.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .note--todo { border: 1px solid rgba(180, 81, 44, 0.35); background: var(--terra-100); }
+  .note--todo p { color: var(--bx-900); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em; background: var(--creme-2);
+    border: 1px solid var(--line-soft); border-radius: 4px; padding: 0.1em 0.35em;
+  }
+</style>

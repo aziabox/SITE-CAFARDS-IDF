@@ -10,6 +10,22 @@ const SITE_URL = process.env.SITE_URL ?? 'https://www.blattis.fr';
 export default defineConfig({
   site: SITE_URL,
   trailingSlash: 'ignore',
+  /**
+   * Redirections 301.
+   * Les variantes au singulier sont redirigées vers la page canonique afin
+   * d'éviter deux URL au contenu quasi identique.
+   * Astro génère une page de redirection ; pour un vrai 301, voir public/_redirects
+   * (Netlify) et vercel.json, fournis dans le dépôt.
+   */
+  redirects: {
+    '/cafards-commerce': '/cafards-commerces',
+    '/cafards-copropriete': '/cafards-coproprietes',
+    '/cafards-restaurant': '/cafards-restaurants',
+    '/cafards-hotel': '/cafards-hotels',
+    '/cafards-entreprise': '/cafards-entreprises',
+    '/blattes': '/traitement-blattes',
+    '/cafard': '/cafards',
+  },
   build: { format: 'directory', inlineStylesheets: 'auto' },
   prefetch: { prefetchAll: false },
   integrations: [

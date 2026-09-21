@@ -1,0 +1,22 @@
+---
+import { categories } from '../content.config';
+export interface Props {
+  post: { id: string; data: { title: string; description: string; date: Date; category: keyof typeof categories } };
+  showCategory?: boolean;
+}
+const { post, showCategory = true } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<a class="card post" href={`/blog/${post.id}`}>
+  {showCategory && <span class="card__meta">{categories[post.data.category]}</span>}
+  <h3>{post.data.title}</h3>
+  <p>{post.data.description}</p>
+  <span class="post__date">
+    <time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time>
+  </span>
+</a>
+<style>
+  .post { display: flex; flex-direction: column; }
+  .post h3 { font-size: 1.06rem; }
+  .post__date { margin-top: auto; padding-top: 0.9rem; font-size: 0.82rem; color: var(--ink-muted); }
+</style>

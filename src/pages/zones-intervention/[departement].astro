@@ -1,0 +1,213 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import IdfMap from '../../components/IdfMap.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Answer from '../../components/Answer.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import { departements } from '../../data/departements';
+import { villes } from '../../data/villes';
+import { site } from '../../data/site';
+import { serviceSchema, faqSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return departements.map((d) => ({ params: { departement: d.slug }, props: { dep: d } }));
+}
+
+const { dep } = Astro.props;
+const path = `/zones-intervention/${dep.slug}`;
+const villesDep = villes.filter((v) => v.departement === dep.slug);
+const autres = departements.filter((d) => d.slug !== dep.slug);
+
+const breadcrumbs = [
+  { label: "Zones d'intervention", href: '/zones-intervention' },
+  { label: `${dep.nom} (${dep.code})`, href: path },
+];
+
+const schema = [
+  serviceSchema({
+    url: path,
+    name: `Traitement des cafards ${dep.loc}`,
+    description: dep.metaDescription,
+    areaServed: [dep.nom, ...villesDep.map((v) => v.nom)],
+  }),
+  faqSchema(path, dep.faq),
+];
+
+const related = [
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Déroulement, inspection et périmètre d'une intervention." },
+  { label: 'Identifier un cafard', href: '/identifier-cafard', text: "Reconnaître l'espèce avant d'agir." },
+  { label: 'Copropriétés', href: '/cafards-coproprietes', text: "Parties communes et coordination avec le syndic." },
+  { label: 'Prévention', href: '/prevention-cafards', text: "Les mesures durables après un traitement." },
+];
+---
+
+<BaseLayout
+  title={`${dep.metaTitle} | ${site.brand}`}
+  description={dep.metaDescription}
+  {breadcrumbs}
+  {schema}
+>
+  <Hero
+    label={`Département ${dep.code}`}
+    title={dep.h1}
+    text={dep.lede}
+    bullets={['Contexte local du bâti', 'Habitations et professionnels', 'Diagnostic avant traitement']}
+    {breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap prose">
+      <Answer question={`Comment se passe une intervention ${dep.loc} ?`}>
+        <p>{dep.intro[0]}</p>
+      </Answer>
+      {dep.intro.slice(1).map((p) => <p>{p}</p>)}
+
+      <h2>{dep.habitatTitle}</h2>
+      {dep.habitat.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <section class="section section--creme">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Problématiques locales</p>
+        <h2>Les situations rencontrées {dep.loc}</h2>
+      </div>
+      <div class="grid grid-2">
+        {dep.contexts.map((c) => (
+          <div class="card">
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap dep-grid">
+      <div class="prose">
+        <h2>{dep.conseilsTitle}</h2>
+        <ul class="list-check">
+          {dep.conseils.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+      <div class="dep-aside">
+        <h2>Types de bâtiments traités {dep.loc}</h2>
+        <ul class="dep-bat">
+          <li><a href="/cafards-appartement">Appartements</a></li>
+          <li><a href="/cafards-maison">Maisons</a></li>
+          <li><a href="/cafards-coproprietes">Copropriétés</a></li>
+          <li><a href="/cafards-restaurants">Restaurants</a></li>
+          <li><a href="/cafards-commerces">Commerces</a></li>
+          <li><a href="/cafards-hotels">Hôtels</a></li>
+          <li><a href="/cafards-entreprises">Bureaux et entreprises</a></li>
+          <li><a href="/cafards-cave">Caves et sous-sols</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {villesDep.length > 0 && (
+    <section class="section section--creme">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pages locales</p>
+          <h2>Communes avec une page dédiée</h2>
+          <p class="lede">
+            Ces pages sont rédigées séparément : contexte du bâti, problématiques propres à la
+            commune, prévention adaptée et questions fréquentes distinctes.
+          </p>
+        </div>
+        <div class="grid grid-3">
+          {villesDep.map((v) => (
+            <a class="card" href={`/${v.slug}`}>
+              <span class="card__meta">{dep.nom}</span>
+              <h3>{v.nom}</h3>
+              <p>{v.lede}</p>
+              <span class="link-more" aria-hidden="true">Voir la page</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Couverture</p>
+        <h2>Principales communes desservies</h2>
+        <p class="lede">{dep.communesNote}</p>
+      </div>
+      <ul class="communes">
+        {dep.communes.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <Faq
+    items={dep.faq}
+    eyebrow="FAQ locale"
+    title={`Questions fréquentes ${dep.loc}`}
+    id="faq"
+  />
+
+  <section class="section section--creme">
+    <div class="wrap">
+      <IdfMap active={dep.slug} withList={false} title={`Carte des zones d'intervention — ${dep.nom}`} />
+      <div class="autres-dep">
+        <h2>Les autres départements</h2>
+        <ul>
+          {autres.map((d) => (
+            <li><a href={`/zones-intervention/${d.slug}`}>{d.nom} <span>({d.code})</span></a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <RelatedLinks links={related} title="Pages utiles" />
+
+  <CtaBand
+    title={`Une intervention ${dep.loc} ?`}
+    text="Indiquez la commune, le type de bâtiment et la fréquence des observations : ces éléments permettent de préparer une visite et de confirmer les modalités."
+  />
+</BaseLayout>
+
+<style>
+
+  .dep-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(250px, 1fr); gap: clamp(1.75rem, 4vw, 3.25rem); align-items: start; }
+  @media (max-width: 860px) { .dep-grid { grid-template-columns: 1fr; } }
+
+  .dep-aside {
+    background: var(--surface); border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg); padding: 1.35rem 1.5rem;
+  }
+  .dep-aside h2 { font-size: 1rem; margin-bottom: 0.9rem; }
+  .dep-bat { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .dep-bat a { display: inline-block; padding-block: 3px; font-size: 0.93rem; text-decoration: none; color: var(--ink-soft); }
+  .dep-bat a:hover { color: var(--terra-600); text-decoration: underline; text-underline-offset: 0.2em; }
+
+  .communes {
+    list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0;
+  }
+  .communes li {
+    padding: 0.45rem 0.85rem; background: var(--surface);
+    border: 1px solid var(--line-soft); border-radius: 999px;
+    font-size: 0.87rem; color: var(--ink-soft);
+  }
+
+  .autres-dep { margin-top: clamp(1.75rem, 3vw, 2.5rem); }
+  .autres-dep h2 { font-size: 1.1rem; margin-bottom: 1rem; }
+  .autres-dep ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 0; padding: 0; }
+  .autres-dep a {
+    display: inline-block; padding: 0.5rem 0.95rem;
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: 999px;
+    font-size: 0.89rem; text-decoration: none; color: var(--bx-700);
+  }
+  .autres-dep a:hover { border-color: var(--terra); color: var(--terra-600); }
+  .autres-dep span { color: var(--ink-muted); }
+</style>

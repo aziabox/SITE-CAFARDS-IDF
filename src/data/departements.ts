@@ -33,7 +33,7 @@ export const departements: Departement[] = [
     code: '75',
     nom: 'Paris',
     loc: 'à Paris',
-    metaTitle: 'Traitement des cafards à Paris (75) | Intervention spécialisée',
+    metaTitle: 'Traitement des cafards à Paris (75)',
     metaDescription:
       "Traitement des cafards et des blattes à Paris : immeubles anciens, gaines techniques, petites cuisines, restauration. Diagnostic, traitement adapté et prévention.",
     h1: 'Traitement des cafards et des blattes à Paris (75)',

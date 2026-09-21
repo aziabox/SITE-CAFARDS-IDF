@@ -1,0 +1,37 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import EspeceContent from '../components/EspeceContent.astro';
+import { especes } from '../data/especes';
+
+const e = especes.find((x) => x.slug === 'blatte-americaine')!;
+
+const related = [
+  { label: 'Identifier un cafard', href: '/identifier-cafard', text: "Les critères visuels et les confusions fréquentes." },
+  { label: 'Traitement par espèce', href: '/traitement-blattes', text: "Comment le protocole change selon l'espèce." },
+  { label: 'Signes d’un nid', href: '/nid-cafards', text: "Localiser les zones de refuge." },
+  { label: 'Oothèque de cafard', href: '/ootheque-cafard', text: "Reconnaître une enveloppe d'œufs." },
+  { label: 'Page de référence', href: '/cafards', text: "Mode de vie, espèces et conditions d'installation." },
+  { label: "Zones d'intervention", href: '/zones-intervention', text: "Paris et les huit départements." },
+];
+---
+
+<TopicPage
+  title={`${e.metaTitle} | Blattis`}
+  description={e.metaDescription}
+  h1={e.h1}
+  label="Fiche d’espèce"
+  lede={e.lede}
+  bullets={e.reperes.slice(0, 3)}
+  breadcrumbs={[
+    { label: 'Cafards & blattes', href: '/cafards' },
+    { label: e.nom, href: `/${e.slug}` },
+  ]}
+  faq={e.faq}
+  faqTitle={`${e.nom} : questions fréquentes`}
+  {related}
+  relatedTitle="Pages liées"
+  ctaTitle={`Une présence de ${e.nom.toLowerCase()} à faire évaluer ?`}
+  ctaText="Décrivez l'endroit et la fréquence des observations : l'identification et la localisation des refuges déterminent le périmètre d'une intervention."
+>
+  <EspeceContent espece={e} />
+</TopicPage>

@@ -1,0 +1,245 @@
+---
+import TopicPage from '../layouts/TopicPage.astro';
+import Answer from '../components/Answer.astro';
+
+const faq = [
+  {
+    q: 'Comment éviter le retour des cafards ?',
+    a: "En agissant sur les quatre besoins d'une blatte : l'eau disponible la nuit, la nourriture accessible, les abris resserrés et la chaleur permanente. Réduire fortement un seul de ces facteurs rend un lieu nettement moins accueillant. À cela s'ajoute le contrôle de ce qui entre : cartons, cageots, appareils d'occasion.",
+  },
+  {
+    q: 'Un logement très propre est-il à l’abri ?',
+    a: "Non. La propreté réduit la nourriture accessible en surface, ce qui est utile, mais elle ne change ni la chaleur des appareils, ni l'humidité des points d'eau, ni le nombre d'interstices. En immeuble, elle ne change rien aux réseaux qui relient les logements.",
+  },
+  {
+    q: 'Les répulsifs en vente libre sont-ils efficaces ?',
+    a: "Leur effet est généralement limité dans le temps et ils ne réduisent pas une population installée. Certains dispersent même les insectes vers d'autres pièces ou d'autres logements, ce qui étend la zone concernée au lieu de la réduire.",
+  },
+  {
+    q: 'Faut-il colmater tous les interstices d’un logement ?',
+    a: "Non, et surtout pas avant un diagnostic. Les passages qui comptent sont ceux qui relient le logement à autre chose : traversée de canalisation sous l'évier, évacuation du lave-linge, percement derrière un équipement sanitaire. Il ne faut jamais obturer une grille de ventilation, ce qui créerait de l'humidité.",
+  },
+  {
+    q: 'À quelle fréquence faut-il nettoyer sous les appareils ?',
+    a: "Il n'existe pas de règle absolue, mais un passage tous les deux à trois mois derrière et sous le réfrigérateur et le lave-vaisselle suffit généralement. Ce sont les zones les plus concernées et les moins souvent atteintes par le nettoyage courant.",
+  },
+  {
+    q: 'Comment protéger un logement meublé loué en courte durée ?',
+    a: "En intégrant une vérification simple entre deux occupations : inspection de la kitchenette, de l'arrière des appareils et des plinthes, et contrôle des cartons entrants. Dans ce type de parc, les introductions par les bagages et le mobilier sont le scénario le plus fréquent.",
+  },
+];
+
+const related = [
+  { label: 'Cafards dans la cuisine', href: '/cafards-cuisine', text: "Les zones réellement concernées et les gestes utiles." },
+  { label: 'Cafards en appartement', href: '/cafards-appartement', text: "Ce qui change en logement collectif." },
+  { label: 'Cafards en maison', href: '/cafards-maison', text: "Points d'entrée, sous-sol, buanderie, garage." },
+  { label: 'Traitement des cafards', href: '/traitement-cafards', text: "Quand la prévention ne suffit plus." },
+  { label: 'Page de référence', href: '/cafards', text: "Mode de vie, espèces et conditions d'installation." },
+  { label: 'Copropriétés', href: '/cafards-coproprietes', text: "Les mesures collectives qui ont un effet réel." },
+];
+---
+
+<TopicPage
+  title="Prévention des cafards : mesures utiles et inutiles | Blattis"
+  description="Prévention des cafards : gestion de l'eau, des denrées et des abris, contrôle des voies d'introduction et mesures en immeuble."
+  h1="Prévention des cafards : ce qui fonctionne réellement"
+  label="Prévention"
+  lede="La prévention n'est pas une liste de conseils d'hygiène. Elle consiste à agir sur quatre facteurs précis, et il est utile de savoir lesquels — ainsi que ce qui ne sert à rien."
+  bullets={['4 facteurs à réduire', 'Voies d’introduction', 'Ce qui ne marche pas']}
+  breadcrumbs={[
+    { label: 'Traitement', href: '/traitement-cafards' },
+    { label: 'Prévention', href: '/prevention-cafards' },
+  ]}
+  {faq}
+  {related}
+  ctaTitle="La prévention ne suffit plus ?"
+  ctaText="Si les observations se répètent malgré ces mesures, c'est le signe d'une population installée dans des volumes fermés. Un diagnostic permet de localiser les refuges."
+>
+
+<section class="section">
+  <div class="wrap prose">
+    <Answer question="Sur quoi faut-il agir en priorité ?">
+      <p>
+        Sur <strong>l'eau</strong>. Une blatte survit plusieurs semaines sans nourriture, mais bien
+        moins longtemps sans eau. Essuyer l'évier le soir, ne pas laisser de vaisselle humide,
+        vider le bac de dégivrage du réfrigérateur et réparer les suintements ont plus d'effet
+        qu'un produit acheté en grande surface.
+      </p>
+    </Answer>
+
+    <h2>Les quatre besoins, et lesquels sont à portée d’action</h2>
+    <p>
+      Une population ne s'installe durablement que si quatre conditions sont réunies au même
+      endroit. La chaleur est difficile à supprimer — elle découle de l'usage normal des appareils.
+      Les trois autres, en revanche, sont largement à portée.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Facteur</th><th>Action possible</th><th>Effet</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Eau</strong></td><td>Routine du soir, réparation des fuites, siphons en eau</td><td>Élevé et rapide</td></tr>
+          <tr><td><strong>Nourriture accessible</strong></td><td>Contenants fermés, nettoyage des zones cachées</td><td>Élevé, un peu plus lent</td></tr>
+          <tr><td><strong>Abris resserrés</strong></td><td>Retrait des cartons et papiers, colmatage après diagnostic</td><td>Moyen à élevé</td></tr>
+          <tr><td><strong>Chaleur permanente</strong></td><td>Peu d'action possible : elle vient des appareils</td><td>Faible</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>1. L’eau : la routine du soir</h2>
+    <p>
+      C'est le levier le plus efficace, et celui qui demande le moins d'effort. Il tient en deux
+      minutes avant de quitter la cuisine.
+    </p>
+    <ul class="list-check">
+      <li>Essuyer l'évier et le plan de travail plutôt que de les laisser humides</li>
+      <li>Ne pas laisser de vaisselle mouillée dans l'égouttoir</li>
+      <li>Vider et essuyer périodiquement le bac de dégivrage du réfrigérateur</li>
+      <li>Retirer les gamelles d'eau des animaux pendant la nuit, ou les placer sur un plateau facile à nettoyer</li>
+      <li>Vérifier l'absence de suintement sous l'évier et derrière le lave-linge</li>
+    </ul>
+    <p>
+      En salle de bain, le principe est le même : essuyer le fond de la douche, contrôler l'état du
+      joint autour de la baignoire, vérifier le pied du lavabo.
+    </p>
+    <p>
+      Un point souvent ignoré : les <strong>siphons de sol</strong> peu utilisés — cave, buanderie,
+      garage — s'assèchent et laissent passer les insectes depuis le réseau. Verser un litre d'eau
+      chaque mois suffit à maintenir la garde d'eau.
+    </p>
+
+    <h2>2. La nourriture : rendre inaccessible plutôt que supprimer</h2>
+    <p>
+      L'enjeu n'est pas de vivre dans un logement stérile, mais de supprimer les ressources faciles.
+    </p>
+    <p>
+      Les <strong>denrées sèches</strong> — farine, riz, pâtes, semoule, céréales, sucre, biscuits,
+      aliments pour animaux — sont mieux conservées dans des contenants fermés en verre ou en
+      plastique rigide. Un emballage papier ou carton ne constitue pas un obstacle.
+    </p>
+    <p>
+      Les <strong>miettes sous les appareils</strong> comptent davantage que celles sur le plan de
+      travail, parce qu'elles échappent au nettoyage courant. Dégager périodiquement le dessous du
+      réfrigérateur et du lave-vaisselle est plus utile qu'un passage supplémentaire sur les
+      surfaces visibles.
+    </p>
+    <p>
+      Les <strong>déchets alimentaires</strong> sont mieux sortis le soir que laissés en cuisine
+      pour la nuit.
+    </p>
+
+    <h2>3. Les abris : retirer ce que vous contrôlez</h2>
+    <p>
+      Les cartons et les papiers sont d'excellents refuges : secs, sombres, feuilletés, avec des
+      interstices exactement de la bonne dimension. Les retirer des placards bas, des celliers,
+      des buanderies et des caves supprime une part notable des zones disponibles — sans aucun coût.
+    </p>
+    <p>
+      Dans une cave ou une réserve, le principe s'étend au stockage : <strong>surélever</strong> ce
+      qui est entreposé et <strong>laisser un passage le long des murs</strong>. Cela rend l'espace
+      moins accueillant et rend l'inspection possible le jour où elle devient nécessaire.
+    </p>
+  </div>
+</section>
+
+<section class="section section--creme">
+  <div class="wrap prose">
+    <h2>4. Contrôler ce qui entre</h2>
+    <p>
+      Une part importante des infestations commence par une introduction, et non par une
+      dégradation des conditions. Les vecteurs les plus documentés sont connus.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Vecteur</th><th>Pourquoi</th><th>Mesure</th></tr></thead>
+        <tbody>
+          <tr><td>Cartons de livraison</td><td>Interstices du cannelage, séjour en réserve ou entrepôt</td><td>Déballer à l'extérieur, évacuer sans stocker</td></tr>
+          <tr><td>Cageots et palettes</td><td>Nombreux interstices dans les angles</td><td>Contrôle visuel des angles à la réception</td></tr>
+          <tr><td>Électroménager d'occasion</td><td>Compartiment moteur chaud et fermé</td><td>Inspecter l'arrière et le dessous avant installation</td></tr>
+          <tr><td>Meubles récupérés</td><td>Panneau arrière, interstices, rails de tiroir</td><td>Inspecter et nettoyer avant mise en place</td></tr>
+          <tr><td>Bagages</td><td>Locations de courte durée, séjours en hébergement concerné</td><td>Vérification au retour, rangement hors des placards bas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>5. Colmater les passages — après le diagnostic</h2>
+    <p>
+      C'est une mesure efficace et durable, à condition de la faire au bon moment.
+    </p>
+    <p>
+      Les passages qui comptent sont ceux qui relient le logement à autre chose : traversée de
+      canalisation sous l'évier, passage de l'évacuation du lave-linge, percement derrière un
+      équipement sanitaire, jonction non finie autour d'une gaine technique. Ils se colmatent avec
+      un mastic ou une mousse adaptée.
+    </p>
+    <div class="note">
+      <p>
+        <strong>Deux erreurs à éviter.</strong> Ne jamais obturer une grille de ventilation : cela
+        crée de l'humidité, ce qui va exactement à l'encontre du but recherché. Si une grille
+        laisse passer des insectes, on la remplace par un modèle à maille fine. Et ne pas condamner
+        une trappe de gaine technique, qui doit rester accessible pour l'inspection.
+      </p>
+      <p>
+        <strong>Le timing.</strong> Avant un diagnostic, ces passages constituent une information :
+        ils indiquent par où circule la population, et cette information détermine le positionnement
+        du traitement. Le colmatage vient ensuite.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>En immeuble : une mesure supplémentaire décisive</h2>
+    <p>
+      Tout ce qui précède reste valable, mais un logement collectif comporte un facteur que
+      l'occupant ne maîtrise pas : les réseaux partagés.
+    </p>
+    <p>
+      La mesure la plus utile est de <strong>signaler au syndic ou au bailleur</strong> dès les
+      premières observations, même isolées. Sans ce signalement, l'étendue réelle reste invisible :
+      des logements peuvent être concernés sans que leurs occupants aient remarqué quoi que ce
+      soit. Et les parties communes — gaines, caves, locaux de déchets — restent hors du périmètre
+      d'action.
+    </p>
+    <p>
+      Ce n'est pas une démarche administrative : c'est souvent ce qui fait la différence entre un
+      traitement qui tient et une situation qui revient tous les six mois. La page
+      <a href="/cafards-coproprietes">cafards en copropriété</a> détaille la démarche collective.
+    </p>
+
+    <h2>Ce qui ne fonctionne pas</h2>
+    <p>
+      Il est utile de le dire clairement, pour éviter de perdre du temps et de l'argent.
+    </p>
+    <ul class="list-check">
+      <li><strong>Les aérosols appliqués sur les individus visibles.</strong> Ils tuent quelques insectes et agissent comme un répulsif sur les autres, qui se dispersent vers d'autres pièces et, en immeuble, vers les logements voisins. La zone concernée s'étend.</li>
+      <li><strong>Les répulsifs d'ambiance.</strong> Effet bref, aucune action sur une population installée dans des volumes fermés.</li>
+      <li><strong>Les remèdes maison</strong> à base d'huiles essentielles ou de bicarbonate. Aucun effet démontré sur une population occupant des refuges inaccessibles.</li>
+      <li><strong>Laisser une lumière allumée.</strong> Cela retarde les sorties sans réduire le nombre d'individus, qui continuent à se reproduire dans les refuges.</li>
+      <li><strong>Nettoyer davantage les surfaces visibles.</strong> Utile pour l'hygiène générale, mais sans effet sur les zones où vit la population.</li>
+    </ul>
+
+    <h2>Quand la prévention ne suffit plus</h2>
+    <p>
+      La prévention réduit l'attractivité d'un lieu ; elle ne supprime pas une population déjà
+      installée. Quatre situations indiquent qu'il faut passer au diagnostic :
+    </p>
+    <ol class="list-plain">
+      <li>des observations qui se répètent malgré les mesures ci-dessus ;</li>
+      <li>une présence dans plus d'une pièce ;</li>
+      <li>des individus de tailles différentes, signe d'une reproduction sur place ;</li>
+      <li>un voisin direct qui signale la même situation.</li>
+    </ol>
+    <p>
+      Dans ces cas, la page <a href="/nid-cafards">signes d'un nid de cafards</a> explique comment
+      localiser les zones de refuge, et la page
+      <a href="/traitement-cafards">traitement des cafards</a> décrit le déroulement d'une
+      intervention.
+    </p>
+  </div>
+</section>
+</TopicPage>
+
+<style>
+  .prose .table-scroll { max-width: none; }
+</style>

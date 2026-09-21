@@ -104,62 +104,68 @@ const jsonLd = graph([
     </main>
     <Footer />
 
-    <script is:inline>
-      // Navigation mobile + sous-menus (vanilla, ~1 Ko)
-      (function () {
-        var burger = document.querySelector('[data-burger]');
-        var panel = document.getElementById('nav-mobile');
-        if (burger && panel) {
-          burger.addEventListener('click', function () {
-            var open = burger.getAttribute('aria-expanded') === 'true';
-            burger.setAttribute('aria-expanded', String(!open));
-            panel.hidden = open;
-            document.documentElement.style.overflow = open ? '' : 'hidden';
+    <script>
+      // Navigation mobile, en-tête compact et apparitions discrètes.
+      // Ce script est regroupé par Astro dans un fichier externe : la politique
+      // de sécurité du contenu peut donc rester en « script-src 'self' ».
+      // « const » plutôt que « var » : indispensable pour que TypeScript
+      // conserve le rétrécissement de type à l'intérieur des fermetures.
+      const burger = document.querySelector('[data-burger]');
+      const panel = document.getElementById('nav-mobile');
+
+      if (burger && panel) {
+        burger.addEventListener('click', () => {
+          const open = burger.getAttribute('aria-expanded') === 'true';
+          burger.setAttribute('aria-expanded', String(!open));
+          panel.hidden = open;
+          document.documentElement.classList.toggle('nav-open', !open);
+        });
+
+        panel.querySelectorAll('[data-sub-toggle]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const open = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!open));
+            const id = btn.getAttribute('aria-controls');
+            const list = id ? document.getElementById(id) : null;
+            if (list) list.hidden = open;
           });
-          panel.querySelectorAll('[data-sub-toggle]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-              var open = btn.getAttribute('aria-expanded') === 'true';
-              btn.setAttribute('aria-expanded', String(!open));
-              var list = document.getElementById(btn.getAttribute('aria-controls'));
-              if (list) list.hidden = open;
+        });
+      }
+
+      const header = document.querySelector('[data-header]');
+      if (header) {
+        let tick = false;
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (tick) return;
+            tick = true;
+            requestAnimationFrame(() => {
+              header.classList.toggle('is-scrolled', window.scrollY > 24);
+              tick = false;
             });
-          });
-        }
-        // En-tête compact au défilement
-        var header = document.querySelector('[data-header]');
-        if (header) {
-          var tick = false;
-          window.addEventListener(
-            'scroll',
-            function () {
-              if (tick) return;
-              tick = true;
-              requestAnimationFrame(function () {
-                header.classList.toggle('is-scrolled', window.scrollY > 24);
-                tick = false;
-              });
-            },
-            { passive: true },
-          );
-        }
-        // Apparitions discrètes
-        if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          var io = new IntersectionObserver(
-            function (entries) {
-              entries.forEach(function (e) {
-                if (e.isIntersecting) {
-                  e.target.classList.add('is-in');
-                  io.unobserve(e.target);
-                }
-              });
-            },
-            { rootMargin: '0px 0px -8% 0px', threshold: 0.06 },
-          );
-          document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-        } else {
-          document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
-        }
-      })();
+          },
+          { passive: true },
+        );
+      }
+
+      const reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.06 },
+        );
+        reveals.forEach((el) => io.observe(el));
+      } else {
+        reveals.forEach((el) => el.classList.add('is-in'));
+      }
     </script>
   </body>
 </html>

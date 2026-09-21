@@ -71,6 +71,10 @@ html {
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
 
+/* Posée par le script de navigation quand le menu mobile est ouvert :
+   évite d'écrire dans un attribut style, ce qui imposerait d'assouplir la CSP. */
+html.nav-open, html.nav-open body { overflow: hidden; }
+
 body {
   margin: 0;
   background-color: var(--bg);

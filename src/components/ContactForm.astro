@@ -189,19 +189,19 @@ const observations = [
   @media (max-width: 520px) { .form__actions .btn { flex: 1 1 100%; } }
 </style>
 
-<script is:inline>
-  (function () {
-    var f = document.querySelector('[data-form]');
-    if (!f) return;
-    var at = f.querySelector('[data-openat]');
-    if (at) at.value = String(Date.now());
-    f.addEventListener('submit', function (e) {
-      // Deux garde-fous simples côté client : leurre rempli, ou envoi quasi instantané.
-      var trap = f.querySelector('[name="site_web"]');
-      var opened = Number(at && at.value) || 0;
-      if ((trap && trap.value) || (opened && Date.now() - opened < 2500)) {
-        e.preventDefault();
-      }
+<script>
+  // Garde-fous anti-spam côté client : champ leurre rempli, ou envoi quasi
+  // instantané. Le service qui reçoit le formulaire doit refaire ces contrôles.
+  const form = document.querySelector('[data-form]');
+  if (form instanceof HTMLFormElement) {
+    const openedAt = form.querySelector('[data-openat]');
+    if (openedAt instanceof HTMLInputElement) openedAt.value = String(Date.now());
+
+    form.addEventListener('submit', (e) => {
+      const trap = form.querySelector('[name="site_web"]');
+      const opened = openedAt instanceof HTMLInputElement ? Number(openedAt.value) || 0 : 0;
+      const trapFilled = trap instanceof HTMLInputElement && trap.value !== '';
+      if (trapFilled || (opened > 0 && Date.now() - opened < 2500)) e.preventDefault();
     });
-  })();
+  }
 </script>

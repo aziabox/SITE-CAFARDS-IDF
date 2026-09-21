@@ -255,105 +255,150 @@ const shapes = mapData.departements
   }
 </style>
 
-<script is:inline>
-  (function () {
-    var root = document.querySelector('[data-map]');
-    if (!root) return;
-    var svg = root.querySelector('[data-svg]');
-    var canvas = root.querySelector('[data-canvas]');
-    var base = (svg.getAttribute('data-viewbox') || '0 0 1000 800').split(' ').map(Number);
-    var vb = base.slice();
-    var kicker = root.querySelector('[data-panel-kicker]');
-    var pTitle = root.querySelector('[data-panel-title]');
-    var pText = root.querySelector('[data-panel-text]');
-    var pLink = root.querySelector('[data-panel-link]');
+<script>
+  // Zoom, déplacement et panneau d'information de la carte.
+  // Regroupé par Astro dans un fichier externe : la politique de sécurité du
+  // contenu reste en « script-src 'self' », sans 'unsafe-inline'.
+  const root = document.querySelector('[data-map]');
+  const svg = root?.querySelector('[data-svg]');
+  const canvas = root?.querySelector('[data-canvas]');
+  const kicker = root?.querySelector('[data-panel-kicker]');
+  const pTitle = root?.querySelector('[data-panel-title]');
+  const pText = root?.querySelector('[data-panel-text]');
+  const pLink = root?.querySelector('[data-panel-link]');
 
-    function apply() {
-      // bornes : on ne sort pas du cadre initial
-      var maxW = base[2], maxH = base[3];
-      if (vb[2] > maxW) { vb[2] = maxW; vb[3] = maxH; }
+  if (root && svg && canvas instanceof HTMLElement && kicker && pTitle && pText && pLink) {
+    const base = (svg.getAttribute('data-viewbox') || '0 0 1000 800').split(' ').map(Number);
+    let vb = base.slice();
+
+    /** Recadre la vue dans les limites du cadre initial. */
+    const apply = () => {
+      const maxW = base[2];
+      const maxH = base[3];
+      if (vb[2] > maxW) {
+        vb[2] = maxW;
+        vb[3] = maxH;
+      }
       vb[0] = Math.max(base[0], Math.min(vb[0], base[0] + maxW - vb[2]));
       vb[1] = Math.max(base[1], Math.min(vb[1], base[1] + maxH - vb[3]));
       svg.setAttribute('viewBox', vb.join(' '));
-    }
-    function zoom(factor, cx, cy) {
-      var nw = vb[2] / factor, nh = vb[3] / factor;
-      var minW = base[2] / 6;
-      if (nw > base[2]) { nw = base[2]; nh = base[3]; }
-      if (nw < minW) { nw = minW; nh = base[3] / 6; }
-      var rx = cx === undefined ? 0.5 : cx, ry = cy === undefined ? 0.5 : cy;
-      vb[0] += (vb[2] - nw) * rx;
-      vb[1] += (vb[3] - nh) * ry;
-      vb[2] = nw; vb[3] = nh;
+    };
+
+    /** Zoome autour d'un point exprimé en fraction de la largeur/hauteur. */
+    const zoom = (factor: number, cx = 0.5, cy = 0.5) => {
+      let nw = vb[2] / factor;
+      let nh = vb[3] / factor;
+      const minW = base[2] / 6;
+      if (nw > base[2]) {
+        nw = base[2];
+        nh = base[3];
+      }
+      if (nw < minW) {
+        nw = minW;
+        nh = base[3] / 6;
+      }
+      vb[0] += (vb[2] - nw) * cx;
+      vb[1] += (vb[3] - nh) * cy;
+      vb[2] = nw;
+      vb[3] = nh;
       apply();
-    }
-    root.querySelectorAll('[data-zoom]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var k = btn.getAttribute('data-zoom');
+    };
+
+    root.querySelectorAll('[data-zoom]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const k = btn.getAttribute('data-zoom');
         if (k === 'in') zoom(1.45);
         else if (k === 'out') zoom(1 / 1.45);
-        else { vb = base.slice(); apply(); }
+        else {
+          vb = base.slice();
+          apply();
+        }
       });
     });
+
     canvas.addEventListener(
       'wheel',
-      function (e) {
+      (e) => {
         if (!e.ctrlKey && Math.abs(e.deltaY) < 4) return;
         e.preventDefault();
-        var r = canvas.getBoundingClientRect();
+        const r = canvas.getBoundingClientRect();
         zoom(e.deltaY < 0 ? 1.18 : 1 / 1.18, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
       },
       { passive: false },
     );
 
-    // Déplacement (souris + tactile)
-    var drag = null;
-    function start(x, y) { drag = { x: x, y: y, vb: vb.slice() }; canvas.classList.add('is-dragging'); }
-    function move(x, y) {
+    // --- Déplacement (souris et tactile) ---
+    let drag: { x: number; y: number; vb: number[] } | null = null;
+
+    const startDrag = (x: number, y: number) => {
+      drag = { x, y, vb: vb.slice() };
+      canvas.classList.add('is-dragging');
+    };
+    const moveDrag = (x: number, y: number) => {
       if (!drag) return;
-      var r = canvas.getBoundingClientRect();
+      const r = canvas.getBoundingClientRect();
       vb[0] = drag.vb[0] - ((x - drag.x) / r.width) * vb[2];
       vb[1] = drag.vb[1] - ((y - drag.y) / r.height) * vb[3];
       apply();
-    }
-    function end() { drag = null; canvas.classList.remove('is-dragging'); }
-    canvas.addEventListener('pointerdown', function (e) { if (e.button === 0) start(e.clientX, e.clientY); });
-    window.addEventListener('pointermove', function (e) { move(e.clientX, e.clientY); });
-    window.addEventListener('pointerup', end);
-    window.addEventListener('pointercancel', end);
-    // Un vrai glissement annule le clic sur un département
+    };
+    const endDrag = () => {
+      drag = null;
+      canvas.classList.remove('is-dragging');
+    };
+
+    canvas.addEventListener('pointerdown', (e) => {
+      if (e.button === 0) startDrag(e.clientX, e.clientY);
+    });
+    window.addEventListener('pointermove', (e) => moveDrag(e.clientX, e.clientY));
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+
+    // Un véritable glissement ne doit pas déclencher le lien du département.
     canvas.addEventListener(
       'click',
-      function (e) {
-        if (canvas.dataset.moved === '1') { e.preventDefault(); canvas.dataset.moved = '0'; }
+      (e) => {
+        if (canvas.dataset.moved === '1') {
+          e.preventDefault();
+          canvas.dataset.moved = '0';
+        }
       },
       true,
     );
-    canvas.addEventListener('pointermove', function () { if (drag) canvas.dataset.moved = '1'; });
+    canvas.addEventListener('pointermove', () => {
+      if (drag) canvas.dataset.moved = '1';
+    });
 
-    // Panneau d'information
-    function showDep(el) {
-      kicker.textContent = 'Département ' + el.getAttribute('data-code');
-      pTitle.textContent = el.getAttribute('data-nom');
-      pText.textContent = el.getAttribute('data-lede');
-      pLink.setAttribute('href', el.getAttribute('href'));
-      pLink.textContent = 'Voir ' + el.getAttribute('data-nom');
-    }
-    function showCity(el) {
-      kicker.textContent = el.getAttribute('data-dep-nom');
-      pTitle.textContent = el.getAttribute('data-nom');
-      pText.textContent =
-        'Page locale : contexte du bâti, problématiques rencontrées, prévention et questions fréquentes.';
-      pLink.setAttribute('href', el.getAttribute('href'));
-      pLink.textContent = 'Voir ' + el.getAttribute('data-nom');
-    }
-    root.querySelectorAll('[data-dep]').forEach(function (el) {
-      el.addEventListener('mouseenter', function () { showDep(el); });
-      el.addEventListener('focus', function () { showDep(el); });
+    // --- Panneau d'information ---
+    const fill = (kickerText: string, nom: string, texte: string, href: string) => {
+      kicker.textContent = kickerText;
+      pTitle.textContent = nom;
+      pText.textContent = texte;
+      pLink.setAttribute('href', href);
+      pLink.textContent = `Voir ${nom}`;
+    };
+
+    root.querySelectorAll('[data-dep]').forEach((el) => {
+      const show = () =>
+        fill(
+          `Département ${el.getAttribute('data-code') ?? ''}`,
+          el.getAttribute('data-nom') ?? '',
+          el.getAttribute('data-lede') ?? '',
+          el.getAttribute('href') ?? '/zones-intervention',
+        );
+      el.addEventListener('mouseenter', show);
+      el.addEventListener('focus', show);
     });
-    root.querySelectorAll('[data-city]').forEach(function (el) {
-      el.addEventListener('mouseenter', function () { showCity(el); });
-      el.addEventListener('focus', function () { showCity(el); });
+
+    root.querySelectorAll('[data-city]').forEach((el) => {
+      const show = () =>
+        fill(
+          el.getAttribute('data-dep-nom') ?? '',
+          el.getAttribute('data-nom') ?? '',
+          'Page locale : contexte du bâti, problématiques rencontrées, prévention et questions fréquentes.',
+          el.getAttribute('href') ?? '/zones-intervention',
+        );
+      el.addEventListener('mouseenter', show);
+      el.addEventListener('focus', show);
     });
-  })();
+  }
 </script>

@@ -10,17 +10,20 @@
     "start": "astro preview --host 0.0.0.0 --port ${PORT:-4321}",
     "preview": "astro preview",
     "check": "astro check",
-    "audit:content": "node scripts/audit-content.mjs"
+    "audit:content": "node scripts/audit-content.mjs",
+    "audit:security": "node scripts/audit-security.mjs",
+    "audit": "npm run audit:content && npm run audit:security"
   },
   "dependencies": {
-    "@astrojs/sitemap": "3.7.0",
-    "astro": "5.18.2"
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.3",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
     "typescript": "5.9.2"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.12.0"
   }
 }

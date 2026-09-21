@@ -1,5 +1,7 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+// Astro 7 déprécie la ré-exportation de « z » par astro:content : on importe zod directement.
+import { z } from 'zod';
 
 /** Catégories du blog (une page d'archive par catégorie). */
 export const categories = {

@@ -26,7 +26,9 @@ export default defineConfig({
     '/blattes': '/traitement-blattes',
     '/cafard': '/cafards',
   },
-  build: { format: 'directory', inlineStylesheets: 'auto' },
+  // « never » : aucun <style> inline, ce qui permet une CSP « style-src 'self' »
+  // sans recourir à 'unsafe-inline'.
+  build: { format: 'directory', inlineStylesheets: 'never' },
   prefetch: { prefetchAll: false },
   integrations: [
     sitemap({
@@ -46,4 +48,5 @@ export default defineConfig({
   ],
   image: { service: { entrypoint: 'astro/assets/services/sharp' } },
   compressHTML: true,
+  vite: { build: { assetsInlineLimit: 0 } },
 });

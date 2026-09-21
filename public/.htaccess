@@ -1,0 +1,175 @@
+# ============================================================================
+# Blattis — configuration Apache / LiteSpeed (Hostinger, o2switch, OVH mutualisé…)
+#
+# Ce fichier est copié tel quel dans dist/ au build. Il remplace, sur un
+# hébergement mutualisé, ce que vercel.json et netlify.toml font ailleurs :
+# en-têtes de sécurité, HTTPS, redirections 301, cache et compression.
+#
+# Avant mise en ligne, voir la section « Hostinger » du README :
+#   - choisir www ou sans-www (bloc 4b, désactivé par défaut) ;
+#   - si le formulaire pointe vers un service externe (FORM_ENDPOINT),
+#     ajouter son domaine à « form-action » dans la CSP (bloc 2).
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# 1. Durcissement de base
+# ----------------------------------------------------------------------------
+Options -Indexes
+ServerSignature Off
+
+# Encodage par défaut, pour éviter toute ambiguïté d'interprétation
+AddDefaultCharset UTF-8
+
+# ----------------------------------------------------------------------------
+# 2. En-têtes de sécurité
+# ----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Le site est intégralement en même origine : aucun script, style, police,
+  # image ou requête externe. La politique peut donc être stricte, sans
+  # 'unsafe-inline' ni 'unsafe-eval'.
+  # Le seul bloc <script> restant en ligne est du JSON-LD (type
+  # application/ld+json) : ce n'est pas du JavaScript exécutable et les
+  # navigateurs ne l'évaluent pas au titre de script-src.
+  Header always set Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; manifest-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
+
+  # HTTPS obligatoire pendant un an. À n'activer qu'une fois le certificat en
+  # place et fonctionnel : le navigateur refusera ensuite tout accès en clair.
+  # « preload » n'est volontairement pas demandé (engagement difficile à défaire).
+  Header always set Strict-Transport-Security "max-age=31536000"
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+
+  # Ne pas divulguer la pile technique
+  Header always unset X-Powered-By
+  Header always unset X-Pingback
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 3. Interdiction d'accès aux fichiers qui n'ont rien à faire en ligne
+#    Filet de sécurité : si le dépôt entier a été téléversé par erreur (FTP),
+#    ces fichiers restent inaccessibles.
+# ----------------------------------------------------------------------------
+<FilesMatch "(?i)^(\.|.*\.(env|log|bak|old|orig|sql|sh|ts|tsx|md|yml|yaml|toml|lock)$|package(-lock)?\.json$|tsconfig\.json$|astro\.config\.mjs$|vercel\.json$|netlify\.toml$|_redirects$)">
+  Require all denied
+</FilesMatch>
+
+# Le manifeste et le fichier de redirections doivent rester servis
+<Files "site.webmanifest">
+  Require all granted
+</Files>
+
+<IfModule mod_alias.c>
+  RedirectMatch 404 (?i)/\.(git|svn|hg|astro)(/|$)
+  RedirectMatch 404 (?i)/(node_modules|src|scripts)(/|$)
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 4. Réécritures
+# ----------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 4a. Forcer HTTPS (la seconde condition couvre les hébergements derrière
+  #     un répartiteur de charge, dont Hostinger).
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # 4b. Hôte canonique — DÉCOMMENTER UNE SEULE des deux règles, selon le
+  #     domaine choisi, et remplacer « exemple.fr » par votre domaine.
+  #     Servir le site sur www ET sans-www crée du contenu dupliqué.
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+  #
+  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # 4c. Redirections 301 éditoriales.
+  #     On vise directement la forme canonique avec slash final, pour éviter
+  #     une seconde redirection. Les motifs sont ancrés ($) : sans cela,
+  #     « /cafards-commerce » capturerait « /cafards-commerces » et bouclerait.
+  RewriteRule ^cafards-commerce/?$      /cafards-commerces/     [R=301,L]
+  RewriteRule ^cafards-copropriete/?$   /cafards-coproprietes/  [R=301,L]
+  RewriteRule ^cafards-restaurant/?$    /cafards-restaurants/   [R=301,L]
+  RewriteRule ^cafards-hotel/?$         /cafards-hotels/        [R=301,L]
+  RewriteRule ^cafards-entreprise/?$    /cafards-entreprises/   [R=301,L]
+  RewriteRule ^blattes/?$               /traitement-blattes/    [R=301,L]
+  RewriteRule ^cafard/?$                /cafards/               [R=301,L]
+
+  RewriteRule ^zones-intervention/val-d-oise/?$ /zones-intervention/val-doise/        [R=301,L]
+  RewriteRule ^zones-intervention/75/?$         /zones-intervention/paris/            [R=301,L]
+  RewriteRule ^zones-intervention/77/?$         /zones-intervention/seine-et-marne/   [R=301,L]
+  RewriteRule ^zones-intervention/78/?$         /zones-intervention/yvelines/         [R=301,L]
+  RewriteRule ^zones-intervention/91/?$         /zones-intervention/essonne/          [R=301,L]
+  RewriteRule ^zones-intervention/92/?$         /zones-intervention/hauts-de-seine/   [R=301,L]
+  RewriteRule ^zones-intervention/93/?$         /zones-intervention/seine-saint-denis/ [R=301,L]
+  RewriteRule ^zones-intervention/94/?$         /zones-intervention/val-de-marne/     [R=301,L]
+  RewriteRule ^zones-intervention/95/?$         /zones-intervention/val-doise/        [R=301,L]
+
+  # 4d. Slash final canonique.
+  #     Le site est généré au format « répertoire » et ses URL canoniques
+  #     portent un slash final : /cafards → /cafards/
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^ %{REQUEST_URI}/ [R=301,L]
+</IfModule>
+
+DirectoryIndex index.html
+
+# ----------------------------------------------------------------------------
+# 5. Page d'erreur
+# ----------------------------------------------------------------------------
+ErrorDocument 404 /404.html
+
+# ----------------------------------------------------------------------------
+# 6. Compression
+# ----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml application/rss+xml
+  AddOutputFilterByType DEFLATE image/svg+xml application/manifest+json
+</IfModule>
+# Les .woff2 sont déjà compressés : ne pas les recompresser.
+
+# ----------------------------------------------------------------------------
+# 7. Types MIME et cache
+# ----------------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+  AddType image/svg+xml .svg
+  AddType image/avif .avif
+  AddType image/webp .webp
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Actifs au nom haché : immuables
+  ExpiresByType text/css                "access plus 1 year"
+  ExpiresByType application/javascript  "access plus 1 year"
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType image/svg+xml           "access plus 1 month"
+  ExpiresByType image/png               "access plus 1 month"
+  ExpiresByType image/webp              "access plus 1 month"
+  ExpiresByType image/avif              "access plus 1 month"
+  # Le HTML doit rester revalidé pour que les mises à jour soient visibles
+  ExpiresByType text/html               "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>

@@ -15,17 +15,19 @@ npm install
 npm run dev        # serveur de développement sur http://localhost:4321
 npm run build      # génère dist/
 npm run preview    # prévisualise dist/
-npm run audit:content   # audit SEO / contenu / accessibilité sur dist/
+npm start          # sert dist/ comme en production (écoute $PORT)
+npm run check      # contrôle de types, y compris les scripts client
+npm run audit      # audit contenu + sécurité sur dist/
 ```
 
-Node 20+ recommandé (développé et testé avec Node 22).
+**Node 22.12 ou plus requis** (exigence d'Astro 7). Développé et testé avec Node 22.22.
 
 ## 2. Pile technique
 
 | Élément | Choix | Raison |
 | --- | --- | --- |
-| Générateur | **Astro 5** (sortie statique) | HTML pré-rendu, zéro framework côté client |
-| JavaScript livré | **≈ 2,2 Ko** (un seul fichier) | navigation mobile, accordéons, carte |
+| Générateur | **Astro 7** (sortie statique) | HTML pré-rendu, zéro framework côté client |
+| JavaScript livré | **≈ 6,6 Ko** répartis en fichiers externes | navigation, carte, formulaire — externes pour permettre une CSP stricte |
 | CSS | CSS natif, variables, pas de framework | ~26 Ko au total, styles critiques intégrés |
 | Polices | Sora + Source Sans 3, **auto-hébergées** | 184 Ko au total, aucune requête vers un tiers |
 | Images | SVG vectoriel écrit pour le site | pas de photo simulée, pas de requête bloquante |
@@ -94,32 +96,127 @@ suffit de servir. Aucun serveur applicatif n'est nécessaire.
 | --- | --- |
 | Commande de build | `npm run build` |
 | Dossier publié | `dist` |
-| Version de Node | 20 ou plus (`.node-version`, `engines`) |
+| Version de Node | **22.12 ou plus** (exigée par Astro 7) |
 | Commande de démarrage (plateformes type Node) | `npm start` |
 
 `npm start` sert le site **construit** via `astro preview`, en écoutant sur
 `0.0.0.0` et sur le port fourni par la plateforme (`PORT`). Ne pas utiliser
 `npm run dev` en production : c'est le serveur de développement.
 
-Trois configurations d'hébergeur sont fournies et n'ont rien à régler :
+Quatre configurations d'hébergeur sont fournies et déclarent **les mêmes
+en-têtes de sécurité** (l'audit vérifie qu'elles ne divergent pas) :
 
-- **Vercel** — `vercel.json` : framework, build, dossier de sortie,
-  `trailingSlash: true`, redirections 301, en-têtes de cache et de sécurité.
-- **Netlify / Cloudflare Pages** — `netlify.toml` + `public/_redirects`.
-- **Autre plateforme** — reporter la commande de build, le dossier `dist` et les
-  redirections du tableau de la section suivante.
+| Hébergeur | Fichier |
+| --- | --- |
+| Apache / LiteSpeed — **Hostinger**, o2switch, OVH mutualisé | `public/.htaccess` |
+| Vercel | `vercel.json` |
+| Netlify / Cloudflare Pages | `netlify.toml` + `public/_redirects` |
 
-`trailingSlash` est volontairement à `true` : le site est généré au format
-« répertoire » et ses URL canoniques portent un slash final (`/cafards/`). Un
-hébergeur réglé autrement redirigerait vers une URL différente de l'URL
-canonique déclarée, ce qui brouille l'indexation.
+### Hostinger et autres hébergements mutualisés
 
-### Branche
+`public/.htaccess` est copié tel quel dans `dist/` au build. C'est lui qui
+applique, sur un hébergement Apache/LiteSpeed, ce que `vercel.json` fait
+ailleurs : en-têtes de sécurité, HTTPS, redirections 301, cache et compression.
 
-La branche **`main`** contient le projet et c'est celle à déployer. La plupart
-des importateurs Git la cherchent par son nom ; si le vôtre utilise la branche
-par défaut du dépôt, vérifiez dans GitHub (*Settings → General → Default
-branch*) qu'elle est bien réglée sur `main`.
+**Ce qu'il faut téléverser :** uniquement le **contenu de `dist/`** dans
+`public_html`, jamais le dépôt. Le dépôt contient `node_modules`, `src`,
+`package.json` et les fichiers de configuration, qui n'ont rien à faire sur un
+serveur web. Le `.htaccess` en bloque l'accès en filet de sécurité, mais la
+bonne pratique reste de ne pas les envoyer.
+
+**Deux réglages à faire dans `public/.htaccess`** avant mise en ligne :
+
+1. **Hôte canonique** (bloc 4b) — décommenter *une seule* des deux règles,
+   selon que le site répond sur `www.` ou sans. Servir les deux crée du contenu
+   dupliqué. Remplacer `exemple.fr` par le domaine réel.
+2. **Formulaire externe** — si `FORM_ENDPOINT` pointe vers un service tiers,
+   ajouter son domaine à la directive `form-action` de la CSP (bloc 2), sinon
+   le navigateur bloquera l'envoi.
+
+`Strict-Transport-Security` est actif : une fois la page visitée en HTTPS, le
+navigateur refusera tout accès en clair pendant un an. À n'activer qu'avec un
+certificat en place et fonctionnel.
+
+## 3.6 Sécurité
+
+Le site ne comporte **aucun code serveur, aucune base de données, aucune
+authentification et aucun contenu soumis par les visiteurs**. La surface
+d'attaque se limite donc aux fichiers servis et aux en-têtes HTTP.
+
+### Politique de sécurité du contenu
+
+Identique dans les trois configurations, et **sans aucun `unsafe-inline` ni
+`unsafe-eval`** :
+
+```
+default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self';
+font-src 'self'; connect-src 'self'; manifest-src 'self'; form-action 'self';
+base-uri 'none'; frame-ancestors 'none'; object-src 'none';
+upgrade-insecure-requests
+```
+
+Cette politique stricte est possible parce que le site est intégralement en
+même origine : polices auto-hébergées, aucun script tiers, aucune régie, aucun
+bouton social, aucune mesure d'audience externe.
+
+Deux choix ont été faits pour y parvenir :
+
+- les scripts client sont **regroupés dans des fichiers externes** (option Vite
+  `assetsInlineLimit: 0`), et non insérés en ligne — ce qui permet
+  `script-src 'self'` ;
+- `build.inlineStylesheets` est réglé sur `never`, donc **aucune feuille de
+  style en ligne** — ce qui permet `style-src 'self'`. Le coût mesuré est nul :
+  le HTML de l'accueil passe de 27,6 à 22,6 Ko gzip et le CSS externalisé
+  représente 9,2 Ko gzip, en cache immuable d'un an.
+
+Le seul bloc `<script>` restant en ligne contient le **JSON-LD** : ce n'est pas
+du JavaScript exécutable et les navigateurs ne l'évaluent pas au titre de
+`script-src`. Vérifié dans Chromium : aucune violation de CSP sur l'ensemble du
+site, navigation, carte, accordéons et formulaire compris.
+
+### Autres en-têtes
+
+`Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`,
+`X-Frame-Options`, `Permissions-Policy`, `Cross-Origin-Opener-Policy` et
+`Cross-Origin-Resource-Policy`.
+
+### Formulaire
+
+Deux garde-fous côté client — champ leurre invisible (`site_web`) et
+horodatage d'ouverture — et **aucun traitement côté serveur dans ce dépôt**.
+Le service qui reçoit le formulaire doit impérativement :
+
+- refaire ces deux contrôles côté serveur (le client est contournable) ;
+- valider et limiter la taille du fichier joint ;
+- limiter le débit par adresse IP.
+
+### Dépendances
+
+`npm audit` doit rester à zéro vulnérabilité. Le projet est sur **Astro 7**
+précisément pour cette raison : les advisories publiées contre Astro (dont une
+critique, exécution de code à l'optimisation d'images AVIF) **n'ont aucun
+correctif dans la branche 5.x**. Ces failles concernaient la chaîne de build,
+pas les fichiers servis aux visiteurs, mais rester sur une version non
+maintenue n'était pas tenable.
+
+### Audit
+
+```bash
+npm run build && npm run audit        # contenu + sécurité
+npm run audit:security                # sécurité seule
+```
+
+`scripts/audit-security.mjs` vérifie : absence de secret, de source map et de
+fichier sensible dans `dist/` ; absence de ressource externe ; absence de
+script en ligne ; présence des huit en-têtes dans les trois configurations ;
+et **cohérence de la CSP entre elles**. Il échoue si `script-src` contient
+`unsafe-inline`, `unsafe-eval` ou `*`.
+
+### Ce que ce dépôt ne peut pas garantir
+
+La sécurité du **compte d'hébergement** (mot de passe, double authentification,
+accès FTP/SSH), la validité du certificat TLS et la configuration du serveur
+au-delà du `.htaccess` relèvent du panneau Hostinger, pas du code.
 
 ## 4. Architecture des URL
 
@@ -298,10 +395,10 @@ Mesures sur le build :
 
 | Élément | Poids |
 | --- | --- |
-| JavaScript total | 2,2 Ko (non minifié : un fichier) |
-| CSS (page d'accueil) | ~10 Ko, styles critiques intégrés |
+| JavaScript total | 6,6 Ko en 4 fichiers externes |
+| CSS (page d'accueil) | 9,2 Ko gzip, entièrement externe (cache immuable) |
 | Polices chargées au premier rendu | 2 fichiers, ~54 Ko (sous-ensemble latin) |
-| HTML page d'accueil | 110 Ko brut, **27,6 Ko gzip** |
+| HTML page d'accueil | 92,7 Ko brut, **22,6 Ko gzip** |
 | Requêtes tierces | 0 |
 
 Choix de performance :
@@ -336,6 +433,7 @@ Le script (`scripts/audit-content.mjs`) vérifie, sur le HTML généré :
   échoue au-delà de 35 % de recouvrement.
 
 Le script sort en code 1 s'il trouve une anomalie : il peut être branché en CI.
+`npm run audit` enchaîne cet audit et l'audit de sécurité décrit en 3.6.
 
 ## 11. Règles éditoriales appliquées
 

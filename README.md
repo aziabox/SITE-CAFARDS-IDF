@@ -85,6 +85,42 @@ reviews: [
 Ne jamais y placer d'avis fictif : le script d'audit échoue si un balisage
 `aggregateRating`, `review`, `ratingValue`, `priceRange` ou `offers` apparaît.
 
+## 3.5 Déploiement
+
+Le site est **entièrement statique** : la commande de build produit `dist/`, qu'il
+suffit de servir. Aucun serveur applicatif n'est nécessaire.
+
+| Réglage | Valeur |
+| --- | --- |
+| Commande de build | `npm run build` |
+| Dossier publié | `dist` |
+| Version de Node | 20 ou plus (`.node-version`, `engines`) |
+| Commande de démarrage (plateformes type Node) | `npm start` |
+
+`npm start` sert le site **construit** via `astro preview`, en écoutant sur
+`0.0.0.0` et sur le port fourni par la plateforme (`PORT`). Ne pas utiliser
+`npm run dev` en production : c'est le serveur de développement.
+
+Trois configurations d'hébergeur sont fournies et n'ont rien à régler :
+
+- **Vercel** — `vercel.json` : framework, build, dossier de sortie,
+  `trailingSlash: true`, redirections 301, en-têtes de cache et de sécurité.
+- **Netlify / Cloudflare Pages** — `netlify.toml` + `public/_redirects`.
+- **Autre plateforme** — reporter la commande de build, le dossier `dist` et les
+  redirections du tableau de la section suivante.
+
+`trailingSlash` est volontairement à `true` : le site est généré au format
+« répertoire » et ses URL canoniques portent un slash final (`/cafards/`). Un
+hébergeur réglé autrement redirigerait vers une URL différente de l'URL
+canonique déclarée, ce qui brouille l'indexation.
+
+### Branche
+
+La branche **`main`** contient le projet et c'est celle à déployer. La plupart
+des importateurs Git la cherchent par son nom ; si le vôtre utilise la branche
+par défaut du dépôt, vérifiez dans GitHub (*Settings → General → Default
+branch*) qu'elle est bien réglée sur `main`.
+
 ## 4. Architecture des URL
 
 ```
